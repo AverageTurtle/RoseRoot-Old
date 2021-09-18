@@ -159,6 +159,7 @@
     <ClInclude Include="src\VoxelEngine\Log.h" />
     <ClInclude Include="src\VoxelEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\VoxelEngine\Renderer\GraphicsContexted.h" />
+    <ClInclude Include="src\VoxelEngine\Renderer\Shader.h" />
     <ClInclude Include="src\VoxelEngine\Window.h" />
     <ClInclude Include="src\vepch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -590,6 +591,7 @@
     <ClCompile Include="src\vepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\VoxelEngine\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

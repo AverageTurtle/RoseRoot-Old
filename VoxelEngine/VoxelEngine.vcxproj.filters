@@ -1346,6 +1346,7 @@
     </ClInclude>
     <ClInclude Include="src\VoxelEngine\Renderer\GraphicsContexted.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\VoxelEngine\Renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\Windows\WindowInput.cpp">
@@ -1376,5 +1377,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\VoxelEngine\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>
