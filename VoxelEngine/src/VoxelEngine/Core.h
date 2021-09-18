@@ -1,15 +1,7 @@
 #pragma once
 
 #ifdef VE_PLATFORM_WINDOWS
-#if VE_DYNAMIC_LINK
-	#ifdef VE_BUILD_DLL
-		#define VOXELENGINE_API _declspec(dllexport)
-	#else
-		#define VOXELENGINE_API _declspec(dllimport)
-	#endif
-#else
 	#define VOXELENGINE_API
-#endif
 #else
 	#error Unsupported platform!
 #endif

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "VoxelEngine/Window.h"
+#include "VoxelEngine/Renderer/GraphicsContexted.h"
+
 #include <GLFW/glfw3.h>
 
 namespace VoxelEngine {
@@ -27,6 +29,7 @@ namespace VoxelEngine {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

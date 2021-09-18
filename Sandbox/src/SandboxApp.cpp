@@ -12,10 +12,8 @@ public:
 
 	void OnUpdate() override
 	{
-		//VE_INFO("ExampleLayer::Update");
-
-		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_W))
-			VE_TRACE("W is pressed!");
+		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_TAB))
+			VE_TRACE("Tab key is pressed (poll)!");
 	}
 
 	virtual void OnImGuiRender() override
@@ -27,7 +25,13 @@ public:
 
 	void OnEvent(VoxelEngine::Event& event) override
 	{
-		//VE_TRACE("{0}", event);
+		if (event.GetEventType() == VoxelEngine::EventType::KeyPressed)
+		{
+			VoxelEngine::KeyPressedEvent& e = (VoxelEngine::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == VE_KEY_TAB)
+				VE_TRACE("Tab key is pressed (event)!");
+			VE_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 
 };
