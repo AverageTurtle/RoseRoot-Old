@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VoxelEngine/Core.h"
+#include "VoxelEngine/Core/Timestep.h"
 #include "VoxelEngine/Events/Event.h"
 
 namespace VoxelEngine {
@@ -13,7 +14,7 @@ namespace VoxelEngine {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

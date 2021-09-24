@@ -7,11 +7,9 @@
 #include "Events/Event.h"
 #include "VoxelEngine/Events/ApplicationEvent.h"
 
-#include "VoxelEngine/ImGui/ImGuiLayer.h"
+#include "VoxelEngine/Core/Timestep.h"
 
-#include "VoxelEngine/Renderer/Shader.h"
-#include "VoxelEngine/Renderer/Buffer.h"
-#include "VoxelEngine/Renderer/VertexArray.h"
+#include "VoxelEngine/ImGui/ImGuiLayer.h"
 
 namespace VoxelEngine {
 
@@ -32,17 +30,12 @@ namespace VoxelEngine {
 		inline Window& GetWindow() { return *m_Window;  }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
-
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_PurpleShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
+		float m_LastFrameTime = 0.f;
 	private:
 		static Application* s_Instance;
 	};

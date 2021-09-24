@@ -17,6 +17,11 @@ namespace VoxelEngine {
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		VE_CORE_ASSERT(status, "Failed to initailize Glad!");
 
+		// Enable depth test
+		glEnable(GL_DEPTH_TEST);
+		// Accept fragment if it closer to the camera than the former one
+		glDepthFunc(GL_LESS);
+
 		VE_CORE_INFO("OpenGL Info:");
 		VE_CORE_INFO("Vendor: {0}", glGetString(GL_VENDOR));
 		VE_CORE_INFO("Renderer: {0}", glGetString(GL_RENDERER));
