@@ -1,13 +1,16 @@
 #include <VoxelEngine.h>
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 #include "imgui/imgui.h"
 
+#include <glm/gtc/matrix_transform.hpp>
 
 class ExampleLayer : public VoxelEngine::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(45.f, 16.f/9.f, 0.01f, 1000.0f)
+		: Layer("Example"), m_Camera(45.f, 16.f / 9.f, 0.01f, 1000.0f)
 	{
 		m_VertexArray.reset(VoxelEngine::VertexArray::Create());
 
@@ -57,15 +60,15 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[36] = {
-									// front   // right
-									0, 1, 2,   1, 5, 6,
-									2, 3, 0,   6, 2, 1,							
-									// back	   // left
-									7, 6, 5,   4, 0, 3,
-									5, 4, 7,   3, 7, 4,
-									// bottom  // top
-									4, 5, 1,   3, 2, 6,
-									1, 0, 4,   6, 7, 3 };
+			// front   // right
+			0, 1, 2,   1, 5, 6,
+			2, 3, 0,   6, 2, 1,
+			// back	   // left
+			7, 6, 5,   4, 0, 3,
+			5, 4, 7,   3, 7, 4,
+			// bottom  // top
+			4, 5, 1,   3, 2, 6,
+			1, 0, 4,   6, 7, 3 };
 		std::shared_ptr<VoxelEngine::IndexBuffer> squareIB;
 		squareIB.reset(VoxelEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
@@ -75,10 +78,8 @@ public:
 			
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
-
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
-
 			out vec3 v_Position;
 			out vec4 v_Color;
 			void main()
@@ -102,18 +103,15 @@ public:
 			}
 		)";
 
-		m_Shader.reset(new VoxelEngine::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(VoxelEngine::Shader::Create(vertexSrc, fragmentSrc));
 
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
-
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
-
 			out vec3 v_Position;
-
 			void main()
 			{
 				v_Position = a_Position;
@@ -125,26 +123,23 @@ public:
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
-
 			in vec3 v_Position;
-
-			uniform vec4 u_Color;
-
+			uniform vec3 u_Color;
 			void main()
 			{
-				color = u_Color;
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
-		m_FlatColorShader.reset(new VoxelEngine::Shader(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
-		
+		m_FlatColorShader.reset(VoxelEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+
 		m_Camera.SetPosition(glm::vec3(10, 0, 0));
 	}
 
 	void OnUpdate(VoxelEngine::Timestep ts) override
 	{
 		//VE_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
-		
+
 		//move Camera
 		float camSpeedTS = cameraSpeed * ts;
 		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_A))
@@ -157,7 +152,7 @@ public:
 			cameraPos = cameraPos + glm::vec3(0.f, 0.f, camSpeedTS);
 
 		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_LEFT))
-			cameraRot = cameraRot + glm::vec3(0.f, cameraRotationSpeed*ts, 0);
+			cameraRot = cameraRot + glm::vec3(0.f, cameraRotationSpeed * ts, 0);
 		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_RIGHT))
 			cameraRot = cameraRot + glm::vec3(0.f, -cameraRotationSpeed * ts, 0);
 
@@ -172,8 +167,9 @@ public:
 
 		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(0.5f));
 
-		glm::vec4 yellowColor(0.8f, 0.8f, 0.2f, 1.0f);
-		glm::vec4 purpleColor(0.8f, 0.2f, 0.8f, 1.0f);
+		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_FlatColorShader)->Bind();
+		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_CubeColor);
+
 		for (int z = 0; z < 20; z++)
 		{
 			for (int x = 0; x < 20; x++)
@@ -182,10 +178,6 @@ public:
 				{
 					glm::vec3 pos(x * 3.f, y * 3.f, z * -3.f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.f), pos) * scale;
-					if (x % 2 == 0)
-						m_FlatColorShader->UploadUniformFloat4("u_Color", purpleColor);
-					else
-						m_FlatColorShader->UploadUniformFloat4("u_Color", yellowColor);
 					VoxelEngine::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 				}
 			}
@@ -198,29 +190,34 @@ public:
 
 		//VE_TRACE("{0}, {1}, {2}", m_Camera.GetPosition().x, m_Camera.GetPosition().y, m_Camera.GetPosition().z);
 	}
-	
+
 
 	virtual void OnImGuiRender() override
 	{
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Cube Color", glm::value_ptr(m_CubeColor));
+		ImGui::End();
 	}
 
 	void OnEvent(VoxelEngine::Event& event) override
 	{
 	}
 
-	private:
-		float cameraSpeed = 5.f;
-		float cameraRotationSpeed = 120.f;
-		glm::vec3 cameraRot = glm::vec3(0.f, 0.f, 0.f);
-		glm::vec3 cameraPos = glm::vec3(0.f, 0.f, 2.f);
+private:
+	float cameraSpeed = 5.f;
+	float cameraRotationSpeed = 180.f;
+	glm::vec3 cameraRot = glm::vec3(0.f, 0.f, 0.f);
+	glm::vec3 cameraPos = glm::vec3(0.f, 0.f, 2.f);
 
-		std::shared_ptr<VoxelEngine::Shader> m_Shader;
-		std::shared_ptr<VoxelEngine::VertexArray> m_VertexArray;
+	std::shared_ptr<VoxelEngine::Shader> m_Shader;
+	std::shared_ptr<VoxelEngine::VertexArray> m_VertexArray;
 
-		std::shared_ptr<VoxelEngine::Shader> m_FlatColorShader;
-		std::shared_ptr<VoxelEngine::VertexArray> m_SquareVA;
+	std::shared_ptr<VoxelEngine::Shader> m_FlatColorShader;
+	std::shared_ptr<VoxelEngine::VertexArray> m_SquareVA;
 
-		VoxelEngine::PerspectiveCamera m_Camera;
+	VoxelEngine::PerspectiveCamera m_Camera;
+
+	glm::vec3 m_CubeColor = { 0.8, 0.2, 0.8 };
 };
 
 class Sandbox : public VoxelEngine::Application
