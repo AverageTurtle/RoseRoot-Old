@@ -7,16 +7,17 @@ class ExampleLayer : public VoxelEngine::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(45.f, 16.f/9.f, 0.01f, 100.0f), m_CubePos(0.f)
+		: Layer("Example"), m_Camera(45.f, 16.f/9.f, 0.01f, 1000.0f)
 	{
 		m_VertexArray.reset(VoxelEngine::VertexArray::Create());
 
 		m_VertexArray.reset(VoxelEngine::VertexArray::Create());
 
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+		float vertices[4 * 7] = {
+			 -0.5f,  1.0f,    0.5f,  0.8f, 0.2f, 0.8f, 1.0f,
+			 57.5f,  1.0f,    0.5f,  0.2f, 0.3f, 0.8f, 1.0f,
+			 57.5f,  1.0f,  -57.5f,  0.8f, 0.8f, 0.2f, 1.0f,
+			 -0.5f,  1.0f,  -57.5f,  0.2f, 0.8f, 0.2f, 1.0f
 		};
 
 		std::shared_ptr<VoxelEngine::VertexBuffer> vertexBuffer;
@@ -28,7 +29,7 @@ public:
 		vertexBuffer->SetLayout(layout);
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-		uint32_t indices[3] = { 0, 1, 2 };
+		uint32_t indices[6] = { 0, 1, 2, 2, 3, 0 };
 		std::shared_ptr<VoxelEngine::IndexBuffer> indexBuffer;
 		indexBuffer.reset(VoxelEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
@@ -103,7 +104,7 @@ public:
 
 		m_Shader.reset(new VoxelEngine::Shader(vertexSrc, fragmentSrc));
 
-		std::string purpleShaderVertexSrc = R"(
+		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
@@ -120,18 +121,22 @@ public:
 			}
 		)";
 
-		std::string purpleShaderFragmentSrc = R"(
+		std::string flatColorShaderFragmentSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
+
 			in vec3 v_Position;
+
+			uniform vec4 u_Color;
+
 			void main()
 			{
-				color = vec4(0.3, 0.1, 0.3, 1.0);
+				color = u_Color;
 			}
 		)";
 
-		m_PurpleShader.reset(new VoxelEngine::Shader(purpleShaderVertexSrc, purpleShaderFragmentSrc));
+		m_FlatColorShader.reset(new VoxelEngine::Shader(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 		
 		m_Camera.SetPosition(glm::vec3(10, 0, 0));
 	}
@@ -143,49 +148,18 @@ public:
 		//move Camera
 		float camSpeedTS = cameraSpeed * ts;
 		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_A))
-		{
 			cameraPos = cameraPos + glm::vec3(-camSpeedTS, 0.f, 0.f);
-		}
 		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_D))
-		{
 			cameraPos = cameraPos + glm::vec3(camSpeedTS, 0.f, 0.f);
-		}
 		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_W))
-		{
 			cameraPos = cameraPos + glm::vec3(0.f, 0.f, -camSpeedTS);
-		}
 		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_S))
-		{
 			cameraPos = cameraPos + glm::vec3(0.f, 0.f, camSpeedTS);
-		}
 
 		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_LEFT))
-		{
 			cameraRot = cameraRot + glm::vec3(0.f, cameraRotationSpeed*ts, 0);
-		}
 		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_RIGHT))
-		{
 			cameraRot = cameraRot + glm::vec3(0.f, -cameraRotationSpeed * ts, 0);
-		}
-
-
-		//Move Cube
-		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_J))
-		{
-			m_CubePos = m_CubePos + glm::vec3(-cubeSpeed * ts, 0.f, 0.f);
-		}
-		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_L))
-		{
-			m_CubePos = m_CubePos + glm::vec3(cubeSpeed * ts, 0.f, 0.f);
-		}
-		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_I))
-		{
-			m_CubePos = m_CubePos + glm::vec3(0.f, 0.f, -cubeSpeed * ts);
-		}
-		if (VoxelEngine::Input::IsKeyPressed(VE_KEY_K))
-		{
-			m_CubePos = m_CubePos + glm::vec3(0.f, 0.f, cubeSpeed * ts);
-		}
 
 
 		VoxelEngine::RenderCommand::SetClearColor({ 0.1, 0.1, 0.1, 1 });
@@ -196,8 +170,10 @@ public:
 
 		VoxelEngine::Renderer::BeginScene(m_Camera);
 
-		glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(0.5f));
+		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(0.5f));
 
+		glm::vec4 yellowColor(0.8f, 0.8f, 0.2f, 1.0f);
+		glm::vec4 purpleColor(0.8f, 0.2f, 0.8f, 1.0f);
 		for (int z = 0; z < 20; z++)
 		{
 			for (int x = 0; x < 20; x++)
@@ -205,13 +181,18 @@ public:
 				for (int y = 0; y < 2; y++)
 				{
 					glm::vec3 pos(x * 3.f, y * 3.f, z * -3.f);
-					glm::mat4 transform = glm::translate(glm::mat4(1.f), m_CubePos + pos) * scale;
-					VoxelEngine::Renderer::Submit(m_PurpleShader, m_SquareVA, transform);
+					glm::mat4 transform = glm::translate(glm::mat4(1.f), pos) * scale;
+					if (x % 2 == 0)
+						m_FlatColorShader->UploadUniformFloat4("u_Color", purpleColor);
+					else
+						m_FlatColorShader->UploadUniformFloat4("u_Color", yellowColor);
+					VoxelEngine::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 				}
 			}
 		}
 
-		//VoxelEngine::Renderer::Submit(m_Shader, m_VertexArray);
+		glm::mat4 transform = glm::translate(glm::mat4(1.f), glm::vec3(0.f, -1.5f, 0.f));
+		VoxelEngine::Renderer::Submit(m_Shader, m_VertexArray, transform);
 
 		VoxelEngine::Renderer::EndScene();
 
@@ -236,13 +217,10 @@ public:
 		std::shared_ptr<VoxelEngine::Shader> m_Shader;
 		std::shared_ptr<VoxelEngine::VertexArray> m_VertexArray;
 
-		std::shared_ptr<VoxelEngine::Shader> m_PurpleShader;
+		std::shared_ptr<VoxelEngine::Shader> m_FlatColorShader;
 		std::shared_ptr<VoxelEngine::VertexArray> m_SquareVA;
 
 		VoxelEngine::PerspectiveCamera m_Camera;
-
-		glm::vec3 m_CubePos;
-		float cubeSpeed = 1.f;
 };
 
 class Sandbox : public VoxelEngine::Application
