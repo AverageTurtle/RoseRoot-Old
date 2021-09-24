@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "VoxelEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "VoxelEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "VoxelEngine/vendor/imgui"
 IncludeDir["glm"] = "VoxelEngine/vendor/glm"
+IncludeDir["stb_image"] = "VoxelEngine/vendor/stb_image"
 
 include "VoxelEngine/vendor/GLFW"
 include "VoxelEngine/vendor/Glad"
@@ -39,6 +40,8 @@ project "VoxelEngine"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
@@ -55,7 +58,8 @@ project "VoxelEngine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links 

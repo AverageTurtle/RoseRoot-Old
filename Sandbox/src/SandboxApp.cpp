@@ -23,7 +23,7 @@ public:
 			 -0.5f,  1.0f,  -57.5f,  0.2f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<VoxelEngine::VertexBuffer> vertexBuffer;
+		VoxelEngine::Ref<VoxelEngine::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(VoxelEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
 		VoxelEngine::BufferLayout layout = {
 			{ VoxelEngine::ShaderDataType::Float3, "a_Position" },
@@ -33,43 +33,44 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<VoxelEngine::IndexBuffer> indexBuffer;
+		VoxelEngine::Ref<VoxelEngine::IndexBuffer> indexBuffer;
 		indexBuffer.reset(VoxelEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA.reset(VoxelEngine::VertexArray::Create());
 
-		float squareVertices[3 * 8] = {
+		float squareVertices[5 * 8] = {
 			// front
-			-1.0, -1.0,  1.0,
-			 1.0, -1.0,  1.0,
-			 1.0,  1.0,  1.0,
-			-1.0,  1.0,  1.0,
+			-1.0, -1.0,  1.0, 0.0f, 0.0f,
+			 1.0, -1.0,  1.0, 1.0f, 0.0f,
+			 1.0,  1.0,  1.0, 1.0f, 1.0f,
+			-1.0,  1.0,  1.0, 0.0f, 1.0f,
 			// back
-			-1.0, -1.0, -1.0,
-			 1.0, -1.0, -1.0,
-			 1.0,  1.0, -1.0,
-			-1.0,  1.0, -1.0
+			-1.0, -1.0, -1.0, 0.0f, 0.0f,
+			 1.0, -1.0, -1.0, 1.0f, 0.0f,
+			 1.0,  1.0, -1.0, 1.0f, 1.0f,
+			-1.0,  1.0, -1.0, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<VoxelEngine::VertexBuffer> squareVB;
+		VoxelEngine::Ref<VoxelEngine::VertexBuffer> squareVB;
 		squareVB.reset(VoxelEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
-			{ VoxelEngine::ShaderDataType::Float3, "a_Position" }
+			{ VoxelEngine::ShaderDataType::Float3, "a_Position" },
+			{ VoxelEngine::ShaderDataType::Float2, "a_TextCoord"}
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[36] = {
-			// front   // right
-			0, 1, 2,   1, 5, 6,
-			2, 3, 0,   6, 2, 1,
-			// back	   // left
-			7, 6, 5,   4, 0, 3,
-			5, 4, 7,   3, 7, 4,
+			// front   // back	
+			0, 1, 2,   7, 6, 5,
+			2, 3, 0,   5, 4, 7,
+			// left    // right
+			4, 0, 3,   1,5,6,
+			3, 7, 4,   6,2,1,
 			// bottom  // top
 			4, 5, 1,   3, 2, 6,
 			1, 0, 4,   6, 7, 3 };
-		std::shared_ptr<VoxelEngine::IndexBuffer> squareIB;
+		VoxelEngine::Ref<VoxelEngine::IndexBuffer> squareIB;
 		squareIB.reset(VoxelEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -133,7 +134,41 @@ public:
 
 		m_FlatColorShader.reset(VoxelEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 
-		m_Camera.SetPosition(glm::vec3(10, 0, 0));
+		std::string texureShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+			out vec2 v_TexCoord;
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string texureShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			in vec2 v_TexCoord;
+			
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(VoxelEngine::Shader::Create(texureShaderVertexSrc, texureShaderFragmentSrc));
+		
+		m_Texture = VoxelEngine::Texure2D::Create("assets/textures/Test.png");
+
+		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(VoxelEngine::Timestep ts) override
@@ -167,6 +202,8 @@ public:
 
 		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(0.5f));
 
+		m_Texture->Bind();
+
 		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_FlatColorShader)->Bind();
 		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_CubeColor);
 
@@ -178,7 +215,7 @@ public:
 				{
 					glm::vec3 pos(x * 3.f, y * 3.f, z * -3.f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.f), pos) * scale;
-					VoxelEngine::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
+					VoxelEngine::Renderer::Submit(m_TextureShader, m_SquareVA, transform);
 				}
 			}
 		}
@@ -209,11 +246,13 @@ private:
 	glm::vec3 cameraRot = glm::vec3(0.f, 0.f, 0.f);
 	glm::vec3 cameraPos = glm::vec3(0.f, 0.f, 2.f);
 
-	std::shared_ptr<VoxelEngine::Shader> m_Shader;
-	std::shared_ptr<VoxelEngine::VertexArray> m_VertexArray;
+	VoxelEngine::Ref<VoxelEngine::Shader> m_Shader;
+	VoxelEngine::Ref<VoxelEngine::VertexArray> m_VertexArray;
+				 
+	VoxelEngine::Ref<VoxelEngine::Shader> m_FlatColorShader, m_TextureShader;
+	VoxelEngine::Ref<VoxelEngine::VertexArray> m_SquareVA;
 
-	std::shared_ptr<VoxelEngine::Shader> m_FlatColorShader;
-	std::shared_ptr<VoxelEngine::VertexArray> m_SquareVA;
+	VoxelEngine::Ref<VoxelEngine::Texure2D> m_Texture;
 
 	VoxelEngine::PerspectiveCamera m_Camera;
 
