@@ -5,6 +5,7 @@
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public VoxelEngine::Layer
 {
@@ -17,17 +18,17 @@ public:
 		m_VertexArray.reset(VoxelEngine::VertexArray::Create());
 
 		float vertices[4 * 7] = {
-			 -0.5f,  1.0f,    0.5f,  0.8f, 0.2f, 0.8f, 1.0f,
-			 57.5f,  1.0f,    0.5f,  0.2f, 0.3f, 0.8f, 1.0f,
-			 57.5f,  1.0f,  -57.5f,  0.8f, 0.8f, 0.2f, 1.0f,
-			 -0.5f,  1.0f,  -57.5f,  0.2f, 0.8f, 0.2f, 1.0f
+			 -0.5f,  1.0f,    0.5f,   0.0f,  0.0f,
+			 57.5f,  1.0f,    0.5f,  30.0f,  0.0f,
+			 57.5f,  1.0f,  -57.5f,  30.0f, 30.0f,
+			 -0.5f,  1.0f,  -57.5f,   0.0f, 30.0f,
 		};
 
 		VoxelEngine::Ref<VoxelEngine::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(VoxelEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
 		VoxelEngine::BufferLayout layout = {
 			{ VoxelEngine::ShaderDataType::Float3, "a_Position" },
-			{ VoxelEngine::ShaderDataType::Float4, "a_Color" }
+			{ VoxelEngine::ShaderDataType::Float2, "a_TexCoord" }
 		};
 		vertexBuffer->SetLayout(layout);
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
@@ -37,42 +38,50 @@ public:
 		indexBuffer.reset(VoxelEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVA.reset(VoxelEngine::VertexArray::Create());
+		m_CubeVA.reset(VoxelEngine::VertexArray::Create());
 
-		float squareVertices[5 * 8] = {
-			// front
-			-1.0, -1.0,  1.0, 0.0f, 0.0f,
-			 1.0, -1.0,  1.0, 1.0f, 0.0f,
-			 1.0,  1.0,  1.0, 1.0f, 1.0f,
-			-1.0,  1.0,  1.0, 0.0f, 1.0f,
-			// back
-			-1.0, -1.0, -1.0, 0.0f, 0.0f,
-			 1.0, -1.0, -1.0, 1.0f, 0.0f,
-			 1.0,  1.0, -1.0, 1.0f, 1.0f,
-			-1.0,  1.0, -1.0, 0.0f, 1.0f
-		};
+		float cubeVertices[5 * 36] = {
+			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,	 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
-		VoxelEngine::Ref<VoxelEngine::VertexBuffer> squareVB;
-		squareVB.reset(VoxelEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
-		squareVB->SetLayout({
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,   -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,	 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f };
+
+		VoxelEngine::Ref<VoxelEngine::VertexBuffer> cubeVB;
+		cubeVB.reset(VoxelEngine::VertexBuffer::Create(cubeVertices , sizeof(cubeVertices)));
+		cubeVB->SetLayout({
 			{ VoxelEngine::ShaderDataType::Float3, "a_Position" },
-			{ VoxelEngine::ShaderDataType::Float2, "a_TextCoord"}
+			{ VoxelEngine::ShaderDataType::Float2, "a_TexCoord" }
 			});
-		m_SquareVA->AddVertexBuffer(squareVB);
 
-		uint32_t squareIndices[36] = {
-			// front   // back	
-			0, 1, 2,   7, 6, 5,
-			2, 3, 0,   5, 4, 7,
-			// left    // right
-			4, 0, 3,   1,5,6,
-			3, 7, 4,   6,2,1,
-			// bottom  // top
-			4, 5, 1,   3, 2, 6,
-			1, 0, 4,   6, 7, 3 };
-		VoxelEngine::Ref<VoxelEngine::IndexBuffer> squareIB;
-		squareIB.reset(VoxelEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
-		m_SquareVA->SetIndexBuffer(squareIB);
+		m_CubeVA->AddVertexBuffer(cubeVB);
+
+
+		uint32_t cubeIndices[36] = {
+			// front
+			0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
+			};
+		VoxelEngine::Ref<VoxelEngine::IndexBuffer> cubeIB;
+		cubeIB.reset(VoxelEngine::IndexBuffer::Create(cubeIndices, sizeof(cubeIndices) / sizeof(uint32_t)));
+		m_CubeVA->SetIndexBuffer(cubeIB);
 
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -104,7 +113,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(VoxelEngine::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = VoxelEngine::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -132,43 +141,15 @@ public:
 			}
 		)";
 
-		m_FlatColorShader.reset(VoxelEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		m_FlatColorShader = VoxelEngine::Shader::Create("FlatColorShader", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
-		std::string texureShaderVertexSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-			out vec2 v_TexCoord;
-			void main()
-			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
-			}
-		)";
+		auto textureShader = m_ShaderLibary.Load("assets/shaders/Texture.glsl");
 
-		std::string texureShaderFragmentSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-			in vec2 v_TexCoord;
-			
-			uniform sampler2D u_Texture;
+		m_Texture = VoxelEngine::Texure2D::Create("assets/textures/Stone.png");
+		m_GlassTexture = VoxelEngine::Texure2D::Create("assets/textures/Glass.png");
 
-			void main()
-			{
-				color = texture(u_Texture, v_TexCoord);
-			}
-		)";
-
-		m_TextureShader.reset(VoxelEngine::Shader::Create(texureShaderVertexSrc, texureShaderFragmentSrc));
-		
-		m_Texture = VoxelEngine::Texure2D::Create("assets/textures/Test.png");
-
-		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(VoxelEngine::Timestep ts) override
@@ -200,7 +181,7 @@ public:
 
 		VoxelEngine::Renderer::BeginScene(m_Camera);
 
-		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(0.5f));
+		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
 
 		m_Texture->Bind();
 
@@ -211,20 +192,35 @@ public:
 		{
 			for (int x = 0; x < 20; x++)
 			{
-				for (int y = 0; y < 2; y++)
+				for (int y = 0; y < 3; y++)
 				{
 					glm::vec3 pos(x * 3.f, y * 3.f, z * -3.f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.f), pos) * scale;
-					VoxelEngine::Renderer::Submit(m_TextureShader, m_SquareVA, transform);
+					VoxelEngine::Renderer::Submit(m_FlatColorShader, m_CubeVA, transform);
 				}
 			}
 		}
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.f), glm::vec3(0.f, -1.5f, 0.f));
-		VoxelEngine::Renderer::Submit(m_Shader, m_VertexArray, transform);
+		auto textureShader = m_ShaderLibary.Get("Texture");
 
+		{
+			glm::vec3 pos(-3.f, 0.f, 0.f);
+			glm::mat4 transform = glm::translate(glm::mat4(1.f), pos) * scale;
+			m_Texture->Bind();
+			VoxelEngine::Renderer::Submit(textureShader, m_CubeVA, transform);
+		}
+		{
+			glm::mat4 transform = glm::translate(glm::mat4(1.f), glm::vec3(0.f, -1.5f, 0.f));
+			m_Texture->Bind();
+			VoxelEngine::Renderer::Submit(textureShader, m_VertexArray, transform);
+		}	
+		{
+			glm::vec3 pos(-6.f, 0.f, 0.f);
+			glm::mat4 transform = glm::translate(glm::mat4(1.f), pos) * scale;
+			m_GlassTexture->Bind();
+			VoxelEngine::Renderer::Submit(textureShader, m_CubeVA, transform);
+		}
 		VoxelEngine::Renderer::EndScene();
-
 		//VE_TRACE("{0}, {1}, {2}", m_Camera.GetPosition().x, m_Camera.GetPosition().y, m_Camera.GetPosition().z);
 	}
 
@@ -246,13 +242,14 @@ private:
 	glm::vec3 cameraRot = glm::vec3(0.f, 0.f, 0.f);
 	glm::vec3 cameraPos = glm::vec3(0.f, 0.f, 2.f);
 
+	VoxelEngine::ShaderLibrary m_ShaderLibary;
 	VoxelEngine::Ref<VoxelEngine::Shader> m_Shader;
 	VoxelEngine::Ref<VoxelEngine::VertexArray> m_VertexArray;
 				 
-	VoxelEngine::Ref<VoxelEngine::Shader> m_FlatColorShader, m_TextureShader;
-	VoxelEngine::Ref<VoxelEngine::VertexArray> m_SquareVA;
+	VoxelEngine::Ref<VoxelEngine::Shader> m_FlatColorShader;
+	VoxelEngine::Ref<VoxelEngine::VertexArray> m_CubeVA;
 
-	VoxelEngine::Ref<VoxelEngine::Texure2D> m_Texture;
+	VoxelEngine::Ref<VoxelEngine::Texure2D> m_Texture, m_GlassTexture;
 
 	VoxelEngine::PerspectiveCamera m_Camera;
 
