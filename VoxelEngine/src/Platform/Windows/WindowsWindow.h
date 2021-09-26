@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VoxelEngine/Window.h"
+#include "VoxelEngine/Core/Window.h"
 #include "VoxelEngine/Renderer/GraphicsContexted.h"
 
 #include <GLFW/glfw3.h>
@@ -23,6 +23,9 @@ namespace VoxelEngine {
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
+		virtual void SetCapturesMouse(bool enabled) override;
+		virtual bool GetCapturesMouse() const override;
+
 		inline virtual void* GetNativeWindow() const { return m_Window; }
 	private:
 		virtual void Init(const WindowProps& props);
@@ -30,17 +33,16 @@ namespace VoxelEngine {
 	private:
 		GLFWwindow* m_Window;
 		GraphicsContext* m_Context;
-
 		struct WindowData
 		{
 			std::string Title;
 			unsigned int Width, Height;
 			bool VSync;
+			bool CapturesMouse;
 
 			EventCallbackFn EventCallback;
 		};
 
 		WindowData m_Data;
 	};
-
 }

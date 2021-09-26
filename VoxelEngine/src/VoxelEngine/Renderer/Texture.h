@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "VoxelEngine/Core.h"
+#include "VoxelEngine/Core/Core.h"
 
 namespace VoxelEngine {
 

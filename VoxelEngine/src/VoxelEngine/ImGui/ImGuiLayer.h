@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VoxelEngine/Layer.h"
+#include "VoxelEngine/Core/Layer.h"
 
 #include "VoxelEngine/Events/KeyEvent.h"
 #include "VoxelEngine/Events/MouseEvent.h"

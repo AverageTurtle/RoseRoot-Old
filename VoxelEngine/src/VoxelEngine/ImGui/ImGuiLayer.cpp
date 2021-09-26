@@ -7,7 +7,7 @@
 #include "backends/imgui_impl_opengl3.h"
 
 
-#include "VoxelEngine/Application.h"
+#include "VoxelEngine/Core/Application.h"
 
 //temp
 #include <glad/glad.h>

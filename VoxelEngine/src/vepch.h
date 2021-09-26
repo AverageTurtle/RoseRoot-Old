@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "VoxelEngine/Log.h"
+#include "VoxelEngine/Core/Log.h"
 
 #ifdef VE_PLATFORM_WINDOWS
 	#include <Windows.h>

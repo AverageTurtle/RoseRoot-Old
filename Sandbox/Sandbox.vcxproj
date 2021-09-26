@@ -131,15 +131,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\SandboxApp.cpp" />
+    <ClInclude Include="src\MainLayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\MainLayer.cpp" />
+    <ClCompile Include="src\Sandbox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VoxelEngine\VoxelEngine.vcxproj">
       <Project>{C9F2F76B-35A8-7061-BE9C-6A382A516765}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\shaders\Texture.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

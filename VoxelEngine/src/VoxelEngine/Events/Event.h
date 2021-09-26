@@ -1,7 +1,7 @@
 #pragma once
 
 #include "vepch.h"
-#include "VoxelEngine/Core.h"
+#include "VoxelEngine/Core/Core.h"
 
 namespace VoxelEngine {
 

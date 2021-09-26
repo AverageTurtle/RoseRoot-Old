@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VoxelEngine/Input.h"
+#include "VoxelEngine/Core/Input.h"
 
 namespace VoxelEngine {
 

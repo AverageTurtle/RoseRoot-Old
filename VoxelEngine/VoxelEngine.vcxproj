@@ -140,6 +140,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\VoxelEngine\FlightCameraController.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -149,21 +150,22 @@
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\VoxelEngine.h" />
-    <ClInclude Include="src\VoxelEngine\Application.h" />
-    <ClInclude Include="src\VoxelEngine\Core.h" />
+    <ClInclude Include="src\VoxelEngine\Core\Application.h" />
+    <ClInclude Include="src\VoxelEngine\Core\Core.h" />
+    <ClInclude Include="src\VoxelEngine\Core\EntryPoint.h" />
+    <ClInclude Include="src\VoxelEngine\Core\Input.h" />
+    <ClInclude Include="src\VoxelEngine\Core\KeyCodes.h" />
+    <ClInclude Include="src\VoxelEngine\Core\Layer.h" />
+    <ClInclude Include="src\VoxelEngine\Core\LayerStack.h" />
+    <ClInclude Include="src\VoxelEngine\Core\Log.h" />
+    <ClInclude Include="src\VoxelEngine\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\VoxelEngine\Core\Timestep.h" />
-    <ClInclude Include="src\VoxelEngine\EntryPoint.h" />
+    <ClInclude Include="src\VoxelEngine\Core\Window.h" />
     <ClInclude Include="src\VoxelEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\VoxelEngine\Events\Event.h" />
     <ClInclude Include="src\VoxelEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\VoxelEngine\Events\MouseEvent.h" />
     <ClInclude Include="src\VoxelEngine\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\VoxelEngine\Input.h" />
-    <ClInclude Include="src\VoxelEngine\KeyCodes.h" />
-    <ClInclude Include="src\VoxelEngine\Layer.h" />
-    <ClInclude Include="src\VoxelEngine\LayerStack.h" />
-    <ClInclude Include="src\VoxelEngine\Log.h" />
-    <ClInclude Include="src\VoxelEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\VoxelEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\VoxelEngine\Renderer\Camera.h" />
     <ClInclude Include="src\VoxelEngine\Renderer\GraphicsContexted.h" />
@@ -173,7 +175,6 @@
     <ClInclude Include="src\VoxelEngine\Renderer\Shader.h" />
     <ClInclude Include="src\VoxelEngine\Renderer\Texture.h" />
     <ClInclude Include="src\VoxelEngine\Renderer\VertexArray.h" />
-    <ClInclude Include="src\VoxelEngine\Window.h" />
     <ClInclude Include="src\vepch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -593,6 +594,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\VoxelEngine\FlightCameraController.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
@@ -601,12 +603,12 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowWindow.cpp" />
-    <ClCompile Include="src\VoxelEngine\Application.cpp" />
+    <ClCompile Include="src\VoxelEngine\Core\Application.cpp" />
+    <ClCompile Include="src\VoxelEngine\Core\Layer.cpp" />
+    <ClCompile Include="src\VoxelEngine\Core\LayerStack.cpp" />
+    <ClCompile Include="src\VoxelEngine\Core\Log.cpp" />
     <ClCompile Include="src\VoxelEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\VoxelEngine\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\VoxelEngine\Layer.cpp" />
-    <ClCompile Include="src\VoxelEngine\LayerStack.cpp" />
-    <ClCompile Include="src\VoxelEngine\Log.cpp" />
     <ClCompile Include="src\VoxelEngine\Renderer\Buffer.cpp" />
     <ClCompile Include="src\VoxelEngine\Renderer\Camera.cpp" />
     <ClCompile Include="src\VoxelEngine\Renderer\RenderCommand.cpp" />

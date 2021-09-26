@@ -2,7 +2,7 @@
 
 #include "vepch.h"
 
-#include "VoxelEngine/Core.h"
+#include "VoxelEngine/Core/Core.h"
 #include "VoxelEngine/Events/Event.h"
 
 namespace VoxelEngine {
@@ -38,6 +38,9 @@ namespace VoxelEngine {
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
+		
+		virtual void SetCapturesMouse(bool enabled) = 0;
+		virtual bool GetCapturesMouse() const = 0;
 
 		virtual void* GetNativeWindow() const = 0;
 

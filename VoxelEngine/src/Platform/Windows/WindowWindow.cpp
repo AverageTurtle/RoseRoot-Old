@@ -170,4 +170,17 @@ namespace VoxelEngine {
 	{
 		return m_Data.VSync;
 	}
+	void WindowsWindow::SetCapturesMouse(bool enabled)
+	{
+		if (enabled)
+			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		else
+			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+		m_Data.CapturesMouse = enabled;
+	}
+	bool WindowsWindow::GetCapturesMouse() const
+	{
+		return m_Data.CapturesMouse;
+	}
 }

@@ -1,7 +1,7 @@
 #include "vepch.h"
 #include "WindowsInput.h"
 
-#include "VoxelEngine/Application.h"
+#include "VoxelEngine/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace VoxelEngine {

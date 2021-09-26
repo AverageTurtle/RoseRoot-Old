@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VoxelEngine/Core.h"
+#include "VoxelEngine/Core/Core.h"
 #include "VoxelEngine/Core/Timestep.h"
 #include "VoxelEngine/Events/Event.h"
 
