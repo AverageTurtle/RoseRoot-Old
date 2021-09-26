@@ -5,6 +5,9 @@
 
 #include "VoxelEngine/Events/ApplicationEvent.h"
 #include "VoxelEngine/Events/MouseEvent.h"
+#include "VoxelEngine/Events/KeyEvent.h"
+
+#include "VoxelEngine/Core/Window.h"
 
 namespace VoxelEngine {
 	class FlightCameraController
@@ -15,22 +18,25 @@ namespace VoxelEngine {
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
 
-		FPCamera& GetCamera() { return m_Camera; }
-		const FPCamera& GetCamera() const { return m_Camera; }
+		PerspectiveCamera& GetCamera() { return m_Camera; }
+		const PerspectiveCamera& GetCamera() const { return m_Camera; }
 
 		float GetFOV() const { return m_FOV; }
 		void SetFOV(float level) { m_FOV = level; }
+
+		void SetTracking(bool tracking) { m_Tracking = tracking; m_FirstMouse = tracking; }
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		bool OnWindowResized(WindowResizeEvent& e);
 	private:
+		bool m_Tracking = true;
 		float m_AspectRatio;
 		float m_FOV = 45.0f;
-		FPCamera m_Camera;
+		PerspectiveCamera m_Camera;
 
 		glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
 		float m_CameraYaw = -90.f, m_CameraPitch = 0.f;
-		float m_CameraSpeed = 5.f, m_CameraSensitivity = 90.f;
+		float m_CameraSpeed = 5.f, m_CameraSensitivity = 100.f;
 
 		bool m_FirstMouse = true;
 		float m_LastX = 0.f, m_LastY = 0.f;

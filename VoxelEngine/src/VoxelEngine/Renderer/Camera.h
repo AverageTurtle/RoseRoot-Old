@@ -6,10 +6,10 @@
 
 namespace VoxelEngine {
 
-	class FPCamera
+	class PerspectiveCamera
 	{
 	public:
-		FPCamera(float fov, float aspect, float nearClip, float farClip);
+		PerspectiveCamera(float fov, float aspect, float nearClip, float farClip);
 
 		const float& GetAspectRatio() const { return m_AspectRatio; }
 		void SetAspectRatio(const float& aspect) { m_AspectRatio = aspect; RecaculatePojectionMatrix(); }

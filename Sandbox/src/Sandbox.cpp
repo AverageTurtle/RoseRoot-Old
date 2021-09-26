@@ -11,8 +11,7 @@ class Sandbox : public VoxelEngine::Application
 public:
 	Sandbox()
 	{
-		GetWindow().SetCapturesMouse(true);
-		PushLayer(new MainLayer());
+		PushLayer(new MainLayer(GetWindow()));
 	}
 
 	~Sandbox()

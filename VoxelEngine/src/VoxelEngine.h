@@ -13,6 +13,7 @@
 #include "VoxelEngine/Core/MouseButtonCodes.h"
 
 #include "VoxelEngine/Renderer/Renderer.h"
+#include "VoxelEngine/Renderer/RendererVoxel.h"
 #include "VoxelEngine/Renderer/RenderCommand.h"
 
 #include "VoxelEngine/Renderer/Buffer.h"

@@ -1,8 +1,8 @@
 #include "vepch.h"
 #include "Application.h"
 
-
 #include "VoxelEngine/Renderer/Renderer.h"
+#include "VoxelEngine/Renderer/RendererVoxel.h"
 
 #include "Input.h"
 
@@ -27,6 +27,7 @@ namespace VoxelEngine {
 		m_Window->SetCapturesMouse(false);
 
 		Renderer::Init();
+		RendererVoxel::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

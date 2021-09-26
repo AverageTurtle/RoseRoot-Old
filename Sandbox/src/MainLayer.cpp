@@ -1,67 +1,53 @@
 #include "MainLayer.h"
-#include "Platform/OpenGL/OpenGLShader.h"
 #include "imgui/imgui.h"
 
-#include "VoxelEngine/Events/ApplicationEvent.h"
-#include "VoxelEngine/Events/MouseEvent.h"
+#include <chrono>
 
-MainLayer::MainLayer()
-	: Layer("MainLayer"), m_CameraController(16.f / 9.f)
+template <typename Fn>
+class Timer
+{
+public:
+	Timer(const char* name, Fn&& func)
+		: m_Name(name), m_Func(func), m_Stopped(false)
+	{
+		m_StartTimepoint = std::chrono::high_resolution_clock::now();
+	}
+	~Timer()
+	{
+		if (!m_Stopped)
+			Stop();
+	}
+
+	void Stop()
+	{
+		auto endTimepoint = std::chrono::high_resolution_clock::now();
+
+		long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
+		long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
+
+		m_Stopped = true;
+
+		float duration = (end - start) * 0.001f;
+		m_Func({m_Name, duration});
+	}
+private:
+	const char* m_Name;
+	Fn m_Func;
+	std::chrono::time_point<std::chrono::steady_clock> m_StartTimepoint;
+	bool m_Stopped;
+};
+
+#define PROFILE_SCOPE(name) Timer timer##__LINE__(name, [&](ProfileResult profileResult) { m_ProfileResults.push_back(profileResult); })
+
+MainLayer::MainLayer(VoxelEngine::Window& window)
+	: Layer("MainLayer"), m_Window(window), m_CameraController(16.f / 9.f)
 {
 }
 
 void MainLayer::OnAttach()
 {
-	m_VertexArray = VoxelEngine::VertexArray::Create();
-
-	float Vertices[5 * 36] = {
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,	 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,   -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,	 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f };
-
-	VoxelEngine::Ref<VoxelEngine::VertexBuffer> VertexBuffer;
-	VertexBuffer.reset(VoxelEngine::VertexBuffer::Create(Vertices, sizeof(Vertices)));
-	VertexBuffer->SetLayout({
-		{ VoxelEngine::ShaderDataType::Float3, "a_Position" },
-		{ VoxelEngine::ShaderDataType::Float2, "a_TexCoord" }
-		});
-
-	m_VertexArray->AddVertexBuffer(VertexBuffer);
-
-	uint32_t Indices[36] = {
-		// front
-		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
-	};
-	VoxelEngine::Ref<VoxelEngine::IndexBuffer> IndexBuffer;
-	IndexBuffer.reset(VoxelEngine::IndexBuffer::Create(Indices, sizeof(Indices) / sizeof(uint32_t)));
-	m_VertexArray->SetIndexBuffer(IndexBuffer);
-
-	m_Shader = VoxelEngine::Shader::Create("assets/shaders/Texture.glsl");
-
-	m_Texture = VoxelEngine::Texure2D::Create("assets/textures/Stone.png");
-
-	std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_Shader)->Bind();
-	std::dynamic_pointer_cast<VoxelEngine::OpenGLShader>(m_Shader)->UploadUniformInt("u_Texture", 0);
+	m_Window.SetCapturesMouse(true);
+	m_GrassTexture = VoxelEngine::Texure2D::Create("assets/textures/GrassBlockTop.png");
 }
 
 
@@ -71,34 +57,76 @@ void MainLayer::OnDetach()
 
 void MainLayer::OnUpdate(VoxelEngine::Timestep ts)
 {
-	m_CameraController.OnUpdate(ts);
+	PROFILE_SCOPE("MainLayer::OnUpdate");
 
-	VoxelEngine::RenderCommand::SetClearColor({ 0.1, 0.1, 0.1, 1 });
-	VoxelEngine::RenderCommand::Clear();
+	{
+		PROFILE_SCOPE("CameraController::OnUpdate");
+		m_CameraController.OnUpdate(ts);
+	}
 
-	VoxelEngine::Renderer::BeginScene(m_CameraController.GetCamera());
+	{
+		PROFILE_SCOPE("Renderer Prep");
+		VoxelEngine::RenderCommand::SetClearColor({ 0.1, 0.1, 0.1, 1 });
+		VoxelEngine::RenderCommand::Clear();
+	}
 
-	static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
+	{
+		PROFILE_SCOPE("Renderer Draw");
+		VoxelEngine::RendererVoxel::BeginScene(m_CameraController.GetCamera());
 
-	glm::vec3 pos(0.f, 0.f, 0.f);
-	glm::mat4 transform = glm::translate(glm::mat4(1.f), pos) * scale;
+		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
 
-	m_Shader->Bind();
-	m_Texture->Bind();
+		VoxelEngine::RendererVoxel::DrawQuad({ 0.f, 0.f,0.f }, { 1.f, 1.f, 1.f }, { 90.f, 0.f, 0.f }, m_Color);
+		VoxelEngine::RendererVoxel::DrawQuad({ 0.f,-1.f,0.f }, { 16.f, 1.f, 16.f }, { 90.f, 0.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, m_GrassTexture);
 
-	VoxelEngine::Renderer::Submit(m_Shader, m_VertexArray, transform);
-
-	VoxelEngine::Renderer::EndScene();
+		VoxelEngine::Renderer::EndScene();
+	}
 }
 
 void MainLayer::OnImGuiRender()
 {
 	ImGui::Begin("Settings");
-	ImGui::Text("Fov: %f", m_CameraController.GetFOV());
+	ImGui::Text("Fov: %.2f", m_CameraController.GetFOV());
+	ImGui::ColorEdit4("Object Color:", glm::value_ptr(m_Color));
+
+	for (auto& result : m_ProfileResults)
+	{
+		char label [50] ;
+		strcpy(label, result.Name);
+		strcat(label, "%.3fms");
+		ImGui::Text(label, result.Time);
+	}
+	m_ProfileResults.clear();
+
 	ImGui::End();
 }
 
 void MainLayer::OnEvent(VoxelEngine::Event& event)
 {
 	m_CameraController.OnEvent(event);
+
+	VoxelEngine::EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<VoxelEngine::KeyPressedEvent>(VE_BIND_EVENT_FN(MainLayer::KeyPressed));
+}
+bool MainLayer::KeyPressed(VoxelEngine::KeyPressedEvent& e)
+{
+	if (e.GetKeyCode() == VE_KEY_ESCAPE)
+	{
+		if (e.GetRepeatCount() == 0)
+		{
+			if (m_Window.GetCapturesMouse())
+			{
+				m_CameraController.SetTracking(false);
+				m_Window.SetCapturesMouse(false);
+			}
+			else
+			{
+				m_CameraController.SetTracking(true);
+				m_Window.SetCapturesMouse(true);
+			}
+		}
+			
+	}
+
+	return false;
 }

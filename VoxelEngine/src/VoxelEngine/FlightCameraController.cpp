@@ -26,29 +26,36 @@ namespace VoxelEngine {
 		if (Input::IsKeyPressed(VE_KEY_D))
 			m_CameraPosition += camSpeedTS * m_Camera.GetRight();
 
+		if (Input::IsKeyPressed(VE_KEY_E))
+			m_CameraPosition += camSpeedTS * m_Camera.GetUp();
+		if (Input::IsKeyPressed(VE_KEY_Q))
+			m_CameraPosition -= camSpeedTS * m_Camera.GetUp();
 
-		if (m_FirstMouse)
+		if (m_Tracking)
 		{
+			if (m_FirstMouse)
+			{
+				m_LastX = Input::GetMouseX();
+				m_LastY = Input::GetMouseY();
+				m_FirstMouse = false;
+			}
+
+			float xoffset = Input::GetMouseX() - m_LastX;
+			float yoffset = m_LastY - Input::GetMouseY();
 			m_LastX = Input::GetMouseX();
 			m_LastY = Input::GetMouseY();
-			m_FirstMouse = false;
+
+			xoffset *= m_CameraSensitivity * ts;
+			yoffset *= m_CameraSensitivity * ts;
+
+			m_CameraYaw += xoffset;
+			m_CameraPitch += yoffset;
+
+			if (m_CameraPitch > 89.0f)
+				m_CameraPitch = 89.0f;
+			if (m_CameraPitch < -89.0f)
+				m_CameraPitch = -89.0f;
 		}
-
-		float xoffset = Input::GetMouseX() - m_LastX;
-		float yoffset = m_LastY - Input::GetMouseY();
-		m_LastX = Input::GetMouseX();
-		m_LastY = Input::GetMouseY();
-
-		xoffset *= m_CameraSensitivity * ts;
-		yoffset *= m_CameraSensitivity * ts;
-
-		m_CameraYaw   += xoffset;
-		m_CameraPitch += yoffset;
-
-		if (m_CameraPitch > 89.0f)
-			m_CameraPitch = 89.0f;
-		if (m_CameraPitch < -89.0f)
-			m_CameraPitch = -89.0f;
 
 		m_Camera.SetPosition(m_CameraPosition);
 		m_Camera.SetYaw(m_CameraYaw);
@@ -58,8 +65,8 @@ namespace VoxelEngine {
 	void FlightCameraController::OnEvent(Event& e)
 	{
 		VoxelEngine::EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<VoxelEngine::MouseScrolledEvent>(VE_BIND_EVENT_FN(FlightCameraController::OnMouseScrolled));
-		dispatcher.Dispatch<VoxelEngine::WindowResizeEvent> (VE_BIND_EVENT_FN(FlightCameraController::OnWindowResized));
+		dispatcher.Dispatch<MouseScrolledEvent>(VE_BIND_EVENT_FN(FlightCameraController::OnMouseScrolled));
+		dispatcher.Dispatch<WindowResizeEvent>(VE_BIND_EVENT_FN(FlightCameraController::OnWindowResized));
 	}
 
 	bool FlightCameraController::OnMouseScrolled(MouseScrolledEvent& e)
@@ -79,7 +86,6 @@ namespace VoxelEngine {
 		m_Camera.SetAspectRatio((float)e.GetWidth() / (float)e.GetHeight());
 		return false;
 	}
-
 }
 
 

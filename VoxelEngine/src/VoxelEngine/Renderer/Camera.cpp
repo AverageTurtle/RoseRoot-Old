@@ -2,19 +2,19 @@
 #include "Camera.h"
 
 namespace VoxelEngine {
-	FPCamera::FPCamera(float fov, float aspect, float nearClip, float farClip)
+	PerspectiveCamera::PerspectiveCamera(float fov, float aspect, float nearClip, float farClip)
 		: m_Fov(fov), m_AspectRatio(aspect),m_NearClip(nearClip), m_FarClip(farClip),
 		 m_ProjectionMatrix(glm::perspective(glm::radians(fov), m_AspectRatio, nearClip, farClip)), m_ViewMatrix(1.0f)
 	{
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
-	void FPCamera::RecaculatePojectionMatrix()
+	void PerspectiveCamera::RecaculatePojectionMatrix()
 	{
 
 		m_ProjectionMatrix = glm::perspective(glm::radians(m_Fov), m_AspectRatio, m_NearClip, m_FarClip);
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
-	void FPCamera::RecaculateViewMatrix()
+	void PerspectiveCamera::RecaculateViewMatrix()
 	{
 		glm::vec3 front;
 		front.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));

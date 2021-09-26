@@ -17,7 +17,7 @@ namespace VoxelEngine {
 		RenderCommand::SetViewport(0, 0, width, height);
 	}
 
-	void Renderer::BeginScene(FPCamera& camera)
+	void Renderer::BeginScene(PerspectiveCamera& camera)
 	{
 		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
