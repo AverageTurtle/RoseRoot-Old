@@ -14,6 +14,8 @@ namespace VoxelEngine {
 
 	void FlightCameraController::OnUpdate(Timestep ts)
 	{
+		VE_PROFILE_FUNCTION();
+
 		float camSpeedTS = m_CameraSpeed * ts;
 
 		if (Input::IsKeyPressed(VE_KEY_W))
@@ -45,16 +47,21 @@ namespace VoxelEngine {
 			m_LastX = Input::GetMouseX();
 			m_LastY = Input::GetMouseY();
 
-			xoffset *= m_CameraSensitivity * ts;
-			yoffset *= m_CameraSensitivity * ts;
+			xoffset *= m_CameraSensitivity;
+			yoffset *= m_CameraSensitivity;
 
-			m_CameraYaw += xoffset;
-			m_CameraPitch += yoffset;
+			m_CameraYaw += xoffset * ts;
+			m_CameraPitch += yoffset * ts;
 
 			if (m_CameraPitch > 89.0f)
 				m_CameraPitch = 89.0f;
 			if (m_CameraPitch < -89.0f)
 				m_CameraPitch = -89.0f;
+			
+			if (m_CameraYaw > 360.0f)
+				m_CameraYaw = 0.f;
+			if (m_CameraYaw < -360.0f)
+				m_CameraYaw = 0.0f;
 		}
 
 		m_Camera.SetPosition(m_CameraPosition);
@@ -64,6 +71,8 @@ namespace VoxelEngine {
 
 	void FlightCameraController::OnEvent(Event& e)
 	{
+		VE_PROFILE_FUNCTION();
+
 		VoxelEngine::EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(VE_BIND_EVENT_FN(FlightCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(VE_BIND_EVENT_FN(FlightCameraController::OnWindowResized));
@@ -71,6 +80,8 @@ namespace VoxelEngine {
 
 	bool FlightCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
+		VE_PROFILE_FUNCTION();
+
 		m_FOV -= e.GetYOffset();
 
 		if (m_FOV > 90)

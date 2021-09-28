@@ -23,17 +23,8 @@ private:
 	VoxelEngine::Ref<VoxelEngine::Shader> m_Shader;
 	VoxelEngine::Ref<VoxelEngine::VertexArray> m_VertexArray;
 
-	VoxelEngine::Ref<VoxelEngine::Texure2D> m_GrassTexture;
+	VoxelEngine::Ref<VoxelEngine::Texture2D> m_GrassTexture, m_StoneTexture;
 
 	glm::vec4 m_Color = {1.f, 1.f, 1.f, 1.f};
-
-	struct ProfileResult
-	{
-		const char* Name;
-		float Time;
-	};
-	
-	std::vector<ProfileResult> m_ProfileResults;
-
 	//VoxelEngine::Ref<VoxelEngine::Texure2D> m_Texture;
 };

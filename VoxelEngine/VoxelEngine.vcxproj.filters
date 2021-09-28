@@ -1409,6 +1409,7 @@
     </ClInclude>
     <ClInclude Include="src\VoxelEngine\FlightCameraController.h" />
     <ClInclude Include="src\VoxelEngine\Renderer\RendererVoxel.h" />
+    <ClInclude Include="src\VoxelEngine\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">

@@ -36,7 +36,7 @@ namespace VoxelEngine {
 
 		glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
 		float m_CameraYaw = -90.f, m_CameraPitch = 0.f;
-		float m_CameraSpeed = 5.f, m_CameraSensitivity = 100.f;
+		float m_CameraSpeed = 5.f, m_CameraSensitivity = 50.f;
 
 		bool m_FirstMouse = true;
 		float m_LastX = 0.f, m_LastY = 0.f;

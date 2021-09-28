@@ -18,6 +18,8 @@ namespace VoxelEngine {
 
 	Application::Application()
 	{
+		VE_PROFILE_FUNCTION();
+
 		VE_CORE_ASSERT(s_Instance, "Application already exist!")
 		s_Instance = this;
 
@@ -35,20 +37,29 @@ namespace VoxelEngine {
 
 	Application::~Application()
 	{
+		VE_PROFILE_FUNCTION();
 	}
 
 	void Application::PushLayer(Layer* layer)
 	{
+		VE_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer)
 	{
+		VE_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
+		VE_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
@@ -63,21 +74,32 @@ namespace VoxelEngine {
 
 	void Application::Run() 
 	{
+		VE_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			VE_PROFILE_SCOPE("|| RunLoop ||");
+
 			float time = (float)glfwGetTime(); //TO::DO Platform::GetTime
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
+				{
+					VE_PROFILE_SCOPE("LayerStack OnUpdate");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
 			}
 
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
+			{
+				VE_PROFILE_SCOPE("LayerStack OnImGuiRender");
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
+			}
 			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
@@ -91,6 +113,8 @@ namespace VoxelEngine {
 	}
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		VE_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;

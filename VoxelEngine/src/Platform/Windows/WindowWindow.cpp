@@ -22,6 +22,8 @@ namespace VoxelEngine {
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		VE_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
@@ -32,6 +34,8 @@ namespace VoxelEngine {
 
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		VE_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -40,15 +44,19 @@ namespace VoxelEngine {
 
 		if (!s_GLFWInitialized)
 		{
-			// TODO: glfwTerminate on system shutdown
+			VE_PROFILE_SCOPE("glfwInit");
+
 			int success = glfwInit();
 			VE_CORE_ASSERT(success, "Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 
 			s_GLFWInitialized = true;
 		}
+		{
+			VE_PROFILE_SCOPE("glfwCreateWindow");
+			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		}
 
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
@@ -147,17 +155,22 @@ namespace VoxelEngine {
 
 	void WindowsWindow::Shutdown()
 	{
+		VE_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		VE_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		VE_PROFILE_FUNCTION();
 		if (enabled)
 			glfwSwapInterval(1);
 		else
@@ -172,6 +185,7 @@ namespace VoxelEngine {
 	}
 	void WindowsWindow::SetCapturesMouse(bool enabled)
 	{
+		VE_PROFILE_FUNCTION();
 		if (enabled)
 			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		else

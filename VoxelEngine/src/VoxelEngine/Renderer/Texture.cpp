@@ -6,7 +6,7 @@
 
 namespace VoxelEngine {
 
-	Ref<Texure2D> Texure2D::Create(uint32_t width, uint32_t height)
+	Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -16,10 +16,10 @@ namespace VoxelEngine {
 
 		VE_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
-		return Ref<Texure2D>();
+		return Ref<Texture2D>();
 	}
 
-	Ref<Texure2D> Texure2D::Create(const std::string& path)
+	Ref<Texture2D> Texture2D::Create(const std::string& path)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -29,6 +29,6 @@ namespace VoxelEngine {
 
 		VE_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
-		return Ref<Texure2D>();
+		return Ref<Texture2D>();
 	}
 }

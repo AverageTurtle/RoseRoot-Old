@@ -10,12 +10,15 @@ namespace VoxelEngine {
 	}
 	void PerspectiveCamera::RecaculatePojectionMatrix()
 	{
+		VE_PROFILE_FUNCTION();
 
 		m_ProjectionMatrix = glm::perspective(glm::radians(m_Fov), m_AspectRatio, m_NearClip, m_FarClip);
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
 	void PerspectiveCamera::RecaculateViewMatrix()
 	{
+		VE_PROFILE_FUNCTION();
+
 		glm::vec3 front;
 		front.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
 		front.y = sin(glm::radians(m_Pitch));

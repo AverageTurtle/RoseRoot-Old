@@ -6,7 +6,7 @@
 
 namespace VoxelEngine {
 
-	class OpenGLTexture2D : public Texure2D
+	class OpenGLTexture2D : public Texture2D
 	{
 	public:
 		OpenGLTexture2D(uint32_t width, uint32_t height);
@@ -19,6 +19,11 @@ namespace VoxelEngine {
 		virtual void SetData(void* data, uint32_t size) override;
 
 		virtual void Bind(uint32_t slot = 0) const override;
+
+		virtual bool operator==(const Texture& other) const override 
+		{
+			return m_RendererID == ((OpenGLTexture2D&)other).m_RendererID;
+		}
 	private:
 		std::string m_Path;
 		uint32_t m_Width, m_Height;

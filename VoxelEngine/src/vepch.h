@@ -14,6 +14,7 @@
 #include <unordered_set>
 
 #include "VoxelEngine/Core/Log.h"
+#include "VoxelEngine/Debug/Instrumentor.h"
 
 #ifdef VE_PLATFORM_WINDOWS
 	#include <Windows.h>

@@ -3,41 +3,19 @@
 
 #include <chrono>
 
-template <typename Fn>
-class Timer
+
+//Temp draw cube
+void DrawCube(glm::vec3 position, VoxelEngine::Ref<VoxelEngine::Texture2D> texture)
 {
-public:
-	Timer(const char* name, Fn&& func)
-		: m_Name(name), m_Func(func), m_Stopped(false)
-	{
-		m_StartTimepoint = std::chrono::high_resolution_clock::now();
-	}
-	~Timer()
-	{
-		if (!m_Stopped)
-			Stop();
-	}
-
-	void Stop()
-	{
-		auto endTimepoint = std::chrono::high_resolution_clock::now();
-
-		long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
-		long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
-
-		m_Stopped = true;
-
-		float duration = (end - start) * 0.001f;
-		m_Func({m_Name, duration});
-	}
-private:
-	const char* m_Name;
-	Fn m_Func;
-	std::chrono::time_point<std::chrono::steady_clock> m_StartTimepoint;
-	bool m_Stopped;
-};
-
-#define PROFILE_SCOPE(name) Timer timer##__LINE__(name, [&](ProfileResult profileResult) { m_ProfileResults.push_back(profileResult); })
+	VoxelEngine::RendererVoxel::DrawQuadRotated(glm::vec3(0.f, 0.5f, 0.f) + position, { 1.f, 1.f, 1.f }, { 90.f, 0.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texture, 1.f);
+	VoxelEngine::RendererVoxel::DrawQuadRotated(glm::vec3(0.f,-0.5f, 0.f) + position, { 1.f, 1.f, 1.f }, { 90.f, 0.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texture, 1.f);
+									
+	VoxelEngine::RendererVoxel::DrawQuad(glm::vec3(0.f, 0.0f, 0.5f) + position, { 1.f, 1.f, 1.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texture, 1.f);
+	VoxelEngine::RendererVoxel::DrawQuad(glm::vec3(0.f, 0.0f, -0.5f) + position, { 1.f, 1.f, 1.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texture, 1.f);
+										
+	VoxelEngine::RendererVoxel::DrawQuadRotated(glm::vec3(0.5f, 0.0f, 0.0f) + position, { 1.f, 1.f, 1.f }, { 0.f, 90.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texture, 1.f);
+	VoxelEngine::RendererVoxel::DrawQuadRotated(glm::vec3(-0.5f, 0.0f, 0.0f) + position, { 1.f, 1.f, 1.f }, { 0.f, 90.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texture, 1.f);
+}
 
 MainLayer::MainLayer(VoxelEngine::Window& window)
 	: Layer("MainLayer"), m_Window(window), m_CameraController(16.f / 9.f)
@@ -46,8 +24,13 @@ MainLayer::MainLayer(VoxelEngine::Window& window)
 
 void MainLayer::OnAttach()
 {
-	m_Window.SetCapturesMouse(true);
-	m_GrassTexture = VoxelEngine::Texure2D::Create("assets/textures/GrassBlockTop.png");
+	VE_PROFILE_FUNCTION();
+
+	m_CameraController.SetTracking(false);
+	m_Window.SetCapturesMouse(false);
+
+	m_GrassTexture = VoxelEngine::Texture2D::Create("assets/textures/GrassBlockTop.png");
+	m_StoneTexture = VoxelEngine::Texture2D::Create("assets/textures/Stone.png");
 }
 
 
@@ -57,46 +40,40 @@ void MainLayer::OnDetach()
 
 void MainLayer::OnUpdate(VoxelEngine::Timestep ts)
 {
-	PROFILE_SCOPE("MainLayer::OnUpdate");
+	VE_PROFILE_FUNCTION();
 
+	m_CameraController.OnUpdate(ts);
+
+	//VoxelEngine::RenderCommand::SetClearColor({ 0.1, 0.1, 0.1, 1 }); //gray
+	VoxelEngine::RenderCommand::SetClearColor({ 0.5, 0.6, 0.9, 1 });
+	VoxelEngine::RenderCommand::Clear();
+
+	VoxelEngine::RendererVoxel::BeginScene(m_CameraController.GetCamera());
+
+	static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
+
+	for (int z = 0; z < 8; z++)
 	{
-		PROFILE_SCOPE("CameraController::OnUpdate");
-		m_CameraController.OnUpdate(ts);
+		for (int x = 0; x < 8; x++)
+		{
+			DrawCube({ x - 4, -2, z - 4 }, m_GrassTexture);
+		}
 	}
+	DrawCube({ 0, -1, 0 }, m_StoneTexture);
 
-	{
-		PROFILE_SCOPE("Renderer Prep");
-		VoxelEngine::RenderCommand::SetClearColor({ 0.1, 0.1, 0.1, 1 });
-		VoxelEngine::RenderCommand::Clear();
-	}
+	//VoxelEngine::RendererVoxel::DrawQuad({ 0.f,0.f,-16.f }, { 16.f, 16.f, 0.f }, { 90.f, 0.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, m_GrassTexture, 16.f);
 
-	{
-		PROFILE_SCOPE("Renderer Draw");
-		VoxelEngine::RendererVoxel::BeginScene(m_CameraController.GetCamera());
+	VoxelEngine::RendererVoxel::EndScene();
 
-		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
-
-		VoxelEngine::RendererVoxel::DrawQuad({ 0.f, 0.f,0.f }, { 1.f, 1.f, 1.f }, { 90.f, 0.f, 0.f }, m_Color);
-		VoxelEngine::RendererVoxel::DrawQuad({ 0.f,-1.f,0.f }, { 16.f, 1.f, 16.f }, { 90.f, 0.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, m_GrassTexture);
-
-		VoxelEngine::Renderer::EndScene();
-	}
 }
 
 void MainLayer::OnImGuiRender()
 {
+	VE_PROFILE_FUNCTION();
+
 	ImGui::Begin("Settings");
 	ImGui::Text("Fov: %.2f", m_CameraController.GetFOV());
 	ImGui::ColorEdit4("Object Color:", glm::value_ptr(m_Color));
-
-	for (auto& result : m_ProfileResults)
-	{
-		char label [50] ;
-		strcpy(label, result.Name);
-		strcat(label, "%.3fms");
-		ImGui::Text(label, result.Time);
-	}
-	m_ProfileResults.clear();
 
 	ImGui::End();
 }
