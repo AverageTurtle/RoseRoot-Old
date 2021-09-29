@@ -10,7 +10,7 @@
 
 #include "VoxelEngine/Core/Input.h"
 #include "VoxelEngine/Core/KeyCodes.h"
-#include "VoxelEngine/Core/MouseButtonCodes.h"
+#include "VoxelEngine/Core/MouseCodes.h"
 
 #include "VoxelEngine/Renderer/Renderer.h"
 #include "VoxelEngine/Renderer/RendererVoxel.h"

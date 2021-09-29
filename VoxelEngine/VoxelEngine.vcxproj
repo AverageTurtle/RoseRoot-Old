@@ -147,7 +147,6 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\VoxelEngine.h" />
     <ClInclude Include="src\VoxelEngine\Core\Application.h" />
@@ -158,7 +157,7 @@
     <ClInclude Include="src\VoxelEngine\Core\Layer.h" />
     <ClInclude Include="src\VoxelEngine\Core\LayerStack.h" />
     <ClInclude Include="src\VoxelEngine\Core\Log.h" />
-    <ClInclude Include="src\VoxelEngine\Core\MouseButtonCodes.h" />
+    <ClInclude Include="src\VoxelEngine\Core\MouseCodes.h" />
     <ClInclude Include="src\VoxelEngine\Core\Timestep.h" />
     <ClInclude Include="src\VoxelEngine\Core\Window.h" />
     <ClInclude Include="src\VoxelEngine\Debug\Instrumentor.h" />
