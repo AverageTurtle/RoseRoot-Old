@@ -1,6 +1,6 @@
 workspace "VoxelEngine"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "VoxelEditor"
 
 	configurations
 	{
@@ -19,9 +19,11 @@ IncludeDir["ImGui"] = "VoxelEngine/vendor/imgui"
 IncludeDir["glm"] = "VoxelEngine/vendor/glm"
 IncludeDir["stb_image"] = "VoxelEngine/vendor/stb_image"
 
-include "VoxelEngine/vendor/GLFW"
-include "VoxelEngine/vendor/Glad"
-include "VoxelEngine/vendor/imgui"
+group "Dependencies"
+	include "VoxelEngine/vendor/GLFW"
+	include "VoxelEngine/vendor/Glad"
+	include "VoxelEngine/vendor/imgui"
+group ""
 
 project "VoxelEngine"
 	location "VoxelEngine"
@@ -97,6 +99,59 @@ project "VoxelEngine"
 
 project "Sandbox"
 	location "Sandbox"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs
+	{
+		"VoxelEngine/vendor/spdlog/include",
+		"VoxelEngine/src",
+		"VoxelEngine/vendor",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"VoxelEngine"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines
+		{
+			"VE_PLATFORM_WINDOWS"
+		}
+
+	filter "configurations:Debug"
+		defines "VE_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "VE_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "VE_DIST"
+		runtime "Release"
+		optimize "on"
+
+
+project "VoxelEditor"
+	location "VoxelEditor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"

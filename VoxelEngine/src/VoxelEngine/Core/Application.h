@@ -16,7 +16,7 @@ namespace VoxelEngine {
 	class VOXELENGINE_API Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "VoxelEngine Application");
 		virtual ~Application();
 
 		void Run();
@@ -26,8 +26,11 @@ namespace VoxelEngine {
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 
-		inline static Application& Get() { return *s_Instance;  }
 		inline Window& GetWindow() { return *m_Window;  }
+
+		void Close() { m_Running = false; }
+
+		inline static Application& Get() { return *s_Instance;  }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);

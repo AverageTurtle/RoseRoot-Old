@@ -81,7 +81,6 @@ namespace VoxelEngine {
 
 		VoxelEngine::EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(VE_BIND_EVENT_FN(FlightCameraController::OnMouseScrolled));
-		dispatcher.Dispatch<WindowResizeEvent>(VE_BIND_EVENT_FN(FlightCameraController::OnWindowResized));
 	}
 
 	bool FlightCameraController::OnMouseScrolled(MouseScrolledEvent& e)
@@ -95,12 +94,6 @@ namespace VoxelEngine {
 		if (m_FOV < 1)
 			m_FOV = 1;
 		m_Camera.SetFOV(m_FOV);
-		return false;
-	}
-
-	bool FlightCameraController::OnWindowResized(WindowResizeEvent& e)
-	{
-		m_Camera.SetAspectRatio((float)e.GetWidth() / (float)e.GetHeight());
 		return false;
 	}
 }

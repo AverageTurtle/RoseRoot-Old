@@ -24,13 +24,15 @@ namespace VoxelEngine {
 		float GetFOV() const { return m_FOV; }
 		void SetFOV(float level) { m_FOV = level; }
 
+		float GetAspectRatio() const { return m_AspectRatio; }
+		void SetAspectRatio(float ratio) { m_AspectRatio = ratio; m_Camera.SetAspectRatio(m_AspectRatio); }
+
 		float GetSensitivity() const { return m_CameraSensitivity; }
 		void SetSensitivity(float sensitivity) { m_CameraSensitivity = sensitivity; }
 
 		void SetTracking(bool tracking) { m_Tracking = tracking; m_FirstMouse = tracking; }
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
-		bool OnWindowResized(WindowResizeEvent& e);
 	private:
 		bool m_Tracking = true;
 		float m_AspectRatio;

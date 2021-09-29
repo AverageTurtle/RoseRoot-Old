@@ -24,7 +24,7 @@ private:
 	VoxelEngine::Ref<VoxelEngine::Shader> m_Shader;
 	VoxelEngine::Ref<VoxelEngine::VertexArray> m_VertexArray;
 
-	VoxelEngine::Ref<VoxelEngine::Texture2D> m_SpriteSheet;
+	VoxelEngine::Ref<VoxelEngine::Texture2D> m_SpriteSheet, m_ViewTest;
 	VoxelEngine::Ref<VoxelEngine::SubTexture2D> m_GrassTexture, m_StoneTexture, m_GlassTexture;
 
 	glm::vec4 m_Color = {1.f, 1.f, 1.f, 1.f};

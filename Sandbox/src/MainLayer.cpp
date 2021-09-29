@@ -27,6 +27,7 @@ void MainLayer::OnAttach()
 	m_Window.SetCapturesMouse(false);
 
 	m_SpriteSheet = VoxelEngine::Texture2D::Create("assets/textures/SpriteSheet.png");
+	m_ViewTest = VoxelEngine::Texture2D::Create("assets/textures/ViewTest.png");
 
 	m_GrassTexture = VoxelEngine::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 1, 0 }, {16, 16});
 	m_StoneTexture = VoxelEngine::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 0 }, { 16, 16 });
