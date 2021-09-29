@@ -16,6 +16,7 @@ public:
 
 	bool KeyPressed(VoxelEngine::KeyPressedEvent& e);
 private:
+	int m_Scene = 1;
 	VoxelEngine::FlightCameraController m_CameraController;
 
 	VoxelEngine::Window& m_Window;
@@ -23,7 +24,8 @@ private:
 	VoxelEngine::Ref<VoxelEngine::Shader> m_Shader;
 	VoxelEngine::Ref<VoxelEngine::VertexArray> m_VertexArray;
 
-	VoxelEngine::Ref<VoxelEngine::Texture2D> m_GrassTexture, m_StoneTexture;
+	VoxelEngine::Ref<VoxelEngine::Texture2D> m_SpriteSheet;
+	VoxelEngine::Ref<VoxelEngine::SubTexture2D> m_GrassTexture, m_StoneTexture, m_GlassTexture;
 
 	glm::vec4 m_Color = {1.f, 1.f, 1.f, 1.f};
 	//VoxelEngine::Ref<VoxelEngine::Texure2D> m_Texture;

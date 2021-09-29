@@ -33,6 +33,12 @@ namespace VoxelEngine {
 		if (Input::IsKeyPressed(VE_KEY_Q))
 			m_CameraPosition -= camSpeedTS * m_Camera.GetUp();
 
+		if (Input::IsKeyPressed(VE_KEY_9))
+			m_CameraSensitivity -= m_CameraSensitivity * ts;
+		if (Input::IsKeyPressed(VE_KEY_0))
+			m_CameraSensitivity += m_CameraSensitivity * ts;
+
+
 		if (m_Tracking)
 		{
 			if (m_FirstMouse)
@@ -50,8 +56,8 @@ namespace VoxelEngine {
 			xoffset *= m_CameraSensitivity;
 			yoffset *= m_CameraSensitivity;
 
-			m_CameraYaw += xoffset * ts;
-			m_CameraPitch += yoffset * ts;
+			m_CameraYaw += xoffset*ts;
+			m_CameraPitch += yoffset*ts;
 
 			if (m_CameraPitch > 89.0f)
 				m_CameraPitch = 89.0f;

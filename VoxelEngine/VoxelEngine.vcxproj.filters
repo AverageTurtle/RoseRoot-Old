@@ -1410,6 +1410,7 @@
     <ClInclude Include="src\VoxelEngine\FlightCameraController.h" />
     <ClInclude Include="src\VoxelEngine\Renderer\RendererVoxel.h" />
     <ClInclude Include="src\VoxelEngine\Debug\Instrumentor.h" />
+    <ClInclude Include="src\VoxelEngine\Renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1486,5 +1487,6 @@
     </ClCompile>
     <ClCompile Include="src\VoxelEngine\FlightCameraController.cpp" />
     <ClCompile Include="src\VoxelEngine\Renderer\RendererVoxel.cpp" />
+    <ClCompile Include="src\VoxelEngine\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

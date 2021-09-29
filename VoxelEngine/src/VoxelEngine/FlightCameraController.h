@@ -24,6 +24,9 @@ namespace VoxelEngine {
 		float GetFOV() const { return m_FOV; }
 		void SetFOV(float level) { m_FOV = level; }
 
+		float GetSensitivity() const { return m_CameraSensitivity; }
+		void SetSensitivity(float sensitivity) { m_CameraSensitivity = sensitivity; }
+
 		void SetTracking(bool tracking) { m_Tracking = tracking; m_FirstMouse = tracking; }
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
@@ -36,7 +39,7 @@ namespace VoxelEngine {
 
 		glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
 		float m_CameraYaw = -90.f, m_CameraPitch = 0.f;
-		float m_CameraSpeed = 5.f, m_CameraSensitivity = 50.f;
+		float m_CameraSpeed = 5.f, m_CameraSensitivity = 20.f;
 
 		bool m_FirstMouse = true;
 		float m_LastX = 0.f, m_LastY = 0.f;
