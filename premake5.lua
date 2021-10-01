@@ -1,6 +1,6 @@
-workspace "VoxelEngine"
+workspace "RoseRoot"
 	architecture "x64"
-	startproject "VoxelEditor"
+	startproject "RoseStem"
 
 	configurations
 	{
@@ -13,20 +13,20 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "VoxelEngine/vendor/GLFW/include"
-IncludeDir["Glad"] = "VoxelEngine/vendor/Glad/include"
-IncludeDir["ImGui"] = "VoxelEngine/vendor/imgui"
-IncludeDir["glm"] = "VoxelEngine/vendor/glm"
-IncludeDir["stb_image"] = "VoxelEngine/vendor/stb_image"
+IncludeDir["GLFW"] = "RoseRoot/vendor/GLFW/include"
+IncludeDir["Glad"] = "RoseRoot/vendor/Glad/include"
+IncludeDir["ImGui"] = "RoseRoot/vendor/imgui"
+IncludeDir["glm"] = "RoseRoot/vendor/glm"
+IncludeDir["stb_image"] = "RoseRoot/vendor/stb_image"
 
 group "Dependencies"
-	include "VoxelEngine/vendor/GLFW"
-	include "VoxelEngine/vendor/Glad"
-	include "VoxelEngine/vendor/imgui"
+	include "RoseRoot/vendor/GLFW"
+	include "RoseRoot/vendor/Glad"
+	include "RoseRoot/vendor/imgui"
 group ""
 
-project "VoxelEngine"
-	location "VoxelEngine"
+project "RoseRoot"
+	location "RoseRoot"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
@@ -35,8 +35,8 @@ project "VoxelEngine"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "vepch.h"
-	pchsource "VoxelEngine/src/vepch.cpp"
+	pchheader "rrpch.h"
+	pchsource "RoseRoot/src/rrpch.cpp"
 
 	files
 	{
@@ -77,23 +77,23 @@ project "VoxelEngine"
 
 		defines
 		{
-			"VE_PLATFORM_WINDOWS",
-			"VE_BUILD_DLL",
+			"RR_PLATFORM_WINDOWS",
+			"RR_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 
 	filter "configurations:Debug"
-		defines "VE_DEBUG"
+		defines "RR_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "VE_RELEASE"
+		defines "RR_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "VE_DIST"
+		defines "RR_DIST"
 		runtime "Release"
 		optimize "on"
 
@@ -115,15 +115,15 @@ project "Sandbox"
 
 	includedirs
 	{
-		"VoxelEngine/vendor/spdlog/include",
-		"VoxelEngine/src",
-		"VoxelEngine/vendor",
+		"RoseRoot/vendor/spdlog/include",
+		"RoseRoot/src",
+		"RoseRoot/vendor",
 		"%{IncludeDir.glm}"
 	}
 
 	links
 	{
-		"VoxelEngine"
+		"RoseRoot"
 	}
 
 	filter "system:windows"
@@ -131,27 +131,27 @@ project "Sandbox"
 
 		defines
 		{
-			"VE_PLATFORM_WINDOWS"
+			"RR_PLATFORM_WINDOWS"
 		}
 
 	filter "configurations:Debug"
-		defines "VE_DEBUG"
+		defines "RR_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "VE_RELEASE"
+		defines "RR_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "VE_DIST"
+		defines "RR_DIST"
 		runtime "Release"
 		optimize "on"
 
 
-project "VoxelEditor"
-	location "VoxelEditor"
+project "RoseStem"
+	location "RoseStem"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
@@ -168,15 +168,15 @@ project "VoxelEditor"
 
 	includedirs
 	{
-		"VoxelEngine/vendor/spdlog/include",
-		"VoxelEngine/src",
-		"VoxelEngine/vendor",
+		"RoseRoot/vendor/spdlog/include",
+		"RoseRoot/src",
+		"RoseRoot/vendor",
 		"%{IncludeDir.glm}"
 	}
 
 	links
 	{
-		"VoxelEngine"
+		"RoseRoot"
 	}
 
 	filter "system:windows"
@@ -184,20 +184,20 @@ project "VoxelEditor"
 
 		defines
 		{
-			"VE_PLATFORM_WINDOWS"
+			"RR_PLATFORM_WINDOWS"
 		}
 
 	filter "configurations:Debug"
-		defines "VE_DEBUG"
+		defines "RR_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "VE_RELEASE"
+		defines "RR_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "VE_DIST"
+		defines "RR_DIST"
 		runtime "Release"
 		optimize "on"

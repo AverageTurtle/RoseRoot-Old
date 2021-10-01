@@ -1,5 +1,5 @@
 #pragma once
-#include <VoxelEngine.h>
+#include <RoseRoot.h>
 #include <array>
 #include <vector>
 
@@ -10,11 +10,11 @@ class ChunkSection {
 public:
 	ChunkSection(uint8_t y = 0) {
 		m_Y = y; 
-		m_SpriteSheet = VoxelEngine::Texture2D::Create("assets/textures/SpriteSheet.png");
+		m_SpriteSheet = RoseRoot::Texture2D::Create("assets/textures/SpriteSheet.png");
 
-		m_GrassTexture = VoxelEngine::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 1, 0 }, { 16, 16 });
-		m_StoneTexture = VoxelEngine::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 0 }, { 16, 16 });
-		m_GlassTexture = VoxelEngine::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 3, 0 }, { 16, 16 });
+		m_GrassTexture = RoseRoot::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 1, 0 }, { 16, 16 });
+		m_StoneTexture = RoseRoot::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 0 }, { 16, 16 });
+		m_GlassTexture = RoseRoot::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 3, 0 }, { 16, 16 });
 	};
 
 	Block GetBlock(int x, int y, int z) {
@@ -41,8 +41,8 @@ private:
 	uint8_t m_Y;
 	std::array<Block, CHUNK_VOLUME> m_Blocks;
 
-	VoxelEngine::Ref<VoxelEngine::Texture2D> m_SpriteSheet;
-	VoxelEngine::Ref<VoxelEngine::SubTexture2D> m_GrassTexture, m_StoneTexture, m_GlassTexture;
+	RoseRoot::Ref<RoseRoot::Texture2D> m_SpriteSheet;
+	RoseRoot::Ref<RoseRoot::SubTexture2D> m_GrassTexture, m_StoneTexture, m_GlassTexture;
 };
 
 class Chunk {

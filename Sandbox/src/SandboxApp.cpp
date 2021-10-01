@@ -1,12 +1,12 @@
 #pragma once
-#include <VoxelEngine.h>
+#include <RoseRoot.h>
 //---Entry Point---
-#include <VoxelEngine/Core/EntryPoint.h>
+#include <RoseRoot/Core/EntryPoint.h>
 //-----------------
 
 #include "MainLayer.h"
 
-class Sandbox : public VoxelEngine::Application
+class Sandbox : public RoseRoot::Application
 {
 public:
 	Sandbox()
@@ -20,7 +20,7 @@ public:
 	}
 };
 
-VoxelEngine::Application* VoxelEngine::CreateApplication()
+RoseRoot::Application* RoseRoot::CreateApplication()
 {
 	return new Sandbox();
 }

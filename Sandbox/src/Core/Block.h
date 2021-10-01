@@ -1,5 +1,5 @@
 #pragma once
-#include <VoxelEngine.h>
+#include <RoseRoot.h>
 
 using BlockId = uint8_t;
 

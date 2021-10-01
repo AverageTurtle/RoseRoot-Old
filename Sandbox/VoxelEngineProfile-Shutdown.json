@@ -1,1 +1,0 @@
-{"otherData": {},"traceEvents":[{"cat":"function","dur":1,"name":"__cdecl VoxelEngine::Application::~Application(void)","ph":"X","pid":0,"tid":179603059,"ts":98280432041},{"cat":"function","dur":23754,"name":"void __cdecl VoxelEngine::WindowsWindow::Shutdown(void)","ph":"X","pid":0,"tid":179603059,"ts":98280432124}]}

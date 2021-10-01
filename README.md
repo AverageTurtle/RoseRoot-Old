@@ -1,2 +1,2 @@
-# VoxelEngine
-A voxel engine
+# Project Rose
+A private Game engine and Editor!

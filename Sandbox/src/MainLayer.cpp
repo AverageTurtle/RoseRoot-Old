@@ -1,19 +1,19 @@
 #include "MainLayer.h"
 #include "imgui/imgui.h"
 
-MainLayer::MainLayer(VoxelEngine::Window& window)
+MainLayer::MainLayer(RoseRoot::Window& window)
 	: Layer("MainLayer"), m_Window(window), m_CameraController(16.f / 9.f), m_TestChunk()
 {
 }
 
 void MainLayer::OnAttach()
 {
-	VE_PROFILE_FUNCTION();
+	RR_PROFILE_FUNCTION();
 
 	m_CameraController.SetTracking(false);
 	m_Window.SetCapturesMouse(false);
 
-	m_ViewTest = VoxelEngine::Texture2D::Create("assets/textures/ViewTest.png");
+	m_ViewTest = RoseRoot::Texture2D::Create("assets/textures/ViewTest.png");
 
 	for (int x = 0; x < CHUNK_SIZE; x++)
 	{
@@ -33,37 +33,37 @@ void MainLayer::OnDetach()
 {
 }
 
-void MainLayer::OnUpdate(VoxelEngine::Timestep ts)
+void MainLayer::OnUpdate(RoseRoot::Timestep ts)
 {
-	VE_PROFILE_FUNCTION();
+	RR_PROFILE_FUNCTION();
 
 	m_CameraController.OnUpdate(ts);
 
 
 	//Render
-	VoxelEngine::RendererVoxel::ResetStats();
+	RoseRoot::RendererVoxel::ResetStats();
 
-	VoxelEngine::RenderCommand::SetClearColor({ 0.5, 0.6, 0.9, 1 });
-	VoxelEngine::RenderCommand::Clear();
+	RoseRoot::RenderCommand::SetClearColor({ 0.5, 0.6, 0.9, 1 });
+	RoseRoot::RenderCommand::Clear();
 
-	VoxelEngine::RendererVoxel::BeginScene(m_CameraController.GetCamera());
+	RoseRoot::RendererVoxel::BeginScene(m_CameraController.GetCamera());
 
-	VoxelEngine::RendererVoxel::DrawQuad({ 1,0,1 }, { 1,1,1 }, { 1,1,1,1 });
+	RoseRoot::RendererVoxel::DrawQuad({ 1,0,1 }, { 1,1,1 }, { 1,1,1,1 });
 	m_TestChunk.RegenAllMeshes();
 	m_TestChunk.Draw();
 
-	VoxelEngine::RendererVoxel::EndScene();
+	RoseRoot::RendererVoxel::EndScene();
 }
 
 void MainLayer::OnImGuiRender()
 {
-	VE_PROFILE_FUNCTION();
+	RR_PROFILE_FUNCTION();
 
 	ImGui::Begin("Settings");
 	ImGui::Text("Camera Fov: %.2f", m_CameraController.GetFOV());
 	ImGui::Text("Camera Sensitivity: %.2f", m_CameraController.GetSensitivity());
 
-	auto stats = VoxelEngine::RendererVoxel::GetStats();
+	auto stats = RoseRoot::RendererVoxel::GetStats();
 	ImGui::Text("Renderer Voxel Stats:");
 	ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 	ImGui::Text("Quad Count: %d", stats.QuadCount);
@@ -75,16 +75,16 @@ void MainLayer::OnImGuiRender()
 	ImGui::End();
 }
 
-void MainLayer::OnEvent(VoxelEngine::Event& event)
+void MainLayer::OnEvent(RoseRoot::Event& event)
 {
 	m_CameraController.OnEvent(event);
 
-	VoxelEngine::EventDispatcher dispatcher(event);
-	dispatcher.Dispatch<VoxelEngine::KeyPressedEvent>(VE_BIND_EVENT_FN(MainLayer::KeyPressed));
+	RoseRoot::EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<RoseRoot::KeyPressedEvent>(RR_BIND_EVENT_FN(MainLayer::KeyPressed));
 }
-bool MainLayer::KeyPressed(VoxelEngine::KeyPressedEvent& e)
+bool MainLayer::KeyPressed(RoseRoot::KeyPressedEvent& e)
 {
-	if (e.GetKeyCode() == VE_KEY_ESCAPE)
+	if (e.GetKeyCode() == RR_KEY_ESCAPE)
 	{
 		if (e.GetRepeatCount() == 0)
 		{
@@ -102,7 +102,7 @@ bool MainLayer::KeyPressed(VoxelEngine::KeyPressedEvent& e)
 			
 	}
 
-	if (e.GetKeyCode() == VE_KEY_I)
+	if (e.GetKeyCode() == RR_KEY_I)
 	{
 		if (e.GetRepeatCount() == 0)
 		{
