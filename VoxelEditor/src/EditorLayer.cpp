@@ -16,7 +16,7 @@ namespace VoxelEngine {
 	}
 
 	EditorLayer::EditorLayer(Window& window)
-		: Layer("MainLayer"), m_Window(window), m_CameraController(16.f / 9.f)
+		: Layer("EditorLayer"), m_Window(window), m_CameraController(16.f / 9.f)
 	{
 	}
 
@@ -49,7 +49,27 @@ namespace VoxelEngine {
 	{
 		VE_PROFILE_FUNCTION();
 
-		m_CameraController.OnUpdate(ts);
+		if (m_ViewPortFocused)
+			m_CameraController.OnUpdate(ts);
+
+		if (Input::IsMouseButtonPressed(VE_MOUSE_BUTTON_RIGHT)) {
+			if (m_ViewPortHovered)
+			{
+				m_CameraController.OnUpdate(ts);
+				if (!m_Tracking)
+				{
+					m_CameraController.SetTracking(true);
+					m_Window.SetCapturesMouse(true);
+					m_Tracking = true;
+				}
+
+			}
+		}
+		else {
+			m_CameraController.SetTracking(false);
+			m_Window.SetCapturesMouse(false);
+			m_Tracking = false;
+		}
 
 
 		//Render
@@ -198,7 +218,12 @@ namespace VoxelEngine {
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
-		ImGui::Begin("View Port");
+		ImGui::Begin("ViewPort");
+		
+		m_ViewPortFocused = ImGui::IsWindowFocused();
+		m_ViewPortHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewPortFocused || !m_ViewPortHovered);
+
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		if (m_ViewPortSize != *((glm::vec2*)&viewportPanelSize))
 		{
@@ -223,24 +248,6 @@ namespace VoxelEngine {
 	}
 	bool EditorLayer::KeyPressed(KeyPressedEvent& e)
 	{
-		if (e.GetKeyCode() == VE_KEY_ESCAPE)
-		{
-			if (e.GetRepeatCount() == 0)
-			{
-				if (m_Window.GetCapturesMouse())
-				{
-					m_CameraController.SetTracking(false);
-					m_Window.SetCapturesMouse(false);
-				}
-				else
-				{
-					m_CameraController.SetTracking(true);
-					m_Window.SetCapturesMouse(true);
-				}
-			}
-
-		}
-
 		if (e.GetKeyCode() == VE_KEY_I)
 		{
 			if (e.GetRepeatCount() == 0)

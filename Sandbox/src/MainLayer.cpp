@@ -1,21 +1,8 @@
 #include "MainLayer.h"
 #include "imgui/imgui.h"
 
-//Temp draw cube
-void DrawCube(glm::vec3 position, glm::vec4 color,VoxelEngine::Ref<VoxelEngine::SubTexture2D> texture)
-{
-	VoxelEngine::RendererVoxel::DrawQuadRotated(glm::vec3(0.f, 0.5f, 0.f) + position, { 1.f, 1.f, 1.f }, { 90.f, 0.f, 0.f }, color, texture, 1.f);
-	VoxelEngine::RendererVoxel::DrawQuadRotated(glm::vec3(0.f,-0.5f, 0.f) + position, { 1.f, 1.f, 1.f }, { 90.f, 0.f, 0.f }, color, texture, 1.f);
-									
-	VoxelEngine::RendererVoxel::DrawQuad(glm::vec3(0.f, 0.0f, 0.5f) + position, { 1.f, 1.f, 1.f }, color, texture, 1.f);
-	VoxelEngine::RendererVoxel::DrawQuad(glm::vec3(0.f, 0.0f, -0.5f) + position, { 1.f, 1.f, 1.f }, color, texture, 1.f);
-										
-	VoxelEngine::RendererVoxel::DrawQuadRotated(glm::vec3(0.5f, 0.0f, 0.0f) + position, { 1.f, 1.f, 1.f }, { 0.f, 90.f, 0.f }, color, texture, 1.f);
-	VoxelEngine::RendererVoxel::DrawQuadRotated(glm::vec3(-0.5f, 0.0f, 0.0f) + position, { 1.f, 1.f, 1.f }, { 0.f, 90.f, 0.f }, color, texture, 1.f);
-}
-
 MainLayer::MainLayer(VoxelEngine::Window& window)
-	: Layer("MainLayer"), m_Window(window), m_CameraController(16.f / 9.f)
+	: Layer("MainLayer"), m_Window(window), m_CameraController(16.f / 9.f), m_TestChunk()
 {
 }
 
@@ -26,12 +13,19 @@ void MainLayer::OnAttach()
 	m_CameraController.SetTracking(false);
 	m_Window.SetCapturesMouse(false);
 
-	m_SpriteSheet = VoxelEngine::Texture2D::Create("assets/textures/SpriteSheet.png");
 	m_ViewTest = VoxelEngine::Texture2D::Create("assets/textures/ViewTest.png");
 
-	m_GrassTexture = VoxelEngine::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 1, 0 }, {16, 16});
-	m_StoneTexture = VoxelEngine::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 0 }, { 16, 16 });
-	m_GlassTexture = VoxelEngine::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 3, 0 }, { 16, 16 });
+	for (int x = 0; x < CHUNK_SIZE; x++)
+	{
+		for (int z = 0; z < CHUNK_SIZE; z++)
+		{
+			for (int y = 0; y < CHUNK_SIZE; y++)
+			{
+				m_TestChunk.SetBlock(x, y, z, BlockType::Stone);
+			}
+		}
+	}
+	m_TestChunk.RegenAllMeshes();
 }
 
 
@@ -49,60 +43,16 @@ void MainLayer::OnUpdate(VoxelEngine::Timestep ts)
 	//Render
 	VoxelEngine::RendererVoxel::ResetStats();
 
-	const int size = 128;
-	if (m_Scene == 1)
-	{
-		VoxelEngine::RenderCommand::SetClearColor({ 0.5, 0.6, 0.9, 1 });
-		VoxelEngine::RenderCommand::Clear();
+	VoxelEngine::RenderCommand::SetClearColor({ 0.5, 0.6, 0.9, 1 });
+	VoxelEngine::RenderCommand::Clear();
 
-		VoxelEngine::RendererVoxel::BeginScene(m_CameraController.GetCamera());
+	VoxelEngine::RendererVoxel::BeginScene(m_CameraController.GetCamera());
 
-		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
+	VoxelEngine::RendererVoxel::DrawQuad({ 1,0,1 }, { 1,1,1 }, { 1,1,1,1 });
+	m_TestChunk.RegenAllMeshes();
+	m_TestChunk.Draw();
 
-		for (int z = 0; z < size; z++)
-		{
-			for (int x = 0; x < size; x++)
-			{
-				DrawCube({ x - (float)size/2, -2, z - (float)size / 2 }, m_Color,m_GrassTexture);
-			}
-		}
-		DrawCube({ -6,  0, 0 }, m_Color, m_StoneTexture);
-		DrawCube({ -6,  0, 2 }, m_Color, m_StoneTexture);
-		DrawCube({ -6, -1, 0 }, m_Color, m_StoneTexture);
-		DrawCube({ -6, -1, 1 }, m_Color, m_StoneTexture);
-		DrawCube({ -6, -1, 2 }, m_Color, m_StoneTexture);
-		DrawCube({ -6,  1, 0 }, m_Color, m_StoneTexture);
-		DrawCube({ -6,  1, 1 }, m_Color, m_StoneTexture);
-		DrawCube({ -6,  1, 2 }, m_Color, m_StoneTexture);
-
-		DrawCube({ -6,  0, 1 }, m_Color, m_GlassTexture);
-
-		//VoxelEngine::RendererVoxel::DrawQuad({ 0.f,0.f,-16.f }, { 16.f, 16.f, 0.f }, { 90.f, 0.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, m_GrassTexture, 16.f);
-
-		VoxelEngine::RendererVoxel::EndScene();
-	}
-	else if (m_Scene == 2)
-	{
-		VoxelEngine::RenderCommand::SetClearColor({ 0.05, 0.05, 0.09, 1 });
-		VoxelEngine::RenderCommand::Clear();
-		VoxelEngine::RendererVoxel::BeginScene(m_CameraController.GetCamera());
-
-		static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
-
-		for (int z = 0; z < size; z++)
-		{
-			for (int x = 0; x < size; x++)
-			{
-				DrawCube({ x - (float)size / 2, -2, z - (float)size / 2 }, { m_Color.x/2, m_Color.y/2, m_Color.z/2, m_Color.a}, m_GrassTexture);
-			}
-		}
-		DrawCube({ 4,  0, 0 }, { m_Color.x / 2, m_Color.y / 2, m_Color.z / 2, m_Color.a }, m_GlassTexture);
-		DrawCube({ 4, -1, 0 }, { m_Color.x / 2, m_Color.y / 2, m_Color.z / 2, m_Color.a }, m_GlassTexture);
-
-		//VoxelEngine::RendererVoxel::DrawQuad({ 0.f,0.f,-16.f }, { 16.f, 16.f, 0.f }, { 90.f, 0.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, m_GrassTexture, 16.f);
-
-		VoxelEngine::RendererVoxel::EndScene();
-	}
+	VoxelEngine::RendererVoxel::EndScene();
 }
 
 void MainLayer::OnImGuiRender()

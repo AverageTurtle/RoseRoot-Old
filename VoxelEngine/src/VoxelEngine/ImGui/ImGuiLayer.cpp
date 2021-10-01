@@ -15,11 +15,10 @@
 
 namespace VoxelEngine {
 	ImGuiLayer::ImGuiLayer()
+		: Layer("ImGuiLayer")
 	{
 	}
-	ImGuiLayer::~ImGuiLayer()
-	{
-	}
+
 	void ImGuiLayer::OnAttach()
 	{
 		VE_PROFILE_FUNCTION();
@@ -54,6 +53,7 @@ namespace VoxelEngine {
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
+
 	void ImGuiLayer::OnDetach()
 	{
 		VE_PROFILE_FUNCTION();
@@ -62,6 +62,17 @@ namespace VoxelEngine {
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
+
+	void ImGuiLayer::OnEvent(Event& e)
+	{
+		if (m_BlockEvents)
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			e.Handled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			e.Handled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
+	}
+
 	void ImGuiLayer::Begin()
 	{
 		VE_PROFILE_FUNCTION();
@@ -70,6 +81,7 @@ namespace VoxelEngine {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 	}
+
 	void ImGuiLayer::End()
 	{
 		VE_PROFILE_FUNCTION();
@@ -89,9 +101,5 @@ namespace VoxelEngine {
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup_current_context);
 		}
-	}
-
-	void ImGuiLayer::OnImGuiRender()
-	{
 	}
 }

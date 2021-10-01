@@ -153,11 +153,11 @@ namespace VoxelEngine {
 		s_Data.TextureSlotIndex = 1;
 	}
 
-	void RendererVoxel::DrawQuad(const glm::vec3& position, const glm::vec3& scale, const glm::vec3& rotation, const glm::vec4& color)
+	void RendererVoxel::DrawQuad(const glm::vec3& position, const glm::vec3& scale, const glm::vec4& color)
 	{	
 		VE_PROFILE_FUNCTION();
 
-		VE_CORE_WARN("Rendering a quad without a texture is disable for now");
+		DrawQuad(position, scale, color, s_Data.WhiteTexture, 1.f);
 	}
 
 	void RendererVoxel::DrawQuad(const glm::vec3& position, const glm::vec3& scale, const glm::vec4& color, const Ref<Texture2D>& texture, float tiles)

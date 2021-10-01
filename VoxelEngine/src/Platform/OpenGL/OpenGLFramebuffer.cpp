@@ -5,6 +5,8 @@
 
 namespace VoxelEngine {
 
+	static const uint32_t s_MaxFrameBufferSize = 16384;
+
 	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec)
 		: m_Specification(spec)
 	{
@@ -57,10 +59,15 @@ namespace VoxelEngine {
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
-	void OpenGLFramebuffer::Resize(uint32_t Width, uint32_t Height)
+	void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height)
 	{
-		m_Specification.Width = Width;
-		m_Specification.Height = Height;
+		if (width == 0 || height == 0 || width > s_MaxFrameBufferSize || height > s_MaxFrameBufferSize)
+		{
+			VE_CORE_WARN("Failed to resize framebuffer to {0}, {1}", width, height);
+		}
+
+		m_Specification.Width = width;
+		m_Specification.Height = height;
 
 		Invalidate();
 	}

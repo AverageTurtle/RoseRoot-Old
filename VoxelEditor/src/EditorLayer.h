@@ -17,7 +17,9 @@ namespace VoxelEngine {
 
 		bool KeyPressed(KeyPressedEvent& e);
 	private:
+		bool m_Tracking;
 		int m_Scene = 1;
+		bool m_ViewPortFocused, m_ViewPortHovered;
 		FlightCameraController m_CameraController;
 
 		Window& m_Window;

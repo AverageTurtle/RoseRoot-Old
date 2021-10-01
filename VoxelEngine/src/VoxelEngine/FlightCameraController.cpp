@@ -39,6 +39,9 @@ namespace VoxelEngine {
 			m_CameraSensitivity += m_CameraSensitivity * ts;
 
 
+		
+
+
 		if (m_Tracking)
 		{
 			if (m_FirstMouse)
@@ -46,18 +49,18 @@ namespace VoxelEngine {
 				m_LastX = Input::GetMouseX();
 				m_LastY = Input::GetMouseY();
 				m_FirstMouse = false;
-			}
+			} 
 
 			float xoffset = Input::GetMouseX() - m_LastX;
 			float yoffset = m_LastY - Input::GetMouseY();
 			m_LastX = Input::GetMouseX();
 			m_LastY = Input::GetMouseY();
 
-			xoffset *= m_CameraSensitivity;
-			yoffset *= m_CameraSensitivity;
+			xoffset *= m_CameraSensitivity * ts;
+			yoffset *= m_CameraSensitivity * ts;
 
-			m_CameraYaw += xoffset*ts;
-			m_CameraPitch += yoffset*ts;
+			m_CameraYaw += xoffset;
+			m_CameraPitch += yoffset;
 
 			if (m_CameraPitch > 89.0f)
 				m_CameraPitch = 89.0f;

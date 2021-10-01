@@ -1466,6 +1466,9 @@
     <ClCompile Include="src\VoxelEngine\Core\Log.cpp">
       <Filter>src\VoxelEngine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\VoxelEngine\Core\Window.cpp">
+      <Filter>src\VoxelEngine\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\VoxelEngine\FlightCameraController.cpp">
       <Filter>src\VoxelEngine</Filter>
     </ClCompile>
@@ -1514,6 +1517,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\VoxelEngine\Core\Window.cpp" />
   </ItemGroup>
 </Project>

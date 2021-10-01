@@ -1,6 +1,8 @@
 #pragma once
 #include <VoxelEngine.h>
 
+#include "Core/Chunk.h"
+
 class MainLayer : public VoxelEngine::Layer
 {
 public:
@@ -16,6 +18,8 @@ public:
 
 	bool KeyPressed(VoxelEngine::KeyPressedEvent& e);
 private:
+	Chunk m_TestChunk;
+
 	int m_Scene = 1;
 	VoxelEngine::FlightCameraController m_CameraController;
 
@@ -24,8 +28,7 @@ private:
 	VoxelEngine::Ref<VoxelEngine::Shader> m_Shader;
 	VoxelEngine::Ref<VoxelEngine::VertexArray> m_VertexArray;
 
-	VoxelEngine::Ref<VoxelEngine::Texture2D> m_SpriteSheet, m_ViewTest;
-	VoxelEngine::Ref<VoxelEngine::SubTexture2D> m_GrassTexture, m_StoneTexture, m_GlassTexture;
+	VoxelEngine::Ref<VoxelEngine::Texture2D> m_ViewTest;
 
 	glm::vec4 m_Color = {1.f, 1.f, 1.f, 1.f};
 	//VoxelEngine::Ref<VoxelEngine::Texure2D> m_Texture;
