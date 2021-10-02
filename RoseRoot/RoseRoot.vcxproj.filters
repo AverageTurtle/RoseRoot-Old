@@ -1434,6 +1434,8 @@
     <ClInclude Include="src\RoseRoot\Renderer\Renderer2D.h" />
     <ClInclude Include="src\RoseRoot\Scene\Components.h" />
     <ClInclude Include="src\RoseRoot\OrthographicCameraController.h" />
+    <ClInclude Include="src\RoseRoot\Scene\Entity.h" />
+    <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1531,5 +1533,7 @@
     </ClCompile>
     <ClCompile Include="src\RoseRoot\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\RoseRoot\OrthographicCameraController.cpp" />
+    <ClCompile Include="src\RoseRoot\Scene\Entity.cpp" />
+    <ClCompile Include="src\RoseRoot\Scene\SceneCamera.cpp" />
   </ItemGroup>
 </Project>

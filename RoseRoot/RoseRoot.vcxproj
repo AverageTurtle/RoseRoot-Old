@@ -182,7 +182,9 @@
     <ClInclude Include="src\RoseRoot\Renderer\Texture.h" />
     <ClInclude Include="src\RoseRoot\Renderer\VertexArray.h" />
     <ClInclude Include="src\RoseRoot\Scene\Components.h" />
+    <ClInclude Include="src\RoseRoot\Scene\Entity.h" />
     <ClInclude Include="src\RoseRoot\Scene\Scene.h" />
+    <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h" />
     <ClInclude Include="src\rrpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -632,7 +634,9 @@
     <ClCompile Include="src\RoseRoot\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Texture.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\RoseRoot\Scene\Entity.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\Scene.cpp" />
+    <ClCompile Include="src\RoseRoot\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\rrpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

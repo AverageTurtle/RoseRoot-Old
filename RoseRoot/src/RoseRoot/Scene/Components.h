@@ -2,7 +2,19 @@
 
 #include <glm/glm.hpp>
 
+#include "RoseRoot/Scene/SceneCamera.h"
+
 namespace RoseRoot {
+
+	struct TagComponent
+	{
+		std::string Tag;
+
+		TagComponent() = default;
+		TagComponent(const TagComponent&) = default;
+		TagComponent(const std::string& tag)
+			: Tag(tag) {}
+	};
 
 	struct TransformComponent
 	{
@@ -25,5 +37,15 @@ namespace RoseRoot {
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color)
 			: Color(color) {}
+	};
+
+	struct CameraComponent
+	{
+		SceneCamera Camera;
+		bool Primary = true;
+		bool FixedAspectRation = false;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
 	};
 }

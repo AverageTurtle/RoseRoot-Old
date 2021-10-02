@@ -14,6 +14,7 @@
 #include "RoseRoot/ImGui/ImGuiLayer.h"
 
 #include "RoseRoot/Scene/Scene.h"
+#include "RoseRoot/Scene/Entity.h"
 #include "RoseRoot/Scene/Components.h"
 
 //Renderer
