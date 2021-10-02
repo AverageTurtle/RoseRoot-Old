@@ -13,7 +13,7 @@ namespace RoseRoot {
 		RoseStem()
 			: Application("Rose Stem")
 		{
-			PushLayer(new EditorLayer(GetWindow()));
+			PushLayer(new EditorLayer());
 		}
 
 		~RoseStem()

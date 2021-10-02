@@ -2,21 +2,9 @@
 #include "imgui/imgui.h"
 
 namespace RoseRoot {
-	//Temp draw cube
-	void DrawCube(glm::vec3 position, glm::vec4 color, Ref<SubTexture2D> texture)
-	{
-		RendererVoxel::DrawQuadRotated(glm::vec3(0.f, 0.5f, 0.f) + position, { 1.f, 1.f, 1.f }, { 90.f, 0.f, 0.f }, color, texture, 1.f);
-		RendererVoxel::DrawQuadRotated(glm::vec3(0.f, -0.5f, 0.f) + position, { 1.f, 1.f, 1.f }, { 90.f, 0.f, 0.f }, color, texture, 1.f);
 
-		RendererVoxel::DrawQuad(glm::vec3(0.f, 0.0f, 0.5f) + position, { 1.f, 1.f, 1.f }, color, texture, 1.f);
-		RendererVoxel::DrawQuad(glm::vec3(0.f, 0.0f, -0.5f) + position, { 1.f, 1.f, 1.f }, color, texture, 1.f);
-
-		RendererVoxel::DrawQuadRotated(glm::vec3(0.5f, 0.0f, 0.0f) + position, { 1.f, 1.f, 1.f }, { 0.f, 90.f, 0.f }, color, texture, 1.f);
-		RendererVoxel::DrawQuadRotated(glm::vec3(-0.5f, 0.0f, 0.0f) + position, { 1.f, 1.f, 1.f }, { 0.f, 90.f, 0.f }, color, texture, 1.f);
-	}
-
-	EditorLayer::EditorLayer(Window& window)
-		: Layer("EditorLayer"), m_Window(window), m_CameraController(16.f / 9.f)
+	EditorLayer::EditorLayer()
+		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f), m_Color({ 0.2f, 0.3f, 0.8f, 1.0f })
 	{
 	}
 
@@ -24,112 +12,56 @@ namespace RoseRoot {
 	{
 		RR_PROFILE_FUNCTION();
 
-		m_CameraController.SetTracking(false);
-		m_Window.SetCapturesMouse(false);
-
 		m_SpriteSheet = Texture2D::Create("assets/textures/SpriteSheet.png");
-		m_ViewTest = Texture2D::Create("assets/textures/ViewTest.png");
-
-		m_GrassTexture = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 1, 0 }, { 16, 16 });
-		m_StoneTexture = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 0 }, { 16, 16 });
-		m_GlassTexture = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 3, 0 }, { 16, 16 });
 
 		FramebufferSpecification fbSpec;
 		fbSpec.Width = 1280;
 		fbSpec.Height = 720;
 		m_Framebuffer = Framebuffer::Create(fbSpec);
-	}
 
+		m_ActiveScene = CreateRef<Scene>();
+
+		auto square = m_ActiveScene->CreateEntity();
+		m_ActiveScene->Reg().emplace<TransformComponent>(square);
+		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{ 0.6f, 0.3f, 0.9f, 1.0f });
+
+		m_SquareEntity = square;
+	}
 
 	void EditorLayer::OnDetach()
 	{
+		RR_PROFILE_FUNCTION();
 	}
 
 	void EditorLayer::OnUpdate(Timestep ts)
 	{
 		RR_PROFILE_FUNCTION();
 
-		if (m_ViewPortFocused)
+		// Resize
+		if (FramebufferSpecification spec = m_Framebuffer->GetSpecification();
+			m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
+			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
+		{
+			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+		}
+
+		// Update
+		if (m_ViewportFocused)
 			m_CameraController.OnUpdate(ts);
 
-		if (Input::IsMouseButtonPressed(RR_MOUSE_BUTTON_RIGHT)) {
-			if (m_ViewPortHovered)
-			{
-				m_CameraController.OnUpdate(ts);
-				if (!m_Tracking)
-				{
-					m_CameraController.SetTracking(true);
-					m_Window.SetCapturesMouse(true);
-					m_Tracking = true;
-				}
-
-			}
-		}
-		else {
-			m_CameraController.SetTracking(false);
-			m_Window.SetCapturesMouse(false);
-			m_Tracking = false;
-		}
-
-
-		//Render
-		RendererVoxel::ResetStats();
+		// Render
+		Renderer2D::ResetStats();
 		m_Framebuffer->Bind();
+		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		RenderCommand::Clear();
 
-		const int size = 128;
-		if (m_Scene == 1)
-		{
-			RenderCommand::SetClearColor({ 0.5, 0.6, 0.9, 1 });
-			RenderCommand::Clear();
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-			RendererVoxel::BeginScene(m_CameraController.GetCamera());
+		// Update scene
+		m_ActiveScene->OnUpdate(ts);
 
-			static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
-
-			for (int z = 0; z < size; z++)
-			{
-				for (int x = 0; x < size; x++)
-				{
-					DrawCube({ x - (float)size / 2, -2, z - (float)size / 2 }, m_Color, m_GrassTexture);
-				}
-			}
-			DrawCube({ -6,  0, 0 }, m_Color, m_StoneTexture);
-			DrawCube({ -6,  0, 2 }, m_Color, m_StoneTexture);
-			DrawCube({ -6, -1, 0 }, m_Color, m_StoneTexture);
-			DrawCube({ -6, -1, 1 }, m_Color, m_StoneTexture);
-			DrawCube({ -6, -1, 2 }, m_Color, m_StoneTexture);
-			DrawCube({ -6,  1, 0 }, m_Color, m_StoneTexture);
-			DrawCube({ -6,  1, 1 }, m_Color, m_StoneTexture);
-			DrawCube({ -6,  1, 2 }, m_Color, m_StoneTexture);
-
-			DrawCube({ -6,  0, 1 }, m_Color, m_GlassTexture);
-
-			//RendererVoxel::DrawQuad({ 0.f,0.f,-16.f }, { 16.f, 16.f, 0.f }, { 90.f, 0.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, m_GrassTexture, 16.f);
-
-			RendererVoxel::EndScene();
-		}
-		else if (m_Scene == 2)
-		{
-			RenderCommand::SetClearColor({ 0.05, 0.05, 0.09, 1 });
-			RenderCommand::Clear();
-			RendererVoxel::BeginScene(m_CameraController.GetCamera());
-
-			static glm::mat4 scale = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
-
-			for (int z = 0; z < size; z++)
-			{
-				for (int x = 0; x < size; x++)
-				{
-					DrawCube({ x - (float)size / 2, -2, z - (float)size / 2 }, { m_Color.x / 2, m_Color.y / 2, m_Color.z / 2, m_Color.a }, m_GrassTexture);
-				}
-			}
-			DrawCube({ 4,  0, 0 }, { m_Color.x / 2, m_Color.y / 2, m_Color.z / 2, m_Color.a }, m_GlassTexture);
-			DrawCube({ 4, -1, 0 }, { m_Color.x / 2, m_Color.y / 2, m_Color.z / 2, m_Color.a }, m_GlassTexture);
-
-			//RendererVoxel::DrawQuad({ 0.f,0.f,-16.f }, { 16.f, 16.f, 0.f }, { 90.f, 0.f, 0.f }, { 1.0f, 1.0f, 1.0f, 1.0f }, m_GrassTexture, 16.f);
-
-			RendererVoxel::EndScene();
-		}
+		Renderer2D::EndScene();
 
 		m_Framebuffer->Unbind();
 	}
@@ -138,6 +70,7 @@ namespace RoseRoot {
 	{
 		RR_PROFILE_FUNCTION();
 
+		// Note: Switch this to true to enable dockspace
 		static bool dockspaceOpen = true;
 		static bool opt_fullscreen_persistant = true;
 		bool opt_fullscreen = opt_fullscreen_persistant;
@@ -197,73 +130,41 @@ namespace RoseRoot {
 			ImGui::EndMenuBar();
 		}
 
-		ImGui::End();
 		ImGui::Begin("Settings");
 
-		//TEMP
-		ImGui::Text("TEST BUILD DO NOT DISTRUBUTE");
-
-		ImGui::Text("Camera Fov: %.2f", m_CameraController.GetFOV());
-		ImGui::Text("Camera Sensitivity: %.2f", m_CameraController.GetSensitivity());
-
-		auto stats = RendererVoxel::GetStats();
-		ImGui::Text("Renderer Voxel Stats:");
+		auto stats = Renderer2D::GetStats();
+		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
-		ImGui::Text("Quad Count: %d", stats.QuadCount);
-		ImGui::Text("Vertex Count: %d", stats.GetTotalVertexCount());
-		ImGui::Text("Index Count: %d", stats.GetTotalIndexCount());
+		ImGui::Text("Quads: %d", stats.QuadCount);
+		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-		ImGui::ColorEdit4("Object Color:", glm::value_ptr(m_Color));
+		auto& squareColor = m_ActiveScene->Reg().get<SpriteRendererComponent>(m_SquareEntity).Color;
+		ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 
 		ImGui::End();
 
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
-		ImGui::Begin("ViewPort");
-		
-		m_ViewPortFocused = ImGui::IsWindowFocused();
-		m_ViewPortHovered = ImGui::IsWindowHovered();
-		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewPortFocused || !m_ViewPortHovered);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+		ImGui::Begin("Viewport");
+
+		m_ViewportFocused = ImGui::IsWindowFocused();
+		m_ViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		if (m_ViewPortSize != *((glm::vec2*)&viewportPanelSize))
-		{
-			m_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
-			m_ViewPortSize = { viewportPanelSize.x, viewportPanelSize.y };
+		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-			m_CameraController.SetAspectRatio(viewportPanelSize.x/viewportPanelSize.y);
-			RenderCommand::SetViewport(0, 0, viewportPanelSize.x, viewportPanelSize.y);
-		}
 		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ viewportPanelSize.x, viewportPanelSize.y }, ImVec2{ 0,1 }, ImVec2{ 1,0 });
+		ImGui::Image((void*)textureID, ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
 		ImGui::PopStyleVar();
+
+		ImGui::End();
 	}
 
-	void EditorLayer::OnEvent(Event& event)
+	void EditorLayer::OnEvent(Event& e)
 	{
-		m_CameraController.OnEvent(event);
-
-		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<KeyPressedEvent>(RR_BIND_EVENT_FN(EditorLayer::KeyPressed));
+		m_CameraController.OnEvent(e);
 	}
-	bool EditorLayer::KeyPressed(KeyPressedEvent& e)
-	{
-		if (e.GetKeyCode() == RR_KEY_I)
-		{
-			if (e.GetRepeatCount() == 0)
-			{
-				if (m_Scene == 1)
-				{
-					m_Scene = 2;
-				}
-				else
-				{
-					m_Scene = 1;
-				}
-			}
 
-		}
-
-		return false;
-	}
 }

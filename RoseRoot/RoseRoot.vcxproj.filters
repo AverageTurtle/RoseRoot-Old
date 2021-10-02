@@ -31,6 +31,9 @@
     <Filter Include="src\RoseRoot\Renderer">
       <UniqueIdentifier>{BFA90A9F-2B16-C699-F409-5EF76035E801}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\RoseRoot\Scene">
+      <UniqueIdentifier>{D6E1F6FC-C2C5-B752-2B26-B2A51729A2D4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
@@ -173,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="src\RoseRoot\Renderer\VertexArray.h">
       <Filter>src\RoseRoot\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoseRoot\Scene\Scene.h">
+      <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\rrpch.h">
       <Filter>src</Filter>
@@ -1425,6 +1431,9 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\RoseRoot\Scene\Components.h" />
+    <ClInclude Include="src\RoseRoot\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1511,11 +1520,16 @@
     <ClCompile Include="src\RoseRoot\Renderer\VertexArray.cpp">
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\RoseRoot\Scene\Scene.cpp">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\rrpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\RoseRoot\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\RoseRoot\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

@@ -107,7 +107,7 @@ namespace RoseRoot {
 	{
 		RR_PROFILE_FUNCTION();
 
-
+		delete[] s_Data.QuadVertexBufferBase;
 	}
 
 	void RendererVoxel::BeginScene(const PerspectiveCamera& camera)

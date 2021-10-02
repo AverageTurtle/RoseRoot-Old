@@ -1,11 +1,11 @@
 #pragma once
-#include <RoseRoot.h>
+#include "RoseRoot.h"
 
 namespace RoseRoot {
 	class EditorLayer : public Layer
 	{
 	public:
-		EditorLayer(Window& window);
+		EditorLayer();
 		virtual ~EditorLayer() = default;
 
 		virtual void OnAttach() override;
@@ -14,26 +14,24 @@ namespace RoseRoot {
 		virtual void OnUpdate(Timestep ts) override;
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& event) override;
-
-		bool KeyPressed(KeyPressedEvent& e);
 	private:
-		bool m_Tracking;
-		int m_Scene = 1;
-		bool m_ViewPortFocused, m_ViewPortHovered;
-		FlightCameraController m_CameraController;
+		OrthographicCameraController m_CameraController;
 
-		Window& m_Window;
-
+		Ref<VertexArray> m_VertexArray;
 		Ref<Shader> m_Shader;
 		Ref<Framebuffer> m_Framebuffer;
-		Ref<VertexArray> m_VertexArray;
+
+		Ref<Scene> m_ActiveScene;
+		entt::entity m_SquareEntity;
 
 		Ref<Texture2D> m_SpriteSheet, m_ViewTest;
 		Ref<SubTexture2D> m_GrassTexture, m_StoneTexture, m_GlassTexture;
 
-		glm::vec2 m_ViewPortSize;
-
 		glm::vec4 m_Color = { 1.f, 1.f, 1.f, 1.f };
+
+		bool m_ViewportFocused = false, m_ViewportHovered = false;
+		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
+
 		//Ref<Texure2D> m_Texture;
 	};
 }

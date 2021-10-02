@@ -18,6 +18,7 @@ IncludeDir["Glad"] = "RoseRoot/vendor/Glad/include"
 IncludeDir["ImGui"] = "RoseRoot/vendor/imgui"
 IncludeDir["glm"] = "RoseRoot/vendor/glm"
 IncludeDir["stb_image"] = "RoseRoot/vendor/stb_image"
+IncludeDir["entt"] = "RoseRoot/vendor/entt/include"
 
 group "Dependencies"
 	include "RoseRoot/vendor/GLFW"
@@ -61,7 +62,8 @@ project "RoseRoot"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links 
@@ -118,7 +120,8 @@ project "Sandbox"
 		"RoseRoot/vendor/spdlog/include",
 		"RoseRoot/src",
 		"RoseRoot/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -171,7 +174,8 @@ project "RoseStem"
 		"RoseRoot/vendor/spdlog/include",
 		"RoseRoot/src",
 		"RoseRoot/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links

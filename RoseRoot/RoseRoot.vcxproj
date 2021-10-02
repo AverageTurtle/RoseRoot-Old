@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>rrpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RR_PLATFORM_WINDOWS;RR_BUILD_DLL;GLFW_INCLUDE_NONE;RR_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeaderFile>rrpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RR_PLATFORM_WINDOWS;RR_BUILD_DLL;GLFW_INCLUDE_NONE;RR_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -121,7 +121,7 @@
       <PrecompiledHeaderFile>rrpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RR_PLATFORM_WINDOWS;RR_BUILD_DLL;GLFW_INCLUDE_NONE;RR_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -140,6 +140,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\RoseRoot\OrthographicCameraController.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
@@ -173,12 +174,15 @@
     <ClInclude Include="src\RoseRoot\Renderer\GraphicsContexted.h" />
     <ClInclude Include="src\RoseRoot\Renderer\RenderCommand.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Renderer.h" />
+    <ClInclude Include="src\RoseRoot\Renderer\Renderer2D.h" />
     <ClInclude Include="src\RoseRoot\Renderer\RendererAPI.h" />
     <ClInclude Include="src\RoseRoot\Renderer\RendererVoxel.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Shader.h" />
     <ClInclude Include="src\RoseRoot\Renderer\SubTexture2D.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Texture.h" />
     <ClInclude Include="src\RoseRoot\Renderer\VertexArray.h" />
+    <ClInclude Include="src\RoseRoot\Scene\Components.h" />
+    <ClInclude Include="src\RoseRoot\Scene\Scene.h" />
     <ClInclude Include="src\rrpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -615,17 +619,20 @@
     <ClCompile Include="src\RoseRoot\FlightCameraController.cpp" />
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\RoseRoot\OrthographicCameraController.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Buffer.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Camera.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\RoseRoot\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\RendererVoxel.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Shader.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Texture.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\RoseRoot\Scene\Scene.cpp" />
     <ClCompile Include="src\rrpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

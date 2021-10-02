@@ -28,7 +28,6 @@ namespace RoseRoot {
 		m_Window->SetCapturesMouse(false);
 
 		Renderer::Init();
-		RendererVoxel::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

@@ -53,6 +53,7 @@ namespace RoseRoot {
 	void OpenGLFramebuffer::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
+		glViewport(0, 0, m_Specification.Width, m_Specification.Height);
 	}
 
 	void OpenGLFramebuffer::Unbind()
@@ -63,9 +64,9 @@ namespace RoseRoot {
 	{
 		if (width == 0 || height == 0 || width > s_MaxFrameBufferSize || height > s_MaxFrameBufferSize)
 		{
-			RR_CORE_WARN("Failed to resize framebuffer to {0}, {1}", width, height);
+			RR_CORE_WARN("Attempted to rezize framebuffer to {0}, {1}", width, height);
+			return;
 		}
-
 		m_Specification.Width = width;
 		m_Specification.Height = height;
 
