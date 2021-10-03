@@ -25,6 +25,9 @@ namespace RoseRoot {
 		auto square = m_ActiveScene->CreateEntity("Purple Square");
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.8f, 0.4f, 0.9f, 1.0f });
 
+		auto greenSquare = m_ActiveScene->CreateEntity("Green Square");
+		greenSquare.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.4f, 0.8f, 0.4f, 1.0f });
+
 		m_SquareEntity = square;
 
 		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
@@ -33,6 +36,41 @@ namespace RoseRoot {
 		m_SecondCamera = m_ActiveScene->CreateEntity("Clip-Space Entity");
 		auto& cc = m_SecondCamera.AddComponent<CameraComponent>();
 		cc.Primary = false;
+
+		class CameraController : public ScriptableEntity
+		{
+		public:
+			void OnCreate()
+			{
+			}
+
+			void OnUpdate(Timestep ts)
+			{
+				auto& transform = GetComponent<TransformComponent>().Transform;
+				float speed = 5.0f;
+
+				if (Input::IsKeyPressed(KeyCode::A))
+					transform[3][0] -= speed * ts;
+				if (Input::IsKeyPressed(KeyCode::D))
+					transform[3][0] += speed * ts;
+
+				if (Input::IsKeyPressed(KeyCode::W))
+					transform[3][1] += speed * ts;
+				if (Input::IsKeyPressed(KeyCode::S))
+					transform[3][1] -= speed * ts;
+			}
+
+			void OnDestroy()
+			{
+
+			}
+		};
+
+		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+		m_SecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+
+		m_SceneHierachyPanel.SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::OnDetach()
@@ -134,6 +172,8 @@ namespace RoseRoot {
 
 			ImGui::EndMenuBar();
 		}
+
+		m_SceneHierachyPanel.OnImGuiRender();
 
 		ImGui::Begin("Settings");
 

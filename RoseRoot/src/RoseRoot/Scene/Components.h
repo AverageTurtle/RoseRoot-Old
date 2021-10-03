@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "RoseRoot/Scene/SceneCamera.h"
+#include "ScriptableEntity.h"
 
 namespace RoseRoot {
 
@@ -43,9 +44,24 @@ namespace RoseRoot {
 	{
 		SceneCamera Camera;
 		bool Primary = true;
-		bool FixedAspectRation = false;
+		bool FixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
+	};
+
+	struct NativeScriptComponent
+	{
+		ScriptableEntity* Instance = nullptr;
+		
+		ScriptableEntity*(*InstantiateScript)();
+		void (*DestroyScript)(NativeScriptComponent*);
+
+		template<typename T>
+		void Bind()
+		{
+			InstantiateScript = []() { return static_cast<ScriptableEntity*>(new T()); };
+			DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
+		}
 	};
 }

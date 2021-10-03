@@ -140,7 +140,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\RoseRoot\OrthographicCameraController.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
@@ -168,6 +167,7 @@
     <ClInclude Include="src\RoseRoot\Events\MouseEvent.h" />
     <ClInclude Include="src\RoseRoot\FlightCameraController.h" />
     <ClInclude Include="src\RoseRoot\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\RoseRoot\OrthographicCameraController.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Buffer.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Camera.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Framebuffer.h" />
@@ -185,6 +185,7 @@
     <ClInclude Include="src\RoseRoot\Scene\Entity.h" />
     <ClInclude Include="src\RoseRoot\Scene\Scene.h" />
     <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h" />
+    <ClInclude Include="src\RoseRoot\Scene\ScriptableEntity.h" />
     <ClInclude Include="src\rrpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />

@@ -10,7 +10,7 @@ namespace RoseRoot
 	void Log::Init()
 	{
 		spdlog::set_pattern("%^[%T] %n: %v%$");
-		s_CoreLogger = spdlog::stdout_color_mt("VOXELENGINE");
+		s_CoreLogger = spdlog::stdout_color_mt("ROSEROOT");
 		s_CoreLogger->set_level(spdlog::level::trace);
 
 		s_ClientLogger = spdlog::stdout_color_mt("APP");

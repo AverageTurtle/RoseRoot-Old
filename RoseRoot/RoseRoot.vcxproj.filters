@@ -141,6 +141,9 @@
     <ClInclude Include="src\RoseRoot\ImGui\ImGuiLayer.h">
       <Filter>src\RoseRoot\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\OrthographicCameraController.h">
+      <Filter>src\RoseRoot</Filter>
+    </ClInclude>
     <ClInclude Include="src\RoseRoot\Renderer\Buffer.h">
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClInclude>
@@ -157,6 +160,9 @@
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\RoseRoot\Renderer\Renderer.h">
+      <Filter>src\RoseRoot\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoseRoot\Renderer\Renderer2D.h">
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\RoseRoot\Renderer\RendererAPI.h">
@@ -177,7 +183,19 @@
     <ClInclude Include="src\RoseRoot\Renderer\VertexArray.h">
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\Scene\Components.h">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoseRoot\Scene\Entity.h">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\RoseRoot\Scene\Scene.h">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoseRoot\Scene\ScriptableEntity.h">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\rrpch.h">
@@ -1431,11 +1449,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\RoseRoot\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\RoseRoot\Scene\Components.h" />
-    <ClInclude Include="src\RoseRoot\OrthographicCameraController.h" />
-    <ClInclude Include="src\RoseRoot\Scene\Entity.h" />
-    <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1489,6 +1502,9 @@
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiLayer.cpp">
       <Filter>src\RoseRoot\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\RoseRoot\OrthographicCameraController.cpp">
+      <Filter>src\RoseRoot</Filter>
+    </ClCompile>
     <ClCompile Include="src\RoseRoot\Renderer\Buffer.cpp">
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClCompile>
@@ -1502,6 +1518,9 @@
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\RoseRoot\Renderer\Renderer.cpp">
+      <Filter>src\RoseRoot\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RoseRoot\Renderer\Renderer2D.cpp">
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\RoseRoot\Renderer\RendererAPI.cpp">
@@ -1522,7 +1541,13 @@
     <ClCompile Include="src\RoseRoot\Renderer\VertexArray.cpp">
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\RoseRoot\Scene\Entity.cpp">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\RoseRoot\Scene\Scene.cpp">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RoseRoot\Scene\SceneCamera.cpp">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\rrpch.cpp">
@@ -1531,9 +1556,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\RoseRoot\Renderer\Renderer2D.cpp" />
-    <ClCompile Include="src\RoseRoot\OrthographicCameraController.cpp" />
-    <ClCompile Include="src\RoseRoot\Scene\Entity.cpp" />
-    <ClCompile Include="src\RoseRoot\Scene\SceneCamera.cpp" />
   </ItemGroup>
 </Project>

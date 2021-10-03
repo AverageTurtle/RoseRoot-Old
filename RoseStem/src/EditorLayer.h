@@ -1,5 +1,6 @@
 #pragma once
 #include "RoseRoot.h"
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace RoseRoot {
 	class EditorLayer : public Layer
@@ -36,6 +37,7 @@ namespace RoseRoot {
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
 
-		//Ref<Texure2D> m_Texture;
+		//Panels
+		SceneHierarchyPanel m_SceneHierachyPanel;
 	};
 }
