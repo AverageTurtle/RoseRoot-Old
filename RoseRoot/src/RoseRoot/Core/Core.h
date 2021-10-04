@@ -2,19 +2,24 @@
 
 #include <memory>
 
-#ifdef RR_PLATFORM_WINDOWS
-	
+#include "RoseRoot/Core/PlatformDetection.h"
+
+#ifdef RR_DEBUG
+#if defined(RR_PLATFORM_WINDOWS)
+#define RR_DEBUGBREAK() __debugbreak()
+#elif defined(RR_PLATFORM_LINUX)
+#include <signal.h>
+#define RR_DEBUGBREAK() raise(SIGTRAP)
 #else
-	#error Unsupported platform!
+#error "Platform doesn't support debugbreak yet!"
+#endif
+#define RR_ENABLE_ASSERTS
+#else
+#define RR_DEBUGBREAK()
 #endif
 
-#ifdef RR_ENABLE_ASSERTS
-	#define RR_ASSERT(x, ...) { if(!(x)) { RR_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define RR_CORE_ASSERT(x, ...) { if(!(x)) { RR_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#else
-	#define RR_ASSERT(x, ...)
-	#define RR_CORE_ASSERT(x, ...)
-#endif
+#define RR_EXPAND_MACRO(x) x
+#define RR_STRINGIFY_MACRO(x) #x
 
 #define BIT(x) (1 << x)
 

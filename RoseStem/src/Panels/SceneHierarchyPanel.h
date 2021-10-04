@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RoseRoot/Core/Core.h"
+#include "RoseRoot/Core/Assert.h"
 #include "RoseRoot/Scene/Scene.h"
 #include "RoseRoot/Scene/Entity.h"
 
@@ -15,6 +16,8 @@ namespace RoseRoot {
 		void SetContext(const Ref<Scene>& scene);
 
 		void OnImGuiRender();
+
+		Entity GetSelectedEntity() const { return m_SelectionContext; }
 	private:
 		void DrawEntityNode(Entity entity);
 		void DrawComponents(Entity entity);

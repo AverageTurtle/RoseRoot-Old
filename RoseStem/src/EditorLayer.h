@@ -16,8 +16,12 @@ namespace RoseRoot {
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& event) override;
 	private:
-		OrthographicCameraController m_CameraController;
+		bool OnKeyPressed(KeyPressedEvent& e);
 
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+	private:
 		Ref<VertexArray> m_VertexArray;
 		Ref<Shader> m_Shader;
 		Ref<Framebuffer> m_Framebuffer;
@@ -36,6 +40,8 @@ namespace RoseRoot {
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
+
+		int m_GizmoType = -1;
 
 		//Panels
 		SceneHierarchyPanel m_SceneHierachyPanel;

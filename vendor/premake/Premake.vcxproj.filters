@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{61705900-4DFC-870B-B6AA-880BA255880B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\RoseRoot">
+      <UniqueIdentifier>{AD7DFB1F-1933-7415-A227-6EEC0EDC6A19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\RoseRoot\vendor">
+      <UniqueIdentifier>{6A4F9D01-5633-5E57-BF93-58AAAB9648D9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\RoseRoot\vendor\GLFW">
+      <UniqueIdentifier>{E93C04CE-5574-4C65-5E7E-B088CA34735E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\RoseRoot\vendor\Glad">
+      <UniqueIdentifier>{91C804CE-FDFF-4C65-060A-B18872C0735E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\RoseRoot\vendor\imgui">
+      <UniqueIdentifier>{54C40591-40E9-5411-6934-3AA155B8532F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\RoseRoot\vendor\yaml-cpp">
+      <UniqueIdentifier>{5CAD2C50-C8BA-5A36-51A1-5621BDAD26ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\RoseStem">
+      <UniqueIdentifier>{021EFC1F-6ED3-7415-F7C7-6EEC637C6B19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Sandbox">
+      <UniqueIdentifier>{3F7B6B1D-2B33-AD6A-943A-86C68011485B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\RoseRoot\premake5.lua">
+      <Filter>..\RoseRoot</Filter>
+    </None>
+    <None Include="..\..\RoseRoot\vendor\GLFW\premake5.lua">
+      <Filter>..\RoseRoot\vendor\GLFW</Filter>
+    </None>
+    <None Include="..\..\RoseRoot\vendor\Glad\premake5.lua">
+      <Filter>..\RoseRoot\vendor\Glad</Filter>
+    </None>
+    <None Include="..\..\RoseRoot\vendor\imgui\premake5.lua">
+      <Filter>..\RoseRoot\vendor\imgui</Filter>
+    </None>
+    <None Include="..\..\RoseRoot\vendor\yaml-cpp\premake5.lua">
+      <Filter>..\RoseRoot\vendor\yaml-cpp</Filter>
+    </None>
+    <None Include="..\..\RoseStem\premake5.lua">
+      <Filter>..\RoseStem</Filter>
+    </None>
+    <None Include="..\..\Sandbox\premake5.lua">
+      <Filter>..\Sandbox</Filter>
+    </None>
+    <None Include="..\..\premake5.lua">
+      <Filter>..</Filter>
+    </None>
+    <None Include="premake5.lua" />
+  </ItemGroup>
+</Project>

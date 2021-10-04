@@ -1,0 +1,83 @@
+Scene: Untitled
+Entities:
+  - Entity: 238462138746
+    TagComponent:
+      Tag: Grass
+    TransformComponent:
+      Translation: [0, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [57.9000015, 5.0999999, 1]
+    SpriteRendererComponent:
+      Color: [0.342964739, 0.725738406, 0.0826790407, 1]
+  - Entity: 238462138746
+    TagComponent:
+      Tag: Camera
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 1
+        PerspectiveFOV: 0.785398185
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 10
+        OrthographicNear: -1
+        OrthographicFar: 1
+      Primary: true
+      FixedAspectRatio: false
+  - Entity: 238462138746
+    TagComponent:
+      Tag: Sky
+    TransformComponent:
+      Translation: [0, 0, -0.200000003]
+      Rotation: [0, 0, 0]
+      Scale: [1000, 1000, 1]
+    SpriteRendererComponent:
+      Color: [0.325553238, 0.746277392, 0.94092828, 1]
+  - Entity: 238462138746
+    TagComponent:
+      Tag: Player
+    TransformComponent:
+      Translation: [-5.69999981, -1.39999998, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Color: [0.800000012, 0.400000006, 0.899999976, 1]
+  - Entity: 238462138746
+    TagComponent:
+      Tag: Cloud
+    TransformComponent:
+      Translation: [4.9000001, 4.19999981, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.20000005, 0.600000024, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+  - Entity: 238462138746
+    TagComponent:
+      Tag: Cloud2
+    TransformComponent:
+      Translation: [-5.0999999, 4.30000019, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.79999995, 0.600000024, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+  - Entity: 238462138746
+    TagComponent:
+      Tag: Cloud3
+    TransformComponent:
+      Translation: [0.5, 3.5999999, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.9000001, 0.5, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+  - Entity: 238462138746
+    TagComponent:
+      Tag: Bricks
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3, 1, 1]
+    SpriteRendererComponent:
+      Color: [0.860759497, 0.327881783, 0.232441366, 1]

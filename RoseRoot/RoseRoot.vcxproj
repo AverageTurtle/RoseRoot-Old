@@ -76,11 +76,13 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>rrpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RR_PLATFORM_WINDOWS;RR_BUILD_DLL;GLFW_INCLUDE_NONE;RR_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;RR_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\yaml-cpp\include;vendor\imguizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -96,14 +98,15 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>rrpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RR_PLATFORM_WINDOWS;RR_BUILD_DLL;GLFW_INCLUDE_NONE;RR_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;RR_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\yaml-cpp\include;vendor\imguizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -120,14 +123,15 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>rrpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;RR_PLATFORM_WINDOWS;RR_BUILD_DLL;GLFW_INCLUDE_NONE;RR_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;RR_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\yaml-cpp\include;vendor\imguizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -150,6 +154,7 @@
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\RoseRoot.h" />
     <ClInclude Include="src\RoseRoot\Core\Application.h" />
+    <ClInclude Include="src\RoseRoot\Core\Assert.h" />
     <ClInclude Include="src\RoseRoot\Core\Core.h" />
     <ClInclude Include="src\RoseRoot\Core\EntryPoint.h" />
     <ClInclude Include="src\RoseRoot\Core\Input.h" />
@@ -158,6 +163,7 @@
     <ClInclude Include="src\RoseRoot\Core\LayerStack.h" />
     <ClInclude Include="src\RoseRoot\Core\Log.h" />
     <ClInclude Include="src\RoseRoot\Core\MouseCodes.h" />
+    <ClInclude Include="src\RoseRoot\Core\PlatformDetection.h" />
     <ClInclude Include="src\RoseRoot\Core\Timestep.h" />
     <ClInclude Include="src\RoseRoot\Core\Window.h" />
     <ClInclude Include="src\RoseRoot\Debug\Instrumentor.h" />
@@ -165,9 +171,8 @@
     <ClInclude Include="src\RoseRoot\Events\Event.h" />
     <ClInclude Include="src\RoseRoot\Events\KeyEvent.h" />
     <ClInclude Include="src\RoseRoot\Events\MouseEvent.h" />
-    <ClInclude Include="src\RoseRoot\FlightCameraController.h" />
     <ClInclude Include="src\RoseRoot\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\RoseRoot\OrthographicCameraController.h" />
+    <ClInclude Include="src\RoseRoot\Math\Math.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Buffer.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Camera.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Framebuffer.h" />
@@ -185,7 +190,9 @@
     <ClInclude Include="src\RoseRoot\Scene\Entity.h" />
     <ClInclude Include="src\RoseRoot\Scene\Scene.h" />
     <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h" />
+    <ClInclude Include="src\RoseRoot\Scene\SceneSerializer.h" />
     <ClInclude Include="src\RoseRoot\Scene\ScriptableEntity.h" />
+    <ClInclude Include="src\RoseRoot\Utils\PlatformUtils.h" />
     <ClInclude Include="src\rrpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -602,6 +609,7 @@
     <ClInclude Include="vendor\glm\glm\vec3.hpp" />
     <ClInclude Include="vendor\glm\glm\vec4.hpp" />
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
+    <ClInclude Include="vendor\imguizmo\ImGuizmo.h" />
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
@@ -614,15 +622,15 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowWindow.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsPlatformUtils.cpp" />
     <ClCompile Include="src\RoseRoot\Core\Application.cpp" />
     <ClCompile Include="src\RoseRoot\Core\Layer.cpp" />
     <ClCompile Include="src\RoseRoot\Core\LayerStack.cpp" />
     <ClCompile Include="src\RoseRoot\Core\Log.cpp" />
     <ClCompile Include="src\RoseRoot\Core\Window.cpp" />
-    <ClCompile Include="src\RoseRoot\FlightCameraController.cpp" />
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\RoseRoot\OrthographicCameraController.cpp" />
+    <ClCompile Include="src\RoseRoot\Math\Math.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Buffer.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Camera.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Framebuffer.cpp" />
@@ -638,8 +646,12 @@
     <ClCompile Include="src\RoseRoot\Scene\Entity.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\Scene.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\RoseRoot\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\rrpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="vendor\imguizmo\ImGuizmo.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp" />
   </ItemGroup>
@@ -652,6 +664,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\yaml-cpp\yaml-cpp.vcxproj">
+      <Project>{88F1A057-74BE-FB62-9DD7-E90A890331F1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

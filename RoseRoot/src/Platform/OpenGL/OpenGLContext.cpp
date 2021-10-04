@@ -9,7 +9,7 @@ namespace RoseRoot {
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_windowHandle(windowHandle)
 	{
-		RR_CORE_ASSERT(windowHandle, "Window handle is null!")
+		RR_CORE_ASSERT(windowHandle, "Window handle is null!");
 	}
 	void OpenGLContext::Init()
 	{

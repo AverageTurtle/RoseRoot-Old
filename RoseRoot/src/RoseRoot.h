@@ -2,9 +2,13 @@
 
 // For use by application
 
+#include "RoseRoot/Core/Core.h"
+
 #include "RoseRoot/Core/Application.h"
 #include "RoseRoot/Core/Layer.h"
 #include "RoseRoot/Core/Log.h"
+#include "RoseRoot/Core/Assert.h"
+
 #include "RoseRoot/Core/Timestep.h"
 
 #include "RoseRoot/Core/Input.h"
@@ -33,5 +37,3 @@
 #include "RoseRoot/Renderer/Framebuffer.h"
 
 #include "RoseRoot/Renderer/Camera.h"
-#include "RoseRoot/FlightCameraController.h"
-#include "RoseRoot/OrthographicCameraController.h"

@@ -34,6 +34,9 @@
     <Filter Include="src\RoseRoot\Scene">
       <UniqueIdentifier>{D6E1F6FC-C2C5-B752-2B26-B2A51729A2D4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\RoseRoot\Utils">
+      <UniqueIdentifier>{197624FD-055A-E552-6EBA-DFA55ABDCFD4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
@@ -54,6 +57,9 @@
     </Filter>
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\imguizmo">
+      <UniqueIdentifier>{B36F5F1F-1FFB-CCE3-280C-50D8941629E4}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor\stb_image">
       <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
@@ -90,6 +96,9 @@
     <ClInclude Include="src\RoseRoot\Core\Application.h">
       <Filter>src\RoseRoot\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\Core\Assert.h">
+      <Filter>src\RoseRoot\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\RoseRoot\Core\Core.h">
       <Filter>src\RoseRoot\Core</Filter>
     </ClInclude>
@@ -114,6 +123,9 @@
     <ClInclude Include="src\RoseRoot\Core\MouseCodes.h">
       <Filter>src\RoseRoot\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\Core\PlatformDetection.h">
+      <Filter>src\RoseRoot\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\RoseRoot\Core\Timestep.h">
       <Filter>src\RoseRoot\Core</Filter>
     </ClInclude>
@@ -135,14 +147,8 @@
     <ClInclude Include="src\RoseRoot\Events\MouseEvent.h">
       <Filter>src\RoseRoot\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\RoseRoot\FlightCameraController.h">
-      <Filter>src\RoseRoot</Filter>
-    </ClInclude>
     <ClInclude Include="src\RoseRoot\ImGui\ImGuiLayer.h">
       <Filter>src\RoseRoot\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RoseRoot\OrthographicCameraController.h">
-      <Filter>src\RoseRoot</Filter>
     </ClInclude>
     <ClInclude Include="src\RoseRoot\Renderer\Buffer.h">
       <Filter>src\RoseRoot\Renderer</Filter>
@@ -195,8 +201,14 @@
     <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\Scene\SceneSerializer.h">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\RoseRoot\Scene\ScriptableEntity.h">
       <Filter>src\RoseRoot\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoseRoot\Utils\PlatformUtils.h">
+      <Filter>src\RoseRoot\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\rrpch.h">
       <Filter>src</Filter>
@@ -1446,9 +1458,13 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\imguizmo\ImGuizmo.h">
+      <Filter>vendor\imguizmo</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\Math\Math.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1478,6 +1494,9 @@
     <ClCompile Include="src\Platform\Windows\WindowWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsPlatformUtils.cpp">
+      <Filter>src\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\RoseRoot\Core\Application.cpp">
       <Filter>src\RoseRoot\Core</Filter>
     </ClCompile>
@@ -1493,17 +1512,11 @@
     <ClCompile Include="src\RoseRoot\Core\Window.cpp">
       <Filter>src\RoseRoot\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\RoseRoot\FlightCameraController.cpp">
-      <Filter>src\RoseRoot</Filter>
-    </ClCompile>
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiBuild.cpp">
       <Filter>src\RoseRoot\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiLayer.cpp">
       <Filter>src\RoseRoot\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RoseRoot\OrthographicCameraController.cpp">
-      <Filter>src\RoseRoot</Filter>
     </ClCompile>
     <ClCompile Include="src\RoseRoot\Renderer\Buffer.cpp">
       <Filter>src\RoseRoot\Renderer</Filter>
@@ -1550,11 +1563,18 @@
     <ClCompile Include="src\RoseRoot\Scene\SceneCamera.cpp">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\RoseRoot\Scene\SceneSerializer.cpp">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\rrpch.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imguizmo\ImGuizmo.cpp">
+      <Filter>vendor\imguizmo</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\RoseRoot\Math\Math.cpp" />
   </ItemGroup>
 </Project>

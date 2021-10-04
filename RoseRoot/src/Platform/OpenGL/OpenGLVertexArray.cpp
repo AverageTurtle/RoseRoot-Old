@@ -53,7 +53,7 @@ namespace RoseRoot {
 	{
 		RR_PROFILE_FUNCTION();
 
-		RR_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!")
+		RR_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();

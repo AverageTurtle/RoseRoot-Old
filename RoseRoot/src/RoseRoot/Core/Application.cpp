@@ -1,8 +1,9 @@
 #include "rrpch.h"
 #include "Application.h"
 
+#include "RoseRoot/Core/Log.h"
+
 #include "RoseRoot/Renderer/Renderer.h"
-#include "RoseRoot/Renderer/RendererVoxel.h"
 
 #include "Input.h"
 
@@ -18,7 +19,7 @@ namespace RoseRoot {
 	{
 		RR_PROFILE_FUNCTION();
 
-		RR_CORE_ASSERT(!s_Instance, "Application already exist!")
+		RR_CORE_ASSERT(!s_Instance, "Application already exist!");
 		s_Instance = this;
 
 		m_Window = Window::Create(WindowProps(name));

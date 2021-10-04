@@ -2,6 +2,7 @@
 #include "ImGuiLayer.h"
 
 #include "imgui.h"
+#include "ImGuizmo.h"
 
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
@@ -49,6 +50,8 @@ namespace RoseRoot {
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 
+		SetDarkThemeColors();
+
 		Application& app = Application::Get();
 		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
@@ -83,6 +86,7 @@ namespace RoseRoot {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
 	}
 
 	void ImGuiLayer::End()
@@ -105,4 +109,42 @@ namespace RoseRoot {
 			glfwMakeContextCurrent(backup_current_context);
 		}
 	}
+
+	void ImGuiLayer::SetDarkThemeColors()
+	{
+		auto& colors = ImGui::GetStyle().Colors;
+
+		colors[ImGuiCol_WindowBg] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
+
+		// Headers
+		colors[ImGuiCol_Header] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
+		colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
+		colors[ImGuiCol_HeaderActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+		// Buttons
+		colors[ImGuiCol_Button] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
+		colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
+		colors[ImGuiCol_ButtonActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+		// Frame BG
+		colors[ImGuiCol_FrameBg] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
+		colors[ImGuiCol_FrameBgHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
+		colors[ImGuiCol_FrameBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+		// Tabs
+		colors[ImGuiCol_Tab] = ImVec4{ 0.65, 0.039, 0.576, 1.0f };
+		colors[ImGuiCol_TabHovered] = ImVec4{ 0.75, 0.043, 0.705, 1.0f };
+		colors[ImGuiCol_TabActive] = ImVec4{ 0.55, 0.070, 0.509, 1.0f };
+		colors[ImGuiCol_TabUnfocused] = ImVec4{ 0.75, 0.227, 0.694, 1.0f };
+		colors[ImGuiCol_TabUnfocusedActive] = ImVec4{ 0.6, 0.188, 0.533, 1.0f };
+
+		// Title
+		colors[ImGuiCol_TitleBg] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+		colors[ImGuiCol_TitleBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+		colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+		//Check Mark
+		colors[ImGuiCol_CheckMark] = ImVec4{ 0.9, 0.2, 0.7, 1.0f };
+	}
+
 }

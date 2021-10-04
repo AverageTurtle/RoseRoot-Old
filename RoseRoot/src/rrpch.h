@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "RoseRoot/Core/Assert.h"
 #include "RoseRoot/Core/Log.h"
 #include "RoseRoot/Debug/Instrumentor.h"
 
