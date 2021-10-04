@@ -2,6 +2,8 @@
 #include "RoseRoot.h"
 #include "Panels/SceneHierarchyPanel.h"
 
+#include "RoseRoot/Renderer/EditorCamera.h"
+
 namespace RoseRoot {
 	class EditorLayer : public Layer
 	{
@@ -27,9 +29,8 @@ namespace RoseRoot {
 		Ref<Framebuffer> m_Framebuffer;
 
 		Ref<Scene> m_ActiveScene;
-		Entity m_SquareEntity;
-		Entity m_CameraEntity;
-		Entity m_SecondCamera;
+
+		EditorCamera m_EditorCamera;
 
 		bool m_PrimaryCamera = true;
 

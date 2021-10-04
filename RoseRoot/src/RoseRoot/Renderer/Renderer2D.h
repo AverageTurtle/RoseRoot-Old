@@ -1,8 +1,9 @@
 #pragma once
 
-#include "RoseRoot/Renderer/Camera.h"
-
 #include "RoseRoot/Renderer/Texture.h"
+
+#include "RoseRoot/Renderer/Camera.h"
+#include "RoseRoot/Renderer/EditorCamera.h"
 
 namespace RoseRoot {
 
@@ -13,6 +14,7 @@ namespace RoseRoot {
 		static void Shutdown();
 
 		static void BeginScene(const Camera& camera, const glm::mat4& transform);
+		static void BeginScene(const EditorCamera& camera);
 		static void BeginScene(const OrthographicCamera& camera); //TODO REMOVE!!
 		static void EndScene();
 		static void Flush();

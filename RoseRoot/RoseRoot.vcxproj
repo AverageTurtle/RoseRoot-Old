@@ -175,6 +175,7 @@
     <ClInclude Include="src\RoseRoot\Math\Math.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Buffer.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Camera.h" />
+    <ClInclude Include="src\RoseRoot\Renderer\EditorCamera.h" />
     <ClInclude Include="src\RoseRoot\Renderer\Framebuffer.h" />
     <ClInclude Include="src\RoseRoot\Renderer\GraphicsContexted.h" />
     <ClInclude Include="src\RoseRoot\Renderer\RenderCommand.h" />
@@ -633,6 +634,7 @@
     <ClCompile Include="src\RoseRoot\Math\Math.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Buffer.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Camera.cpp" />
+    <ClCompile Include="src\RoseRoot\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Renderer.cpp" />
