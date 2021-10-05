@@ -2,9 +2,13 @@
 #include "imgui/imgui.h"
 #include "imguizmo/ImGuizmo.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "RoseRoot/Scene/SceneSerializer.h"
 #include "RoseRoot/Utils/PlatformUtils.h"
 #include "RoseRoot/Math/Math.h"
+#include <optional>
 
 namespace RoseRoot {
 
@@ -29,7 +33,7 @@ namespace RoseRoot {
 
 		m_EditorCamera = EditorCamera(30.f, 1.778f, 0.01f, 1000.0f);
 
-		m_SceneHierachyPanel.SetContext(m_ActiveScene);
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::OnDetach()
@@ -77,7 +81,7 @@ namespace RoseRoot {
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 		{
 			int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
-			RR_CORE_WARN("Pixel data = {0}", pixelData);
+			m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
 		}
 
 
@@ -161,9 +165,14 @@ namespace RoseRoot {
 			ImGui::EndMenuBar();
 		}
 
-		m_SceneHierachyPanel.OnImGuiRender();
+		m_SceneHierarchyPanel.OnImGuiRender();
 
-		ImGui::Begin("Render2D Stats");
+		ImGui::Begin("Stats");
+
+		std::string name = "None";
+		if (m_HoveredEntity)
+			name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+		ImGui::Text("Hovered Entity: %s", name.c_str());
 
 		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
@@ -174,9 +183,14 @@ namespace RoseRoot {
 
 		ImGui::End();
 
+
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Viewport");
-		auto viewportOffset = ImGui::GetCursorPos(); // Includes tab bar
+		auto viewportMinRegion = ImGui::GetWindowContentRegionMin();
+		auto viewportMaxRegion = ImGui::GetWindowContentRegionMax();
+		auto viewportOffset = ImGui::GetWindowPos();
+		m_ViewportBounds[0] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
+		m_ViewportBounds[1] = { viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
 		
 		m_ViewportFocused = ImGui::IsWindowFocused();
 		m_ViewportHovered = ImGui::IsWindowHovered();
@@ -188,24 +202,13 @@ namespace RoseRoot {
 		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)textureID, ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
-		auto windowSize = ImGui::GetWindowSize();
-		ImVec2 minBound = ImGui::GetWindowPos();
-		minBound.x += viewportOffset.x;
-		minBound.y += viewportOffset.y;
-
-		ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
-		m_ViewportBounds[0] = { minBound.x, minBound.y };
-		m_ViewportBounds[1] = { maxBound.x, maxBound.y };
-
 		//Gizmos
-		Entity selectedEntity = m_SceneHierachyPanel.GetSelectedEntity();
+		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
 		if (selectedEntity && m_GizmoType != -1)
 		{
 			ImGuizmo::SetOrthographic(false);
 			ImGuizmo::SetDrawlist();
-			float windowWidth = (float)ImGui::GetWindowWidth();
-			float windowHeight = (float)ImGui::GetWindowHeight();
-			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+			ImGuizmo::SetRect(m_ViewportBounds[0].x, m_ViewportBounds[0].y, m_ViewportBounds[1].x - m_ViewportBounds[0].x, m_ViewportBounds[1].y - m_ViewportBounds[0].y);
 
 			//Camera
 
@@ -311,7 +314,7 @@ namespace RoseRoot {
 	{
 		m_ActiveScene = CreateRef<Scene>();
 		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-		m_SceneHierachyPanel.SetContext(m_ActiveScene);
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::OpenScene()
@@ -321,7 +324,7 @@ namespace RoseRoot {
 		{
 			m_ActiveScene = CreateRef<Scene>();
 			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_SceneHierachyPanel.SetContext(m_ActiveScene);
+			m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 
 			SceneSerializer serializer(m_ActiveScene);
 			serializer.Deserialize(filepath);
@@ -330,7 +333,7 @@ namespace RoseRoot {
 
 	void EditorLayer::SaveSceneAs()
 	{
-		std::string filepath = FileDialogs::SaveFile("Rose Scene (*.rose)\0*.rose\0");
+		std::string filepath = FileDialogs::OpenFile("Rose Scene (*.rose)\0*.rose\0");;
 		if (!filepath.empty())
 		{
 			SceneSerializer serializer(m_ActiveScene);

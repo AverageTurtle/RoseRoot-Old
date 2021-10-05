@@ -24,15 +24,14 @@ namespace RoseRoot {
 		void OpenScene();
 		void SaveSceneAs();
 	private:
-		Ref<VertexArray> m_VertexArray;
-		Ref<Shader> m_Shader;
+		Ref<Scene> m_ActiveScene;
 		Ref<Framebuffer> m_Framebuffer;
 
-		Ref<Scene> m_ActiveScene;
-
-		EditorCamera m_EditorCamera;
+		Entity m_HoveredEntity;
 
 		bool m_PrimaryCamera = true;
+
+		EditorCamera m_EditorCamera;
 
 		Ref<Texture2D> m_SpriteSheet, m_ViewTest;
 		Ref<SubTexture2D> m_GrassTexture, m_StoneTexture, m_GlassTexture;
@@ -46,6 +45,6 @@ namespace RoseRoot {
 		int m_GizmoType = -1;
 
 		//Panels
-		SceneHierarchyPanel m_SceneHierachyPanel;
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 }

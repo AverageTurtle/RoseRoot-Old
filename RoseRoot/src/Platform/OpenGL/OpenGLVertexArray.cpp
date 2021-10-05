@@ -8,17 +8,17 @@ namespace RoseRoot {
 	{
 		switch (type)
 		{
-		case RoseRoot::ShaderDataType::Float:  return GL_FLOAT;
-		case RoseRoot::ShaderDataType::Float2: return GL_FLOAT;
-		case RoseRoot::ShaderDataType::Float3: return GL_FLOAT;
-		case RoseRoot::ShaderDataType::Float4: return GL_FLOAT;
-		case RoseRoot::ShaderDataType::Mat3:	  return GL_FLOAT;
-		case RoseRoot::ShaderDataType::Mat4:	  return GL_FLOAT;
-		case RoseRoot::ShaderDataType::Int:	  return GL_INT;
-		case RoseRoot::ShaderDataType::Int2:	  return GL_INT;
-		case RoseRoot::ShaderDataType::Int3:	  return GL_INT;
-		case RoseRoot::ShaderDataType::Int4:	  return GL_INT;
-		case RoseRoot::ShaderDataType::Bool:	  return GL_BOOL;
+		case ShaderDataType::Float:    return GL_FLOAT;
+		case ShaderDataType::Float2:   return GL_FLOAT;
+		case ShaderDataType::Float3:   return GL_FLOAT;
+		case ShaderDataType::Float4:   return GL_FLOAT;
+		case ShaderDataType::Mat3:     return GL_FLOAT;
+		case ShaderDataType::Mat4:     return GL_FLOAT;
+		case ShaderDataType::Int:      return GL_INT;
+		case ShaderDataType::Int2:     return GL_INT;
+		case ShaderDataType::Int3:     return GL_INT;
+		case ShaderDataType::Int4:     return GL_INT;
+		case ShaderDataType::Bool:     return GL_BOOL;
 		}
 
 		RR_CORE_ASSERT(false, "Unkown ShaderDataType!");

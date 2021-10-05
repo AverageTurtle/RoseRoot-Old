@@ -18,6 +18,7 @@ namespace YAML {
 			node.push_back(rhs.x);
 			node.push_back(rhs.y);
 			node.push_back(rhs.z);
+			node.SetStyle(EmitterStyle::Flow);
 			return node;
 		}
 
@@ -43,6 +44,7 @@ namespace YAML {
 			node.push_back(rhs.y);
 			node.push_back(rhs.z);
 			node.push_back(rhs.w);
+			node.SetStyle(EmitterStyle::Flow);
 			return node;
 		}
 
@@ -79,13 +81,12 @@ namespace RoseRoot {
 	SceneSerializer::SceneSerializer(const Ref<Scene>& scene)
 		: m_Scene(scene)
 	{
-
 	}
 
 	static void SerializeEntity(YAML::Emitter& out, Entity entity)
 	{
 		out << YAML::BeginMap; // Entity
-		out << YAML::Key << "Entity" << YAML::Value << "238462138746"; // TODO: Entity ID goes here
+		out << YAML::Key << "Entity" << YAML::Value << "12837192831273"; // TODO: Entity ID goes here
 
 		if (entity.HasComponent<TagComponent>())
 		{
@@ -173,17 +174,13 @@ namespace RoseRoot {
 
 	void SceneSerializer::SerializeRuntime(const std::string& filepath)
 	{
-		//Not implemented
+		// Not implemented
 		RR_CORE_ASSERT(false);
 	}
 
 	bool SceneSerializer::Deserialize(const std::string& filepath)
 	{
-		std::ifstream stream(filepath);
-		std::stringstream strStream;
-		strStream << stream.rdbuf();
-
-		YAML::Node data = YAML::Load(strStream.str());
+		YAML::Node data = YAML::LoadFile(filepath);
 		if (!data["Scene"])
 			return false;
 
@@ -250,7 +247,7 @@ namespace RoseRoot {
 
 	bool SceneSerializer::DeserializeRuntime(const std::string& filepath)
 	{
-		//Not implemented
+		// Not implemented
 		RR_CORE_ASSERT(false);
 		return false;
 	}
