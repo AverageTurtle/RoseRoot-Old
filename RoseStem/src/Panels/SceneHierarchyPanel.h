@@ -1,5 +1,4 @@
 #pragma once
-
 #include "RoseRoot/Core/Core.h"
 #include "RoseRoot/Core/Assert.h"
 #include "RoseRoot/Scene/Scene.h"

@@ -1,6 +1,7 @@
 include "./vendor/premake/premake_customization/solution_items.lua"
+include "Dependencies.lua"
 
-workspace "RoseRoot"
+workspace "Rose"
 	architecture "x86_64"
 	startproject "RoseStem"
 
@@ -22,17 +23,6 @@ workspace "RoseRoot"
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
--- Include directories relative to root folder (solution directory)
-IncludeDir = {}
-IncludeDir["GLFW"] = "%{wks.location}/RoseRoot/vendor/GLFW/include"
-IncludeDir["Glad"] = "%{wks.location}/RoseRoot/vendor/Glad/include"
-IncludeDir["ImGui"] = "%{wks.location}/RoseRoot/vendor/imgui"
-IncludeDir["glm"] = "%{wks.location}/RoseRoot/vendor/glm"
-IncludeDir["stb_image"] = "%{wks.location}/RoseRoot/vendor/stb_image"
-IncludeDir["entt"] = "%{wks.location}/RoseRoot/vendor/entt/include"
-IncludeDir["yaml_cpp"] = "%{wks.location}/RoseRoot/vendor/yaml-cpp/include"
-IncludeDir["ImGuizmo"] = "%{wks.location}/RoseRoot/vendor/imguizmo"
 
 group "Dependencies"
 	include "vendor/premake"
