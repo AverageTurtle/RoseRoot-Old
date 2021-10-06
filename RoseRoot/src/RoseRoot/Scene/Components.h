@@ -7,6 +7,7 @@
 #include "glm/gtx/quaternion.hpp"
 
 #include "RoseRoot/Scene/SceneCamera.h"
+#include "RoseRoot/Renderer/Texture.h"
 #include "ScriptableEntity.h"
 
 namespace RoseRoot {
@@ -44,6 +45,8 @@ namespace RoseRoot {
 	struct SpriteRendererComponent
 	{
 		glm::vec4 Color{1.f,1.f,1.f,1.f};
+		Ref<Texture2D> Texture;
+		float TilingFactor = 1.0f;
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
