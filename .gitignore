@@ -13,7 +13,10 @@ bin-int/
 **.vcxproj.user
 
 # Directories
-RoseRoot/vendor
+RoseRoot/vendor/spdlog/
+RoseRoot/vendor/glm/
+RoseRoot/vendor/Box2D/
+RoseRoot/vendor/GLFW/
 RoseRoot/vendor/VulkanSDK
 RoseStem/assets/cache
 scripts/__pycache__

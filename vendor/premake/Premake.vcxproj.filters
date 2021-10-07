@@ -10,6 +10,9 @@
     <Filter Include="..\RoseRoot\vendor">
       <UniqueIdentifier>{6A4F9D01-5633-5E57-BF93-58AAAB9648D9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="..\RoseRoot\vendor\Box2D">
+      <UniqueIdentifier>{F860458E-E485-940E-0DD1-799EF954932C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="..\RoseRoot\vendor\GLFW">
       <UniqueIdentifier>{E93C04CE-5574-4C65-5E7E-B088CA34735E}</UniqueIdentifier>
     </Filter>
@@ -32,6 +35,9 @@
   <ItemGroup>
     <None Include="..\..\RoseRoot\premake5.lua">
       <Filter>..\RoseRoot</Filter>
+    </None>
+    <None Include="..\..\RoseRoot\vendor\Box2D\premake5.lua">
+      <Filter>..\RoseRoot\vendor\Box2D</Filter>
     </None>
     <None Include="..\..\RoseRoot\vendor\GLFW\premake5.lua">
       <Filter>..\RoseRoot\vendor\GLFW</Filter>

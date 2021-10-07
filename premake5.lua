@@ -26,6 +26,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 group "Dependencies"
 	include "vendor/premake"
+	include "RoseRoot/vendor/Box2D"
 	include "RoseRoot/vendor/GLFW"
 	include "RoseRoot/vendor/Glad"
 	include "RoseRoot/vendor/imgui"
