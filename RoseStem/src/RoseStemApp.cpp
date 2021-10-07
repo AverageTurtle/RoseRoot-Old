@@ -10,8 +10,8 @@ namespace RoseRoot {
 	class RoseStem : public Application
 	{
 	public:
-		RoseStem()
-			: Application("Rose Stem")
+		RoseStem(ApplicationCommandLineArgs args)
+			: Application("Rose Stem", args)
 		{
 			PushLayer(new EditorLayer());
 		}
@@ -22,8 +22,8 @@ namespace RoseRoot {
 		}
 	};
 
-	Application* CreateApplication()
+	Application* CreateApplication(ApplicationCommandLineArgs args)
 	{
-		return new RoseStem();
+		return new RoseStem(args);
 	}
 }

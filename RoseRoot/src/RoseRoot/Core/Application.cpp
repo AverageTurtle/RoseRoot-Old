@@ -9,13 +9,14 @@
 
 #include "glm/glm.hpp"
 
-#include "GLFW/glfw3.h" //temp include
+#include <GLFW/glfw3.h>
 
 namespace RoseRoot {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const std::string& name)
+	Application::Application(const std::string& name, ApplicationCommandLineArgs args)
+		: m_CommandLineArgs(args)
 	{
 		RR_PROFILE_FUNCTION();
 

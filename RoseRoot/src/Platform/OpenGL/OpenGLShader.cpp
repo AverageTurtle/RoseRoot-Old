@@ -6,6 +6,8 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+#include "RoseRoot/Core/Timer.h"
+
 namespace RoseRoot {
 
 	static GLenum ShaderTypeFromString(const std::string& type)
@@ -103,7 +105,7 @@ namespace RoseRoot {
 
 		GLuint program = glCreateProgram();
 		RR_CORE_ASSERT(shaderSources.size() <= 2, "More than 2 shaders is currently unsupported")
-		std::array<GLenum, 2> glShaderIDs;
+			std::array<GLenum, 2> glShaderIDs;
 		int glShaderIDIndex = 0;
 		for (auto& kv : shaderSources)
 		{
@@ -183,7 +185,7 @@ namespace RoseRoot {
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::SetInt(const std::string& name, const int value)
+	void OpenGLShader::SetInt(const std::string& name, int value)
 	{
 		RR_PROFILE_FUNCTION();
 
@@ -195,11 +197,18 @@ namespace RoseRoot {
 		UploadUniformIntArray(name, values, count);
 	}
 
-	void OpenGLShader::SetFloat(const std::string& name, const float value)
+	void OpenGLShader::SetFloat(const std::string& name, float value)
 	{
 		RR_PROFILE_FUNCTION();
 
 		UploadUniformFloat(name, value);
+	}
+
+	void OpenGLShader::SetFloat2(const std::string& name, const glm::vec2& value)
+	{
+		RR_PROFILE_FUNCTION();
+
+		UploadUniformFloat2(name, value);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
@@ -270,4 +279,5 @@ namespace RoseRoot {
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
+
 }

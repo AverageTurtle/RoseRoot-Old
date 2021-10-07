@@ -1,6 +1,7 @@
 #pragma once
 #include "RoseRoot.h"
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
 
 #include "RoseRoot/Renderer/EditorCamera.h"
 
@@ -23,6 +24,7 @@ namespace RoseRoot {
 
 		void NewScene();
 		void OpenScene();
+		void OpenScene(const std::filesystem::path& path);
 		void SaveSceneAs();
 	private:
 		Ref<Scene> m_ActiveScene;
@@ -47,5 +49,6 @@ namespace RoseRoot {
 
 		//Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
+		ContentBrowserPanel m_ContentBrowserPanel;
 	};
 }

@@ -1,14 +1,14 @@
-[submodule "VoxelEngine/vendor/spdlog"]
-	path = VoxelEngine/vendor/spdlog
-	url = https://github.com/gabime/spdlog
-[submodule "VoxelEngine/vendor/GLFW"]
-	path = VoxelEngine/vendor/GLFW
+[submodule "RoseRoot/vendor/spdlog"]
+	path = RoseRoot/vendor/spdlog
+	url = https://github.com/gabime/spdlog\
+[submodule "RoseRoot/vendor/GLFW"]
+	path = RoseRoot/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
-[submodule "VoxelEngine/vendor/imgui"]
-	path = VoxelEngine/vendor/imgui
+[submodule "RoseRoot/vendor/imgui"]
+	path = RoseRoot/vendor/imgui
 	url = https://github.com/TheCherno/imgui/tree/cf5a93ac37ff393bb5c308b5bd93347eb90629b3
-[submodule "VoxelEngine/vendor/glm"]
-	path = VoxelEngine/vendor/glm
+[submodule "RoseRoot/vendor/glm"]
+	path = RoseRoot/vendor/glm
 	url = https://github.com/g-truc/glm
 [submodule "RoseRoot/vendor/yaml-cpp"]
 	path = RoseRoot/vendor/yaml-cpp

@@ -2,14 +2,14 @@
 
 #ifdef RR_PLATFORM_WINDOWS 
 
-extern RoseRoot::Application* RoseRoot::CreateApplication();
+extern RoseRoot::Application* RoseRoot::CreateApplication(ApplicationCommandLineArgs args);
 
 int main(int argc, char** argv)
 {
 	RoseRoot::Log::Init();
 
 	RR_PROFILE_BEGIN_SESSION("Startup", "VoxelEngineProfile-Startup.json");
-	auto app = RoseRoot::CreateApplication();
+	auto app = RoseRoot::CreateApplication({ argc, argv });
 	RR_PROFILE_END_SESSION();
 
 	RR_PROFILE_BEGIN_SESSION("Runtime", "VoxelEngineProfile-Runtime.json");

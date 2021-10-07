@@ -8,7 +8,7 @@ MainLayer::MainLayer(RoseRoot::Window& window)
 
 void MainLayer::OnAttach()
 {
-	RR_PROFILE_FUNCTION();
+/*	RR_PROFILE_FUNCTION();
 
 	m_CameraController.SetTracking(false);
 	m_Window.SetCapturesMouse(false);
@@ -25,7 +25,7 @@ void MainLayer::OnAttach()
 			}
 		}
 	}
-	m_TestChunk.RegenAllMeshes();
+	m_TestChunk.RegenAllMeshes(); */
 }
 
 
@@ -35,7 +35,7 @@ void MainLayer::OnDetach()
 
 void MainLayer::OnUpdate(RoseRoot::Timestep ts)
 {
-	RR_PROFILE_FUNCTION();
+	/*RR_PROFILE_FUNCTION();
 
 	m_CameraController.OnUpdate(ts);
 
@@ -52,7 +52,7 @@ void MainLayer::OnUpdate(RoseRoot::Timestep ts)
 	m_TestChunk.RegenAllMeshes();
 	m_TestChunk.Draw();
 
-	RoseRoot::RendererVoxel::EndScene();
+	RoseRoot::RendererVoxel::EndScene();Z*/
 }
 
 void MainLayer::OnImGuiRender()

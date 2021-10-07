@@ -16,7 +16,6 @@ namespace RoseRoot {
 
 		RR_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
-		return Ref<Texture2D>();
 	}
 
 	Ref<Texture2D> Texture2D::Create(const std::string& path)
@@ -29,6 +28,5 @@ namespace RoseRoot {
 
 		RR_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
-		return Ref<Texture2D>();
 	}
 }
