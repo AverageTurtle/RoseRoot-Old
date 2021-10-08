@@ -2,6 +2,8 @@
 
 #include "entt.hpp"
 
+#include <glm/glm.hpp>
+
 #include "RoseRoot/Core/UUID.h"
 #include "RoseRoot/Core/Timestep.h"
 #include "RoseRoot/Renderer/EditorCamera.h"
@@ -32,11 +34,24 @@ namespace RoseRoot {
 
 		void DuplicateEntity(Entity entity);
 
+		glm::vec2 GetGravity2D() { return m_SceneSettings.Gravity2D; }
+		void SetGravity2D(glm::vec2 gravity) { m_SceneSettings.Gravity2D = gravity;}
+
 		Entity GetPrimaryCamerEntity();
 	private:
 		template<typename T>
 		void OnComponentAdded(Entity entity, T& component);
 	private:
+		struct SceneSettings
+		{
+			glm::vec2 Gravity2D = { 0.0f, -9.8f };
+
+			SceneSettings() = default;
+			SceneSettings(const SceneSettings&) = default;
+		};
+
+		SceneSettings m_SceneSettings;
+		
 		entt::registry m_Registry;
 		uint32_t m_ViewportWidth = 0, m_ViewportHeight = 0;
 

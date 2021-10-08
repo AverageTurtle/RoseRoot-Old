@@ -34,7 +34,6 @@ namespace RoseRoot {
 		fbSpec.Height = 720;
 		m_Framebuffer = Framebuffer::Create(fbSpec);
 
-		m_ActiveScene = CreateRef<Scene>();
 
 		auto commandLineArgs = Application::Get().GetCommandLineArgs();
 		if (commandLineArgs.Count > 1)
@@ -46,8 +45,7 @@ namespace RoseRoot {
 
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-
+		NewScene();
 	}
 
 	void EditorLayer::OnDetach()
@@ -171,6 +169,9 @@ namespace RoseRoot {
 				if (ImGui::MenuItem("Open...", "Ctrl+O"))
 					OpenScene();
 
+				if (ImGui::MenuItem("Save...", "Ctrl+S"))
+					SaveScene();
+
 				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
 					SaveSceneAs();
 
@@ -178,18 +179,17 @@ namespace RoseRoot {
 				ImGui::EndMenu();
 			}
 
+			if (ImGui::BeginMenu("Window"))
+			{
+				if (ImGui::MenuItem("Scene Settings", "Ctrl+P"))
+					m_SceneSettingsOpen = !m_SceneSettingsOpen;
+
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMenuBar();
 		}
-
-		m_SceneHierarchyPanel.OnImGuiRender();
-		m_ContentBrowserPanel.OnImGuiRender();
-
 		ImGui::Begin("Stats");
-
-		std::string name = "None";
-		if (m_HoveredEntity)
-			name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
-		ImGui::Text("Hovered Entity: %s", name.c_str());
 
 		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
@@ -199,6 +199,9 @@ namespace RoseRoot {
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
 		ImGui::End();
+
+		m_SceneHierarchyPanel.OnImGuiRender();
+		m_ContentBrowserPanel.OnImGuiRender();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Viewport");
@@ -284,6 +287,8 @@ namespace RoseRoot {
 		ImGui::PopStyleVar();
 
 		UI_Toolbar();
+		if (m_SceneSettingsOpen)
+			SceneSettingsWindow();
 
 		ImGui::End();
 	}
@@ -407,6 +412,9 @@ namespace RoseRoot {
 		m_ActiveScene = CreateRef<Scene>();
 		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		m_Gravity = m_ActiveScene->GetGravity2D();
+
+		m_EditorScene = m_ActiveScene;
 		m_EditorScenePath = std::filesystem::path();
 	}
 
@@ -433,8 +441,9 @@ namespace RoseRoot {
 		{
 			m_EditorScene = newScene;
 			m_EditorScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_Gravity = m_EditorScene->GetGravity2D();
 			m_SceneHierarchyPanel.SetContext(m_EditorScene);
-
+			
 			m_ActiveScene = m_EditorScene;
 			m_EditorScenePath = path;
 		}
@@ -467,20 +476,20 @@ namespace RoseRoot {
 
 	void EditorLayer::OnScenePlay()
 	{
-		m_SceneState = SceneState::Play;
 		m_ActiveScene = Scene::Copy(m_EditorScene);
 		m_ActiveScene->OnRuntimeStart();
 
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		m_SceneState = SceneState::Play;
 	}
 
 	void EditorLayer::OnSceneStop()
 	{
-		m_SceneState = SceneState::Edit;
 		m_ActiveScene->OnRuntimeStop();
 		m_ActiveScene = m_EditorScene;
 
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		m_SceneState = SceneState::Edit;
 	}
 
 	void EditorLayer::OnDuplicateEntity()
@@ -490,6 +499,23 @@ namespace RoseRoot {
 
 		if (m_SceneHierarchyPanel.GetSelectedEntity())
 			m_EditorScene->DuplicateEntity(m_SceneHierarchyPanel.GetSelectedEntity());
+	}
+
+	void EditorLayer::SceneSettingsWindow()
+	{
+		ImGui::Begin("Scene Settings");
+
+		if (ImGui::TreeNodeEx("Physics2D"))
+		{
+			if (ImGui::DragFloat2("Gravity 2D", glm::value_ptr(m_Gravity)))
+			{
+				if (m_SceneState == SceneState::Edit)
+					m_EditorScene->SetGravity2D(m_Gravity);
+			}
+			ImGui::TreePop();
+		}
+
+		ImGui::End();
 	}
 
 }

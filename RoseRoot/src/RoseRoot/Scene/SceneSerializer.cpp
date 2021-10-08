@@ -239,6 +239,14 @@ namespace RoseRoot {
 		YAML::Emitter out;
 		out << YAML::BeginMap;
 		out << YAML::Key << "Scene" << YAML::Value << "Untitled";
+
+		out << YAML::Key << "Scene Settings";
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "Gravity2D" << YAML::Value << m_Scene->m_SceneSettings.Gravity2D;
+
+		out << YAML::EndMap;
+
 		out << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
 		m_Scene->m_Registry.each([&](auto entityID)
 			{
@@ -278,6 +286,18 @@ namespace RoseRoot {
 
 		std::string sceneName = data["Scene"].as<std::string>();
 		RR_CORE_TRACE("Deserializing scene '{0}'", sceneName);
+
+		auto sceneSettings = data["Scene Settings"];
+		if (sceneSettings)
+		{
+			auto Gravity2D = sceneSettings["Gravity2D"];
+			if (Gravity2D)
+			{
+				glm::vec2 gravity = Gravity2D.as<glm::vec2>();
+				RR_CORE_TRACE("Deserialized Gravity2D {0}, {1}", gravity.x, gravity.y);
+				m_Scene->m_SceneSettings.Gravity2D = gravity;
+			}
+		}
 
 		auto entities = data["Entities"];
 		if (entities)

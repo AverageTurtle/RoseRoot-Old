@@ -35,6 +35,8 @@ namespace RoseRoot {
 
 		void OnDuplicateEntity();
 
+		void SceneSettingsWindow();
+
 		//UI Panels
 		void UI_Toolbar();
 	private:
@@ -47,13 +49,14 @@ namespace RoseRoot {
 		Entity m_HoveredEntity;
 
 		bool m_PrimaryCamera = true;
+		bool m_SceneSettingsOpen = true;
 
 		EditorCamera m_EditorCamera;
 
 		Ref<Texture2D> m_SpriteSheet, m_ViewTest;
 		Ref<SubTexture2D> m_GrassTexture, m_StoneTexture, m_GlassTexture;
 
-		glm::vec4 m_Color = { 1.f, 1.f, 1.f, 1.f };
+		glm::vec2 m_Gravity = { 0.0, -9.8 };
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
