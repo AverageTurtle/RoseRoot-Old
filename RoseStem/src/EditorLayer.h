@@ -26,15 +26,22 @@ namespace RoseRoot {
 		void OpenScene();
 		void OpenScene(const std::filesystem::path& path);
 		void SaveSceneAs();
+		void SaveScene();
+
+		void SerializeScene(Ref<Scene> scene, const std::filesystem::path& path);
 
 		void OnScenePlay();
 		void OnSceneStop();
+
+		void OnDuplicateEntity();
 
 		//UI Panels
 		void UI_Toolbar();
 	private:
 
 		Ref<Scene> m_ActiveScene;
+		Ref<Scene> m_EditorScene;
+		std::filesystem::path m_EditorScenePath;
 		Ref<Framebuffer> m_Framebuffer;
 
 		Entity m_HoveredEntity;
