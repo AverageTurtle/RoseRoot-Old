@@ -16,3 +16,6 @@
 [submodule "RoseRoot/vendor/imguizmo"]
 	path = RoseRoot/vendor/imguizmo
 	url = https://github.com/TheCherno/ImGuizmo
+[submodule "RoseRoot/vendor/Box2D"]
+	path = RoseRoot/vendor/Box2D
+	url = https://github.com/TheCherno/box2d

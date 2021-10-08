@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="..\..\RoseRoot\premake5.lua" />
+    <None Include="..\..\RoseRoot\vendor\Box2D\premake5.lua" />
     <None Include="..\..\RoseRoot\vendor\GLFW\premake5.lua" />
     <None Include="..\..\RoseRoot\vendor\Glad\premake5.lua" />
     <None Include="..\..\RoseRoot\vendor\imgui\premake5.lua" />
