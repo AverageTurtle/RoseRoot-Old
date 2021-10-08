@@ -2,6 +2,7 @@
 
 #include "entt.hpp"
 
+#include "RoseRoot/Core/UUID.h"
 #include "RoseRoot/Core/Timestep.h"
 #include "RoseRoot/Renderer/EditorCamera.h"
 
@@ -17,6 +18,7 @@ namespace RoseRoot {
 		~Scene();
 
 		Entity CreateEntity(const std::string& name = std::string());
+		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
 		void OnRuntimeStart();

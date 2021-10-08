@@ -167,6 +167,7 @@
     <ClInclude Include="src\RoseRoot\Core\PlatformDetection.h" />
     <ClInclude Include="src\RoseRoot\Core\Timer.h" />
     <ClInclude Include="src\RoseRoot\Core\Timestep.h" />
+    <ClInclude Include="src\RoseRoot\Core\UUID.h" />
     <ClInclude Include="src\RoseRoot\Core\Window.h" />
     <ClInclude Include="src\RoseRoot\Debug\Instrumentor.h" />
     <ClInclude Include="src\RoseRoot\Events\ApplicationEvent.h" />
@@ -632,6 +633,7 @@
     <ClCompile Include="src\RoseRoot\Core\Layer.cpp" />
     <ClCompile Include="src\RoseRoot\Core\LayerStack.cpp" />
     <ClCompile Include="src\RoseRoot\Core\Log.cpp" />
+    <ClCompile Include="src\RoseRoot\Core\UUID.cpp" />
     <ClCompile Include="src\RoseRoot\Core\Window.cpp" />
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiLayer.cpp" />
