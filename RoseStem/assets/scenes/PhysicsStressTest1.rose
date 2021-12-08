@@ -2,6 +2,1182 @@ Scene: Untitled
 Scene Settings:
   Gravity2D: [1, -9.80000019]
 Entities:
+  - Entity: 1467446898317379388
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [9.70458317, 10.9807348, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 2801597385130192705
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [8.6472435, -0.0706005096, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 114246239828710775
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [8.62717819, 0.428996086, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 13252404921126738842
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [7.4473896, 4.88523865, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 3397598972302894954
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [6.80733109, 8.36235237, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 4095160408987900715
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [6.4281292, 5.34470367, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 16702074386831135916
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [2.11234975, 0.667735577, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 10556659820104773200
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-5.16293478, 7.3811717, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 13099943612587538151
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [3.30635524, 5.00756836, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 2759379398878470466
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-4.63641167, -0.426956654, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 5412784164082522449
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [6.65068054, 6.34208536, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 16496073017449729141
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-6.34073591, 5.45776701, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 7600653824608016406
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [5.41263342, 7.06562138, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 806528304450617998
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [4.51223707, 2.01697254, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 16364625535858181266
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [0.749879003, 6.6797266, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 7908112150989603631
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [3.91733527, 2.33854532, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 10736799124673093446
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-4.56603003, 2.58094811, 1.20740664]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 4037412533169450372
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-4.37916088, 5.26482916, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 15736611212781299713
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-1.56542444, 5.02364683, -14.0476007]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 9158354883339369320
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [4.88204384, 6.16521502, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 5677683360010232457
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [7.34478664, 2.3279891, -0.0763110518]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 5821248942450154897
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [8.32283878, 4.47697926, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 5374000948389844900
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-3.17326975, -1.58460331, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 12367474461945857898
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [9.46440697, 4.10717249, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 11483378564402229908
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-7.22505331, 6.24561548, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 924704947036647605
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [7.53499842, 6.37424135, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 3587090453292926222
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-1.03225517, 5.91076565, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 15217099456428108841
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-8.77623749, 7.44387913, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 10907515695767986635
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-8.30216408, 1.18121231, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 3446983811836174450
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [8.34007645, 7.74329853, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 16115470109557440528
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [2.57641602, 5.09849882, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 13922586108545497635
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-1.56542444, 5.02364683, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 4189164061871483514
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-1.56542444, 5.02364683, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 9524122752991443252
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [7.68818283, -1.10992813, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 1124875152675199048
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [7.16851902, -0.630396366, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 4138014016794316888
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [1.19341969, -1.37078619, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 10280014713972732978
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [4.69059944, -1.23032427, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 83872906595978575
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [4.48993969, 3.76564765, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 18187181879599857467
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [5.70780754, 10.8202057, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 14556962537193176994
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [4.7286787, 10.2804775, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 15322066971661386168
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [6.72706699, 10.3607407, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 12671227496382852371
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [1.9899013, 16.175312, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 17570483719926347275
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [2.13036323, 12.678133, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 2420706434125044980
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-0.00848770142, 16.095047, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 1466997181941094460
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-4.88406324, 12.8968058, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 8277093726876206112
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-3.44546986, 14.4557953, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 12319432311651571804
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-0.887285948, 13.0573339, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 12991264726726219135
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [4.78887653, 8.78168488, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 1760096104276085023
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-1.56542444, 5.02364683, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 12501032478652703688
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [8.52553749, -1.44671118, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 10346211061480032104
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [3.12955689, 12.7182655, 0]
+      Rotation: [0, 0, 0.040142782]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 13181453556806506938
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-4.12360859, 6.42210913, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 1962013525159661485
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [6.90766144, 5.86436653, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 18375762281083872341
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [2.49155092, 3.68538404, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 1639890107630357370
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [-4.48274326, 2.90486264, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
+  - Entity: 14291966241565219233
+    TagComponent:
+      Tag: Round Stan
+    TransformComponent:
+      Translation: [1.67295051, -0.851122558, 0]
+      Rotation: [0, 0, 0.0401427858]
+      Scale: [0.599999964, 0.599999964, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
+      RestitutionThreshold: 0.5
   - Entity: 12484207865016162669
     TagComponent:
       Tag: Cold Stan
@@ -194,22 +1370,24 @@ Entities:
       RestitutionThreshold: 0.5
   - Entity: 12729142864304000721
     TagComponent:
-      Tag: Cold Stan
+      Tag: Round Stan
     TransformComponent:
-      Translation: [2.49956441, 0.16076088, 0]
-      Rotation: [0, 0, 0.0401427858]
+      Translation: [6.18939114, -1.17012596, 0]
+      Rotation: [0, 0, 0.040142782]
       Scale: [0.599999964, 0.599999964, 1]
-    SpriteRendererComponent:
-      Color: [0.886075974, 1, 0, 1]
+    CircleRendererComponent:
+      Color: [0.27976191, 1, 0, 1]
+      Thickness: 1
+      Fade: 0.00499999989
     Rigidbody2DComponent:
       BodyType: Dynamic
       FixedRotation: false
-    BoxCollider2DComponent:
+    CircleCollider2DComponent:
       Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1.73000002
-      Friction: 0.00999999978
-      Restitution: 0.939999998
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.680000007
       RestitutionThreshold: 0.5
   - Entity: 5917386294237301744
     TagComponent:
@@ -2913,8 +4091,8 @@ Entities:
     TagComponent:
       Tag: Cold Stan
     TransformComponent:
-      Translation: [-2.19651008, 4.73179865, 0]
-      Rotation: [0, 0, 0.0401427858]
+      Translation: [1.96781135, 3.84748077, 0]
+      Rotation: [0, 0, 0.040142782]
       Scale: [0.599999964, 0.599999964, 1]
     SpriteRendererComponent:
       Color: [0.534084618, 0.687290072, 0.966244698, 1]
@@ -2951,8 +4129,8 @@ Entities:
     TagComponent:
       Tag: Cold Stan
     TransformComponent:
-      Translation: [1.22040594, 6.87064934, 0]
-      Rotation: [0, 0, 0.0401427858]
+      Translation: [-8.6601429, 4.67497063, 0]
+      Rotation: [0, 0, 0.040142782]
       Scale: [0.599999964, 0.599999964, 1]
     SpriteRendererComponent:
       Color: [0.534084618, 0.687290072, 0.966244698, 1]
@@ -5859,7 +7037,7 @@ Entities:
       Tag: Cold Stan
     TransformComponent:
       Translation: [3.09839869, 9.94849682, 0]
-      Rotation: [0, 0, 0.0401427858]
+      Rotation: [0, 0, 0.040142782]
       Scale: [0.599999964, 0.599999964, 1]
     SpriteRendererComponent:
       Color: [0.534084618, 0.687290072, 0.966244698, 1]
@@ -5935,7 +7113,7 @@ Entities:
       Tag: Cold Stan
     TransformComponent:
       Translation: [-1.23744774, 5.77112532, 0]
-      Rotation: [0, 0, 0.0401427858]
+      Rotation: [0, 0, 0.040142782]
       Scale: [0.599999964, 0.599999964, 1]
     SpriteRendererComponent:
       Color: [0.534084618, 0.687290072, 0.966244698, 1]
@@ -5954,7 +7132,7 @@ Entities:
       Tag: Cold Stan
     TransformComponent:
       Translation: [3.79865599, 4.9725914, 0]
-      Rotation: [0, 0, 0.0401427858]
+      Rotation: [0, 0, 0.040142782]
       Scale: [0.599999964, 0.599999964, 1]
     SpriteRendererComponent:
       Color: [0.534084618, 0.687290072, 0.966244698, 1]

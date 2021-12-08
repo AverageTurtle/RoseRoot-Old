@@ -37,7 +37,13 @@ namespace RoseRoot {
 		glm::vec2 GetGravity2D() { return m_SceneSettings.Gravity2D; }
 		void SetGravity2D(glm::vec2 gravity) { m_SceneSettings.Gravity2D = gravity;}
 
-		Entity GetPrimaryCamerEntity();
+		Entity GetPrimaryCameraEntity();
+
+		template<typename... Components>
+		auto GetAllEntitiesWith()
+		{
+			return m_Registry.view<Components...>();
+		}
 	private:
 		template<typename T>
 		void OnComponentAdded(Entity entity, T& component);

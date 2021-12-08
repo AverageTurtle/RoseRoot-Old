@@ -22,6 +22,8 @@ namespace RoseRoot {
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
+		void OnOverlayRender();
+
 		void NewScene();
 		void OpenScene();
 		void OpenScene(const std::filesystem::path& path);
@@ -48,7 +50,7 @@ namespace RoseRoot {
 
 		Entity m_HoveredEntity;
 
-		bool m_PrimaryCamera = true;
+		bool m_ShowPhysicsColliders = false;
 		bool m_SceneSettingsOpen = true;
 
 		EditorCamera m_EditorCamera;

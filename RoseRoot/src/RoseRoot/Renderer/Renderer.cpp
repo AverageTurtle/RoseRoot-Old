@@ -31,7 +31,7 @@ namespace RoseRoot {
 
 	void Renderer::BeginScene(PerspectiveCamera& camera)
 	{
-		RR_CORE_WARN("Beginning a scene in default renderer is unsuppported please use Renderer2D or RendererVoxel!");
+		RR_CORE_WARN("Beginning a scene in default renderer is unsuppported please use Renderer2D!");
 
 		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
