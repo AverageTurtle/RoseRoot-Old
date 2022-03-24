@@ -135,16 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Core\Block.h" />
-    <ClInclude Include="src\Core\Chunk.h" />
-    <ClInclude Include="src\Core\ChunkManager.h" />
-    <ClInclude Include="src\Core\WorldConstants.h" />
-    <ClInclude Include="src\MainLayer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Core\Chunk.cpp" />
-    <ClCompile Include="src\Core\ChunkManager.cpp" />
-    <ClCompile Include="src\MainLayer.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
   </ItemGroup>
   <ItemGroup>

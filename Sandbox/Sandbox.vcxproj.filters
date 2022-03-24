@@ -6,28 +6,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Core\Block.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\Chunk.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\ChunkManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\WorldConstants.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MainLayer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Core\Chunk.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\ChunkManager.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MainLayer.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
   </ItemGroup>
 </Project>
