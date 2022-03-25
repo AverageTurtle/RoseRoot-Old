@@ -201,7 +201,7 @@ namespace RoseRoot {
 	}
 }
 
-#define RR_PROFILE 0
+#define RR_PROFILE 1
 #if RR_PROFILE
 // Resolve which function signature macro will be used. Note that this only
 // is resolved when the (pre)compiler starts, so the syntax highlighting
@@ -221,16 +221,16 @@ namespace RoseRoot {
 #elif defined(__cplusplus) && (__cplusplus >= 201103)
 #define RR_FUNC_SIG __func__
 #else
-#define RR_FUNC_SIG "HZ_FUNC_SIG unknown!"
+#define RR_FUNC_SIG "RR_FUNC_SIG unknown!"
 #endif
 
-#define RR_PROFILE_BEGIN_SESSION(name, filepath) ::Hazel::Instrumentor::Get().BeginSession(name, filepath)
-#define RR_PROFILE_END_SESSION() ::Hazel::Instrumentor::Get().EndSession()
-#define RR_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Hazel::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
-											   ::Hazel::InstrumentationTimer timer##line(fixedName##line.Data)
-#define RR_PROFILE_SCOPE_LINE(name, line) HZ_PROFILE_SCOPE_LINE2(name, line)
-#define RR_PROFILE_SCOPE(name) HZ_PROFILE_SCOPE_LINE(name, __LINE__)
-#define RR_PROFILE_FUNCTION() HZ_PROFILE_SCOPE(HZ_FUNC_SIG)
+#define RR_PROFILE_BEGIN_SESSION(name, filepath) ::RoseRoot::Instrumentor::Get().BeginSession(name, filepath)
+#define RR_PROFILE_END_SESSION() ::RoseRoot::Instrumentor::Get().EndSession()
+#define RR_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::RoseRoot::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+											   ::RoseRoot::InstrumentationTimer timer##line(fixedName##line.Data)
+#define RR_PROFILE_SCOPE_LINE(name, line) RR_PROFILE_SCOPE_LINE2(name, line)
+#define RR_PROFILE_SCOPE(name) RR_PROFILE_SCOPE_LINE(name, __LINE__)
+#define RR_PROFILE_FUNCTION() RR_PROFILE_SCOPE(RR_FUNC_SIG)
 #else
 #define RR_PROFILE_BEGIN_SESSION(name, filepath)
 #define RR_PROFILE_END_SESSION()

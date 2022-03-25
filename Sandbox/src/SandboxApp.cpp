@@ -4,23 +4,26 @@
 #include <RoseRoot/Core/EntryPoint.h>
 //-----------------
 
-#include "MainLayer.h"
+//#include "MainLayer.h"
 
-class Sandbox : public RoseRoot::Application
-{
-public:
-	Sandbox()
+namespace RoseRoot {
+	class RoseStem : public Application
 	{
-		PushLayer(new MainLayer(GetWindow()));
-	}
+	public:
+		RoseStem(ApplicationCommandLineArgs args)
+			: Application("Rose Stem", args)
+		{
+			//PushLayer(new EditorLayer());
+		}
 
-	~Sandbox()
+		~RoseStem()
+		{
+
+		}
+	};
+
+	Application* CreateApplication(ApplicationCommandLineArgs args)
 	{
-
+		return new RoseStem(args);
 	}
-};
-
-RoseRoot::Application* RoseRoot::CreateApplication()
-{
-	return new Sandbox();
 }

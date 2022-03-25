@@ -1,4 +1,4 @@
-project "Sandbox"
+project "RoseStem"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
