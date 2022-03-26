@@ -37,3 +37,6 @@
 #include "RoseRoot/Renderer/Framebuffer.h"
 
 #include "RoseRoot/Renderer/Camera.h"
+
+//Scripting
+#include "RoseRoot/Scene/Lua.h"

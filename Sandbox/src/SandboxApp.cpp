@@ -4,16 +4,16 @@
 #include <RoseRoot/Core/EntryPoint.h>
 //-----------------
 
-//#include "MainLayer.h"
+#include "MainLayer.h"
 
 namespace RoseRoot {
 	class RoseStem : public Application
 	{
 	public:
 		RoseStem(ApplicationCommandLineArgs args)
-			: Application("Rose Stem", args)
+			: Application("Sandbox", args)
 		{
-			//PushLayer(new EditorLayer());
+			PushLayer(new Sandbox::MainLayer());
 		}
 
 		~RoseStem()

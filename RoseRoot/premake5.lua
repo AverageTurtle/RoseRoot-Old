@@ -18,6 +18,7 @@ project "RoseRoot"
 		"vendor/stb_image/**.cpp",
 		"vendor/glm/glm/**.hpp",
 		"vendor/glm/glm/**.inl",
+		"vendor/lua/sol/**.hpp",
 
 		"vendor/ImGuizmo/ImGuizmo.h",
 		"vendor/ImGuizmo/ImGuizmo.cpp"
@@ -33,6 +34,7 @@ project "RoseRoot"
 	{
 		"src",
 		"vendor/spdlog/include",
+		"vendor/lua/sol",
 		"%{IncludeDir.Box2D}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
@@ -42,7 +44,8 @@ project "RoseRoot"
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.yaml_cpp}",
 		"%{IncludeDir.ImGuizmo}",
-		"%{IncludeDir.VulkanSDK}"
+		"%{IncludeDir.VulkanSDK}",
+		"%{IncludeDir.Lua}",
 	}
 
 	links
@@ -52,6 +55,7 @@ project "RoseRoot"
 		"Glad",
 		"ImGui",
 		"yaml-cpp",
+		"%{Library.Lua}",
 		"opengl32.lib"
 	}
 

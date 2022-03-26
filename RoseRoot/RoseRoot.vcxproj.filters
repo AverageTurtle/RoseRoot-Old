@@ -64,6 +64,12 @@
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\lua">
+      <UniqueIdentifier>{E4B5C5A8-D06D-07F6-3975-E051254CA2E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\lua\sol">
+      <UniqueIdentifier>{A1C5D15E-8D93-C564-7627-368B6294A1C9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor\stb_image">
       <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
     </Filter>
@@ -214,6 +220,9 @@
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\RoseRoot\Scene\Entity.h">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoseRoot\Scene\Lua.h">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\RoseRoot\Scene\Scene.h">
@@ -1482,6 +1491,15 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\lua\sol\config.hpp">
+      <Filter>vendor\lua\sol</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\lua\sol\forward.hpp">
+      <Filter>vendor\lua\sol</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\lua\sol\sol.hpp">
+      <Filter>vendor\lua\sol</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
@@ -1590,6 +1608,9 @@
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\RoseRoot\Scene\Entity.cpp">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RoseRoot\Scene\Lua.cpp">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\RoseRoot\Scene\Scene.cpp">

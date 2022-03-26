@@ -20,3 +20,9 @@ RoseRoot/vendor/GLFW/
 RoseRoot/vendor/VulkanSDK
 RoseStem/assets/cache
 scripts/__pycache__
+RoseStem/VoxelEngineProfile-Runtime.json
+RoseStem/VoxelEngineProfile-Shutdown.json
+RoseStem/VoxelEngineProfile-Startup.json
+Sandbox/VoxelEngineProfile-Shutdown.json
+Sandbox/VoxelEngineProfile-Runtime.json
+Sandbox/VoxelEngineProfile-Startup.json
