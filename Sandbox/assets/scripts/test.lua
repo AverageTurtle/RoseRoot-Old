@@ -5,5 +5,5 @@ function Init()
 end
 
 function Update(ts)
-	log("Update")
+	log("Update: "..ts)
 end

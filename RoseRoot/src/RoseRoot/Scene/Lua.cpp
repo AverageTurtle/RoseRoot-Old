@@ -10,7 +10,7 @@ namespace RoseRoot {
 		m_LuaState.open_libraries(sol::lib::base, sol::lib::package);
 
 		//Register Functions
-		lua_register(m_LuaState, "log", &BindRoseLog);
+		m_LuaState.set_function("log", &BindRoseLog);
 
 
 		int resultL = luaL_loadfile(m_LuaState, filepath.c_str());
