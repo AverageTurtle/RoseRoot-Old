@@ -6,7 +6,6 @@ namespace RoseRoot {
 
 	class LuaScript {
 	public:
-		LuaScript() {}
 		LuaScript(const std::string& filepath);
 		~LuaScript();
 

@@ -8,8 +8,8 @@ namespace Sandbox {
 	}
 	void MainLayer::OnAttach()
 	{
-		
 		m_Lua.Init();
+		m_Lua2.Init();
 	}
 	void MainLayer::OnDetach()
 	{
@@ -17,6 +17,7 @@ namespace Sandbox {
 	void MainLayer::OnUpdate(RoseRoot::Timestep ts)
 	{
 		m_Lua.Update(ts);
+		m_Lua2.Update(ts);
 
 		RoseRoot::RenderCommand::SetClearColor({0.2, 0.0, 0.2, 1.0});
 		RoseRoot::RenderCommand::Clear();
