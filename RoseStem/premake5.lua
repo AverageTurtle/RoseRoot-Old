@@ -16,11 +16,13 @@ project "RoseStem"
 	includedirs
 	{
 		"%{wks.location}/RoseRoot/vendor/spdlog/include",
+		"%{wks.location}/RoseRoot/vendor/lua/sol",
 		"%{wks.location}/RoseRoot/src",
 		"%{wks.location}/RoseRoot/vendor",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.Lua}"
 	}
 
 	links

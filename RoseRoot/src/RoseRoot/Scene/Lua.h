@@ -13,9 +13,8 @@ namespace RoseRoot {
 		void Update(Timestep ts);
 	private:
 		static int BindRoseLog(lua_State* ptrState);
+		static int BindDrawQuad2DSimple(lua_State* ptrState);
 	private:
 		sol::state m_LuaState;
-
-		
 	};
 }

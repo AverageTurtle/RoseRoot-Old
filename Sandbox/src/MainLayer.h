@@ -15,5 +15,7 @@ namespace Sandbox {
 	private:
 		RoseRoot::LuaScript m_Lua = RoseRoot::LuaScript("assets/scripts/test.lua");
 		RoseRoot::LuaScript m_Lua2 = RoseRoot::LuaScript("assets/scripts/test2.lua");
+
+		RoseRoot::EditorCamera m_EditorCamera;
 	};
 }
