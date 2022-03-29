@@ -8,10 +8,27 @@ namespace RoseRoot {
 		float x = 0, y = 0;
 
 		Vec2() {}
-		Vec2(float lx,float ly)
-			: x(lx),y(ly) {}
+		Vec2(float lx, float ly)
+			: x(lx), y(ly) {}
 		~Vec2() {}
 	};
+	struct Color {
+		float r = 0, g = 0, b = 0, a = 1;
+
+		Color() {}
+		Color(float r, float g, float b, float a)
+			: r(r), g(g), b(b), a(a) {}
+		~Color() {}
+
+		
+	};	
+	Color CreateColor(float r, float g, float b, float a)
+	{return Color(r, g, b, a);}
+
+	static void DrawQuadSimple(Vec2 pos, Vec2 size, Color color)
+	{
+		Renderer2D::DrawQuad({ pos.x, pos.y }, { size.x, size.y }, { color.r, color.g, color.b, color.a });
+	}
 
 	LuaScript::LuaScript(const std::string& filepath)
 	{
@@ -20,14 +37,26 @@ namespace RoseRoot {
 
 		m_LuaState.open_libraries(sol::lib::base, sol::lib::package, sol::lib::table);
 
-		//Register Functions
-		m_LuaState.set_function("log", &BindRoseLog);
-		m_LuaState.set_function("DrawSimpleQuad2D", &BindDrawQuad2DSimple);
-
 		//Register Types
 		m_LuaState.new_usertype<Vec2>("Vec2",
 			"x", &Vec2::x,
 			"y", &Vec2::y);
+
+		m_LuaState.new_usertype<Color>("Color",
+			"r", &Color::r,
+			"g", &Color::g,
+			"b", &Color::b,
+			"a", &Color::a);
+
+		//Register Util/Core Functions
+		m_LuaState.set_function("log", &BindRoseLog);
+
+		//Render2D lua Binding
+		auto renderer2D = m_LuaState["Renderer2D"].get_or_create<sol::table>();
+		renderer2D.set_function("DrawSimpleQuad", &DrawQuadSimple);
+
+		
+		m_LuaState.set_function("CreateColor", &CreateColor);
 
 		int resultL = luaL_loadfile(m_LuaState, filepath.c_str());
 		RR_CORE_ASSERT(resultL == LUA_OK, "Failed to load file!");
@@ -62,21 +91,6 @@ namespace RoseRoot {
 		return 0;
 	}
 
-	int LuaScript::BindDrawQuad2DSimple(lua_State* ptrState)
-	{
-		const float x = lua_tonumber(ptrState, 1);
-		const float y = lua_tonumber(ptrState, 2);
 
-		const float sy = lua_tonumber(ptrState, 3);
-		const float sx = lua_tonumber(ptrState, 4);
-
-		const float r = lua_tonumber(ptrState, 5);
-		const float g = lua_tonumber(ptrState, 6);
-		const float b = lua_tonumber(ptrState, 7);
-		const float a = lua_tonumber(ptrState, 8);
-
-		Renderer2D::DrawQuad({ x, y }, { sy, sx }, { r, g, b, a });
-		return 0;
-	}
 
 }

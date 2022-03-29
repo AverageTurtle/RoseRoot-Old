@@ -1,19 +1,17 @@
-time = -6;
+pos = Vec2.new()
+size = Vec2.new()
+color = CreateColor(1, 1, 0, 1)
+
+size.x = 1
+size.y = 1
+
 log("Hello from lua")
 
 function Init()
 	log("Init")
-	vec2 = Vec2.new()
-	vec2.x = 5
-	vec2.y = 3
-	log(vec2.x..","..vec2.y)
 end
 
 function Update(ts)
-	time = time + (ts*0.6)
-	if time > 6 then
-		time = -6
-	end
-	
-	DrawSimpleQuad2D(time, 0, 1, 1, 0.9, 1, 0, 1)
+	pos.x = 0;
+	Renderer2D.DrawSimpleQuad(pos, size, color)
 end
