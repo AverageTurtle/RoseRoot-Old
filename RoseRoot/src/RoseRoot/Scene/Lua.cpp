@@ -20,7 +20,6 @@ namespace RoseRoot {
 		:m_LuaEntity(CreateRef<LuaEntity>(LuaEntity(entity)))
 	{
 		RR_PROFILE_FUNCTION();
-
 		m_LuaState = sol::state();
 
 		m_LuaState.open_libraries(sol::lib::base, sol::lib::package, sol::lib::table);
