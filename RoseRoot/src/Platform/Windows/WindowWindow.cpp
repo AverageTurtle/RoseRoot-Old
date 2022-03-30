@@ -6,7 +6,7 @@
 #include "RoseRoot/Events/MouseEvent.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
-
+#include <stb_image.h>
 namespace RoseRoot {
 	static bool s_GLFWInitialized = false;
 
@@ -162,6 +162,16 @@ namespace RoseRoot {
 
 		glfwPollEvents();
 		m_Context->SwapBuffers();
+	}
+
+	void WindowsWindow::SetWindowIcon(const std::string& path) const
+	{
+		stbi_set_flip_vertically_on_load(0);
+		GLFWimage images[1];
+		images[0].pixels = stbi_load(path.c_str(), &images[0].width, &images[0].height, 0, 4); //rgba channels 
+		glfwSetWindowIcon(m_Window, 1, images);
+		stbi_image_free(images[0].pixels);
+
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

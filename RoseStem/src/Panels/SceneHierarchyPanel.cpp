@@ -229,6 +229,15 @@ namespace RoseRoot {
 
 		if (ImGui::BeginPopup("AddComponent"))
 		{
+			if (!m_SelectionContext.HasComponent<LuaScriptComponent>())
+			{
+				if (ImGui::MenuItem("Lua Script"))
+				{
+					m_SelectionContext.AddComponent<LuaScriptComponent>();
+					ImGui::CloseCurrentPopup();
+				}
+			}
+
 			if (!m_SelectionContext.HasComponent<CameraComponent>())
 			{
 				if (ImGui::MenuItem("Camera"))
@@ -282,7 +291,7 @@ namespace RoseRoot {
 					ImGui::CloseCurrentPopup();
 				}
 			}
-
+			
 			ImGui::EndPopup();
 		}
 
@@ -434,6 +443,18 @@ namespace RoseRoot {
 				ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 2.0f);
 				ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 2.0f);
 				ImGui::DragFloat("Restitution Threshold", &component.RestitutionThreshold, 0.01f, 0.0f);
+			});
+
+		DrawComponent<LuaScriptComponent>("Lua Script", entity, [](auto& component)
+			{
+
+				char buffer[256];
+				memset(buffer, 0, sizeof(buffer));
+				std::strncpy(buffer, component.Path.c_str(), sizeof(buffer));
+				if (ImGui::InputText("Path", buffer, sizeof(buffer)))
+				{
+					component.Path = std::string(buffer);
+				}
 			});
 	}
 }

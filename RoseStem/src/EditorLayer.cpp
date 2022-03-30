@@ -25,6 +25,7 @@ namespace RoseRoot {
 	{
 		RR_PROFILE_FUNCTION();
 
+		Application::Get().GetWindow().SetWindowIcon("Resources/icon.png");
 		m_IconPlay = Texture2D::Create("Resources/Icons/PlayButton.png");
 		m_IconStop = Texture2D::Create("Resources/Icons/StopButton.png");
 

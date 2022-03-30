@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
+    <Filter Include="RoseRoot">
+      <UniqueIdentifier>{029BDD9C-EE67-38A8-1781-265003AD6D36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RoseRoot\vendor">
+      <UniqueIdentifier>{1F7B38D3-8B06-A697-9417-298C00220298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RoseRoot\vendor\lua">
+      <UniqueIdentifier>{50934A63-BCF4-2771-4562-6E23B1C25E30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RoseRoot\vendor\lua\sol">
+      <UniqueIdentifier>{0D791F62-79B0-67F9-82BA-CB1CEE708EF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\SandboxApp.cpp" />
+    <ClInclude Include="..\RoseRoot\vendor\lua\sol\config.hpp">
+      <Filter>RoseRoot\vendor\lua\sol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RoseRoot\vendor\lua\sol\forward.hpp">
+      <Filter>RoseRoot\vendor\lua\sol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RoseRoot\vendor\lua\sol\sol.hpp">
+      <Filter>RoseRoot\vendor\lua\sol</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainLayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\MainLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SandboxApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
