@@ -7,22 +7,27 @@ A easy to use Game engine and Editor!<br>
 -
 Easy to learn LUA Scripting (Rose Stem)
 ```lua
-pos = Vec2.new()
-size = Vec2.new()
-color = CreateColor(1, 1, 0, 1)
+pos = Vec3.new()
 
-size.x = 1
-size.y = 1
-
+--rself is how you access the entity the script is attached to!
+pos = rself.position
+--use log not print for Rose!
 log("Hello from lua")
 
+--Called Before the first frame
 function Init()
 	log("Init")
 end
 
+--Called Every Frame
 function Update(ts)
-	pos.x = 0;
-	Renderer2D.DrawSimpleQuad(pos, size, color)
+	pos.x = pos.x + (ts*0.5)
+	rself.position = pos
+    if pos.x > 14 then
+        pos.x = -14
+    end
+    
+	log(rself.name..": "..rself.position.x)
 end
 ```
 
@@ -36,4 +41,5 @@ RoseRoot::Renderer2D::BeginScene(m_EditorCamera);
 //Draws a white quad at the center of the screen
 Renderer2D::DrawQuad({ 0.f, 0.f }, { 1.f, 1.f }, { 1.f, 1.f, 1.f, 1.f });
 
-RoseRoot::Renderer2D::EndScene();```
+RoseRoot::Renderer2D::EndScene();
+```

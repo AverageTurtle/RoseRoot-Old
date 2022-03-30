@@ -194,6 +194,7 @@
     <ClInclude Include="src\RoseRoot\Scene\Components.h" />
     <ClInclude Include="src\RoseRoot\Scene\Entity.h" />
     <ClInclude Include="src\RoseRoot\Scene\Lua.h" />
+    <ClInclude Include="src\RoseRoot\Scene\LuaTypes.h" />
     <ClInclude Include="src\RoseRoot\Scene\Scene.h" />
     <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h" />
     <ClInclude Include="src\RoseRoot\Scene\SceneSerializer.h" />

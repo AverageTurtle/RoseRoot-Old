@@ -97,7 +97,16 @@ namespace RoseRoot {
 			DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
 		}
 	};
+	
+	class LuaScript;
+	struct LuaScriptComponent
+	{
+		std::string Path;
+		Ref<LuaScript> Script;
 
+		LuaScriptComponent() = default;
+		LuaScriptComponent(const LuaScriptComponent&) = default;
+	};
 	//----Physics----
 
 	struct Rigidbody2DComponent

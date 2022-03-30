@@ -3,6 +3,7 @@
 
 #include "Components.h"
 #include "ScriptableEntity.h"
+#include "Lua.h"
 #include "RoseRoot/Renderer/Renderer2D.h"
 
 #include <glm/glm.hpp>
@@ -93,6 +94,7 @@ namespace RoseRoot {
 		CopyComponent<Rigidbody2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<BoxCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<CircleCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		CopyComponent<LuaScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 
 		return newScene;
 	}
@@ -115,6 +117,7 @@ namespace RoseRoot {
 	void Scene::DestroyEntity(Entity entity)
 	{
 		m_Registry.destroy(entity);
+		
 	}
 
 	void Scene::OnRuntimeStart()
@@ -170,6 +173,12 @@ namespace RoseRoot {
 				body->CreateFixture(&fixtureDef);
 			}
 		}
+
+		m_Registry.view<LuaScriptComponent>().each([=](auto entity, LuaScriptComponent& lsc)
+			{
+				lsc.Script = CreateRef<LuaScript>(Entity{ entity, this }, lsc.Path);
+				lsc.Script->Init();
+			});
 	}
 
 	void Scene::OnRuntimeStop()
@@ -182,6 +191,8 @@ namespace RoseRoot {
 	{
 		// Update scripts
 		{
+			RR_PROFILE_SCOPE("Update Scripts");
+
 			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
 				{
 					// TODO: Move to Scene::OnScenePlay
@@ -193,6 +204,11 @@ namespace RoseRoot {
 					}
 
 					nsc.Instance->OnUpdate(ts);
+				});
+
+			m_Registry.view<LuaScriptComponent>().each([=](auto entity, auto& lsc)
+				{
+					lsc.Script->Update(ts);
 				});
 		}
 
@@ -324,6 +340,7 @@ namespace RoseRoot {
 		CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
 		CopyComponentIfExists<BoxCollider2DComponent>(newEntity, entity);
 		CopyComponentIfExists<CircleCollider2DComponent>(newEntity, entity);
+		CopyComponentIfExists<LuaScriptComponent>(newEntity, entity);
 	}
 
 	Entity Scene::GetPrimaryCameraEntity()
@@ -392,5 +409,8 @@ namespace RoseRoot {
 	void Scene::OnComponentAdded<CircleCollider2DComponent>(Entity entity, CircleCollider2DComponent& component)
 	{
 	}
-
+	template<>
+	void Scene::OnComponentAdded<LuaScriptComponent>(Entity entity, LuaScriptComponent& component)
+	{
+	}
 }

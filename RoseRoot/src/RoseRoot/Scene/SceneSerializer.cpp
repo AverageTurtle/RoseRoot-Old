@@ -259,7 +259,16 @@ namespace RoseRoot {
 
 			out << YAML::EndMap; // CircleCollider2DComponent
 		}
+		if (entity.HasComponent<LuaScriptComponent>())
+		{
+			out << YAML::Key << "LuaScriptComponent";
+			out << YAML::BeginMap; // LuaScriptComponent
 
+			auto& luaComponent = entity.GetComponent<LuaScriptComponent>();
+			out << YAML::Key << "Path" << YAML::Value << luaComponent.Path;
+
+			out << YAML::EndMap; // LuaScriptComponent
+		}
 		out << YAML::EndMap; // Entity
 	}
 
@@ -420,6 +429,12 @@ namespace RoseRoot {
 					cc2d.Friction = circleCollider2DComponent["Friction"].as<float>();
 					cc2d.Restitution = circleCollider2DComponent["Restitution"].as<float>();
 					cc2d.RestitutionThreshold = circleCollider2DComponent["RestitutionThreshold"].as<float>();
+				}
+				auto luaScriptComponent = entity["LuaScriptComponent"];
+				if (luaScriptComponent)
+				{
+					auto& lsc = deserializedEntity.AddComponent<LuaScriptComponent>();
+					lsc.Path = luaScriptComponent["Path"].as<std::string>();
 				}
 			}
 		}
