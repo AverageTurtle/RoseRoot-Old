@@ -1,4 +1,4 @@
-speed = 3
+speed = 4
 pos = Vec3.new()
 log(Key.left)
 function Update(ts)
