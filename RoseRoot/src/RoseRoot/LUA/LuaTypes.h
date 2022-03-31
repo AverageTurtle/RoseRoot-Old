@@ -25,7 +25,6 @@ namespace RoseRoot {
 			: r(r), g(g), b(b), a(a) {}
 		~Color() {}
 	};
-
 	struct LuaEntity{
 		Entity entity;
 
@@ -38,9 +37,7 @@ namespace RoseRoot {
 		LuaEntity(Entity ent) { entity = ent; SyncToRose(); }
 
 		void SyncToRose() {
-			{
-				Name = entity.GetComponent<TagComponent>().Tag;
-			}
+			{Name = entity.GetComponent<TagComponent>().Tag;}
 			{
 				TransformComponent tc = entity.GetComponent<TransformComponent>();
 				glm::vec3 gPos = tc.Translation;

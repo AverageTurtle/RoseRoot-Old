@@ -3,7 +3,7 @@
 
 #include "Components.h"
 #include "ScriptableEntity.h"
-#include "Lua.h"
+#include "RoseRoot/LUA/Lua.h"
 #include "RoseRoot/Renderer/Renderer2D.h"
 
 #include <glm/glm.hpp>
@@ -123,7 +123,7 @@ namespace RoseRoot {
 	void Scene::OnRuntimeStart()
 	{
 		RR_PROFILE_FUNCTION();
-		RR_CORE_TRACE("----Runtime Scene Started----------------------------------------------------");
+		RR_CORE_TRACE("-----Runtime Scene Started-----");
 		m_PhysicsWorld = new b2World({ m_SceneSettings.Gravity2D.x, m_SceneSettings.Gravity2D.y });
 
 		auto view = m_Registry.view<Rigidbody2DComponent>();

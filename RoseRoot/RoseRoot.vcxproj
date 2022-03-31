@@ -193,8 +193,8 @@
     <ClInclude Include="src\RoseRoot\Renderer\VertexArray.h" />
     <ClInclude Include="src\RoseRoot\Scene\Components.h" />
     <ClInclude Include="src\RoseRoot\Scene\Entity.h" />
-    <ClInclude Include="src\RoseRoot\Scene\Lua.h" />
-    <ClInclude Include="src\RoseRoot\Scene\LuaTypes.h" />
+    <ClInclude Include="src\RoseRoot\LUA\Lua.h" />
+    <ClInclude Include="src\RoseRoot\LUA\LuaTypes.h" />
     <ClInclude Include="src\RoseRoot\Scene\Scene.h" />
     <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h" />
     <ClInclude Include="src\RoseRoot\Scene\SceneSerializer.h" />
@@ -658,7 +658,7 @@
     <ClCompile Include="src\RoseRoot\Renderer\UniformBuffer.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\Entity.cpp" />
-    <ClCompile Include="src\RoseRoot\Scene\Lua.cpp" />
+    <ClCompile Include="src\RoseRoot\LUA\Lua.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\Scene.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\SceneSerializer.cpp" />

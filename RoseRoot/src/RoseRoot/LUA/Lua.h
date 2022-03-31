@@ -1,6 +1,6 @@
 #pragma once
 #include "RoseRoot/Core/Timestep.h"
-#include "Entity.h"
+#include "RoseRoot/Scene/Entity.h"
 #include "LuaTypes.h"
 
 #include <sol.hpp>

@@ -1,4 +1,4 @@
-Scene: Untitled
+Scene: ScriptTest
 Scene Settings:
   Gravity2D: [1, -9.80000019]
 Entities:
@@ -6,7 +6,7 @@ Entities:
     TagComponent:
       Tag: Cloud
     TransformComponent:
-      Translation: [10.4456253, 3.40217638, -5]
+      Translation: [-11.181675, 3.40217638, -5]
       Rotation: [0, 0, 0]
       Scale: [3.27596736, 0.760344625, 1]
     SpriteRendererComponent:
@@ -17,7 +17,7 @@ Entities:
     TagComponent:
       Tag: Cloud
     TransformComponent:
-      Translation: [-7.73404503, 4.45933867, -5]
+      Translation: [-1.36127663, 4.45933867, -5]
       Rotation: [0, 0, 0]
       Scale: [3.27596736, 0.760344625, 1]
     SpriteRendererComponent:
@@ -28,7 +28,7 @@ Entities:
     TagComponent:
       Tag: Cloud
     TransformComponent:
-      Translation: [-1.09472275, 3.30563307, -5]
+      Translation: [5.27804565, 3.30563307, -5]
       Rotation: [0, 0, 0]
       Scale: [3.27596736, 0.760344625, 1]
     SpriteRendererComponent:
@@ -39,7 +39,7 @@ Entities:
     TagComponent:
       Tag: Cloud
     TransformComponent:
-      Translation: [-13.1903591, 6.22625446, -5]
+      Translation: [-6.81759071, 6.22625446, -5]
       Rotation: [0, 0, 0]
       Scale: [3.27596736, 0.760344625, 1]
     SpriteRendererComponent:
@@ -88,7 +88,7 @@ Entities:
     TagComponent:
       Tag: Camera
     TransformComponent:
-      Translation: [0, 0.600000024, 18]
+      Translation: [0, 1.5, 18]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
@@ -125,7 +125,7 @@ Entities:
     TagComponent:
       Tag: Sky
     TransformComponent:
-      Translation: [0, 0, -100]
+      Translation: [-9.53674316e-07, -4.76837158e-07, -100]
       Rotation: [0, 0, 0]
       Scale: [1000, 1000, 1]
     SpriteRendererComponent:
@@ -134,9 +134,9 @@ Entities:
     TagComponent:
       Tag: Bouncy Stan
     TransformComponent:
-      Translation: [-6.21983767, 9.62005997, 7.45057207e-08]
-      Rotation: [0, 0, -0.191573203]
-      Scale: [0.999970317, 0.999970317, 1]
+      Translation: [-5.4843688, 4.32744074, 7.45057207e-08]
+      Rotation: [0, 0, 1.93552411]
+      Scale: [0.999952316, 0.999952316, 1]
     SpriteRendererComponent:
       Color: [0.800000012, 0.400000006, 0.899999976, 1]
     Rigidbody2DComponent:
@@ -153,7 +153,7 @@ Entities:
     TagComponent:
       Tag: Cloud
     TransformComponent:
-      Translation: [5.2130909, 6.52436686, -5]
+      Translation: [11.5858593, 6.52436686, -5]
       Rotation: [0, 0, 0]
       Scale: [3.27596736, 0.760344625, 1]
     SpriteRendererComponent:
@@ -221,8 +221,8 @@ Entities:
     TagComponent:
       Tag: Round Stan
     TransformComponent:
-      Translation: [4.14613676, 7.52868605, 0]
-      Rotation: [0, 0, 0.040142782]
+      Translation: [5.67112875, 8.22805786, 0]
+      Rotation: [0, 0, 0.432085037]
       Scale: [1, 1, 1]
     CircleRendererComponent:
       Color: [1, 0.886075616, 0, 1]
@@ -242,8 +242,8 @@ Entities:
     TagComponent:
       Tag: Cold Stan
     TransformComponent:
-      Translation: [4.29825306, 4.99265718, 0]
-      Rotation: [0, 0, 0.040142782]
+      Translation: [1.40529633, 4.47217083, 0]
+      Rotation: [0, 0, -0.000351789844]
       Scale: [0.599999964, 0.599999964, 1]
     SpriteRendererComponent:
       Color: [0.534084618, 0.687290072, 0.966244698, 1]

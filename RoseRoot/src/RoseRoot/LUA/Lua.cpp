@@ -1,7 +1,9 @@
 #include "rrpch.h"
 #include "Lua.h"
+#include <string>
+
 #include "RoseRoot/Renderer/Renderer2D.h"
-#include "Components.h"
+#include "RoseRoot/Scene/Components.h"
 namespace RoseRoot {
 
 	
@@ -14,7 +16,9 @@ namespace RoseRoot {
 	static void DrawQuadSimple(Vec2 pos, Vec2 size, Color color)
 	{	//Lua Renderer2D functions will not work with rosestem.
 		Renderer2D::DrawQuad({ pos.x, pos.y }, { size.x, size.y }, { color.r, color.g, color.b, color.a });}
-
+	static bool LUAIsKeyDown(Key key) {
+		return Input::IsKeyPressed(key);
+	}
 	
 	LuaScript::LuaScript(Entity entity, const std::string& filepath)
 		:m_LuaEntity(CreateRef<LuaEntity>(LuaEntity(entity)))
@@ -36,7 +40,6 @@ namespace RoseRoot {
 											"size",&LuaEntity::size
 										  );
 
-
 		//Register Util/Core Functions
 		m_LuaState.set_function("log", &BindRoseLog);
 
@@ -46,6 +49,14 @@ namespace RoseRoot {
 		//Render2D lua Binding
 		auto renderer2D = m_LuaState["Renderer2D"].get_or_create<sol::table>();
 		renderer2D.set_function("DrawSimpleQuad", &DrawQuadSimple);
+
+		//Input
+		auto key = m_LuaState["Key"].get_or_create<sol::table>();
+		for (auto& value : AllKeys) {
+			key[KeyToString(value)] = value;
+		}
+		auto input = m_LuaState["Input"].get_or_create<sol::table>();
+		input.set_function("IsKeyPressed", &LUAIsKeyDown);
 
 		//Globals
 		m_LuaState["rself"] = m_LuaEntity;

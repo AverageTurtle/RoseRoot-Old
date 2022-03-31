@@ -37,6 +37,9 @@ namespace RoseRoot {
 		glm::vec2 GetGravity2D() { return m_SceneSettings.Gravity2D; }
 		void SetGravity2D(glm::vec2 gravity) { m_SceneSettings.Gravity2D = gravity;}
 
+		std::string GetName() { return m_SceneSettings.Name; }
+		void SetName(std::string name) { m_SceneSettings.Name = name;}
+
 		Entity GetPrimaryCameraEntity();
 
 		template<typename... Components>
@@ -50,6 +53,7 @@ namespace RoseRoot {
 	private:
 		struct SceneSettings
 		{
+			std::string Name;
 			glm::vec2 Gravity2D = { 0.0f, -9.8f };
 
 			SceneSettings() = default;
