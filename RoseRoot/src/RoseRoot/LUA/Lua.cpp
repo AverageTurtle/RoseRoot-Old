@@ -7,6 +7,9 @@
 namespace RoseRoot {
 
 	
+
+	Vec2 CreateVec2(float x, float y)
+	{ return Vec2(x, y);}
 	Vec3 CreateVec3(float x, float y, float z)
 	{ return Vec3(x, y, z);}
 
@@ -37,13 +40,20 @@ namespace RoseRoot {
 											"name",&LuaEntity::Name,
 											"position",&LuaEntity::position,
 											"rotation",&LuaEntity::rotation,
-											"size",&LuaEntity::size
+											"size",&LuaEntity::size,
+											"SetLinearVelocity", &LuaEntity::SetLinearVelocity,
+											"GetLinearVelocity", &LuaEntity::GetLinearVelocity,
+											"SetAnglearVelocity", &LuaEntity::SetAnglearVelocity,
+											"GetAnglearVelocity", &LuaEntity::GetAnglearVelocity,
+											"SetGravityScale", &LuaEntity::SetGravityScale,
+											"GetGravityScale", &LuaEntity::GetGravityScale
 										  );
 
 		//Register Util/Core Functions
 		m_LuaState.set_function("log", &BindRoseLog);
 
 		m_LuaState.set_function("CreateColor", &CreateColor);
+		m_LuaState.set_function("CreateVec2", &CreateVec2);
 		m_LuaState.set_function("CreateVec3", &CreateVec3);
 
 		//Render2D lua Binding

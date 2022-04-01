@@ -192,6 +192,7 @@ namespace RoseRoot {
 	void Scene::OnUpdateRuntime(Timestep ts)
 	{
 		RR_PROFILE_FUNCTION();
+
 		// Update scripts
 		{
 			RR_PROFILE_SCOPE("Update Scripts");
@@ -214,7 +215,6 @@ namespace RoseRoot {
 					lsc.Script->Update(ts);
 				});
 		}
-
 		//  Physics 2D
 		{
 			const int32_t velocityIterations = 6;
@@ -234,7 +234,7 @@ namespace RoseRoot {
 				transform.Translation.x = position.x;
 				transform.Translation.y = position.y;
 				transform.Rotation.z = body->GetAngle();
-
+				//body->SetAwake(true);
 			}
 		}
 

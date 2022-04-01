@@ -642,6 +642,7 @@
     <ClCompile Include="src\RoseRoot\Core\Window.cpp" />
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\RoseRoot\LUA\LuaTypes.cpp" />
     <ClCompile Include="src\RoseRoot\Math\Math.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Buffer.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\Camera.cpp" />

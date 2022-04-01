@@ -140,8 +140,8 @@ static const KeyCode AllKeys[] = {
 Key::Space,Key::Apostrophe,Key::Comma,Key::Minus,Key::Period,Key::Slash,
 
 Key::D0,Key::D1,Key::D2,Key::D3,Key::D4,Key::D5,Key::D6,Key::D7,Key::D8,Key::D9,Key::Semicolon,Key::Equal,
-Key::A,Key::B,Key::C,Key::D,Key::E,Key::F,Key::G,Key::H,Key::I,Key::J,Key::K,Key::L,Key::M,Key::N,Key::O,Key::P,
-Key::Q,Key::R,Key::S,Key::T,Key::U,Key::V,Key::W,Key::X,Key::Y,Key::Z,
+Key::A,Key::B,Key::C,Key::D,Key::E,Key::F,Key::G,Key::H,Key::I,Key::J,Key::K,Key::L,Key::M,Key::N,Key::O,Key::P,Key::Q,Key::R,Key::S,Key::T,Key::U,
+Key::V,Key::W,Key::X,Key::Y,Key::Z,
 
 Key::LeftBracket,Key::Backslash,Key::RightBracket,Key::GraveAccent,Key::World1,Key::World2,
 Key::Escape,Key::Enter,Key::Tab,Key::Backspace,Key::Insert,Key::Delete,Key::Right,Key::Left,Key::Down,Key::Up,Key::PageUp,Key::PageDown,
@@ -332,4 +332,3 @@ inline std::ostream& operator<<(std::ostream& os, KeyCode keyCode)
 #define RR_KEY_RIGHT_ALT       ::RoseRoot::Key::RightAlt
 #define RR_KEY_RIGHT_SUPER     ::RoseRoot::Key::RightSuper
 #define RR_KEY_MENU            ::RoseRoot::Key::Menu
-

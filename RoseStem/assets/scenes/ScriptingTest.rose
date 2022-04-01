@@ -17,13 +17,23 @@ Entities:
     TagComponent:
       Tag: Cloud
     TransformComponent:
-      Translation: [-1.36127663, 4.45933867, -5]
+      Translation: [-2.12302351, 4.11111021, 0]
       Rotation: [0, 0, 0]
-      Scale: [3.27596736, 0.760344625, 1]
+      Scale: [3, 0.25, 1]
     SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
+      Color: [1, 0, 0, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
     LuaScriptComponent:
-      Path: assets/scripts/cloud.lua
+      Path: assets/scripts/move.lua
   - Entity: 4363679111961199607
     TagComponent:
       Tag: Cloud
@@ -69,11 +79,11 @@ Entities:
     TagComponent:
       Tag: Top
     TransformComponent:
-      Translation: [-0.0330052376, 10.8930683, 0]
+      Translation: [-0.0330051184, 21, 0]
       Rotation: [0, 0, 0]
-      Scale: [20.5, 1, 1]
+      Scale: [20, 2, 1]
     SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
+      Color: [0, 0.833395243, 1, 1]
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false
@@ -88,7 +98,7 @@ Entities:
     TagComponent:
       Tag: Camera
     TransformComponent:
-      Translation: [0, 1.5, 18]
+      Translation: [0, 2, 20]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
@@ -134,9 +144,9 @@ Entities:
     TagComponent:
       Tag: Bouncy Stan
     TransformComponent:
-      Translation: [-5.4843688, 4.32744074, 7.45057207e-08]
+      Translation: [-6.35647964, 5.54310417, 7.4505742e-08]
       Rotation: [0, 0, 1.93552411]
-      Scale: [0.999952316, 0.999952316, 1]
+      Scale: [0.99993974, 0.99993974, 1]
     SpriteRendererComponent:
       Color: [0.800000012, 0.400000006, 0.899999976, 1]
     Rigidbody2DComponent:
@@ -183,11 +193,11 @@ Entities:
     TagComponent:
       Tag: Wall1
     TransformComponent:
-      Translation: [-9, 2, 0.00999999978]
+      Translation: [-10, 2, -0.00999999978]
       Rotation: [0, 0, 0]
       Scale: [1, 40, 1]
     SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
+      Color: [0, 0.835294127, 1, 1]
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false
@@ -202,11 +212,11 @@ Entities:
     TagComponent:
       Tag: Wall2
     TransformComponent:
-      Translation: [9, 2, 0.00999999978]
+      Translation: [10, 2, -0.00999999978]
       Rotation: [0, 0, 0]
       Scale: [1, 40, 1]
     SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
+      Color: [0, 0.835294127, 1, 1]
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false
@@ -257,3 +267,14 @@ Entities:
       Friction: 0.0399999991
       Restitution: 0.239999995
       RestitutionThreshold: 0.5
+  - Entity: 1518317705166236004
+    TagComponent:
+      Tag: Cloud
+    TransformComponent:
+      Translation: [-1.36127663, 4.45933867, -5]
+      Rotation: [0, 0, 0]
+      Scale: [3.27596736, 0.760344625, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+    LuaScriptComponent:
+      Path: assets/scripts/cloud.lua

@@ -24,7 +24,4 @@
     </ClCompile>
     <ClCompile Include="src\RoseStemApp.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\scripts\move.lua" />
-  </ItemGroup>
 </Project>
