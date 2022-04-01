@@ -3,7 +3,7 @@
 
 #include "Components.h"
 #include "ScriptableEntity.h"
-#include "Lua.h"
+#include "RoseRoot/LUA/Lua.h"
 #include "RoseRoot/Renderer/Renderer2D.h"
 
 #include <glm/glm.hpp>
@@ -123,7 +123,7 @@ namespace RoseRoot {
 	void Scene::OnRuntimeStart()
 	{
 		RR_PROFILE_FUNCTION();
-		RR_CORE_TRACE("----Runtime Scene Started----------------------------------------------------");
+		RR_CORE_TRACE("-----Runtime Scene Started-----");
 		m_PhysicsWorld = new b2World({ m_SceneSettings.Gravity2D.x, m_SceneSettings.Gravity2D.y });
 
 		auto view = m_Registry.view<Rigidbody2DComponent>();
@@ -192,6 +192,7 @@ namespace RoseRoot {
 	void Scene::OnUpdateRuntime(Timestep ts)
 	{
 		RR_PROFILE_FUNCTION();
+
 		// Update scripts
 		{
 			RR_PROFILE_SCOPE("Update Scripts");
@@ -214,7 +215,6 @@ namespace RoseRoot {
 					lsc.Script->Update(ts);
 				});
 		}
-
 		//  Physics 2D
 		{
 			const int32_t velocityIterations = 6;
@@ -234,7 +234,7 @@ namespace RoseRoot {
 				transform.Translation.x = position.x;
 				transform.Translation.y = position.y;
 				transform.Rotation.z = body->GetAngle();
-
+				//body->SetAwake(true);
 			}
 		}
 

@@ -372,31 +372,33 @@ namespace RoseRoot {
 
 			break;
 		}
-		// Gizmos
+		
+			// Gizmos
 		case Key::Q:
 		{
-			if (!ImGuizmo::IsUsing())
+			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
 				m_GizmoType = -1;
 			break;
 		}
 		case Key::W:
 		{
-			if (!ImGuizmo::IsUsing())
+			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
 				m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
 			break;
 		}
 		case Key::E:
 		{
-			if (!ImGuizmo::IsUsing())
+			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
 				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
 			break;
 		}
 		case Key::R:
 		{
-			if (!ImGuizmo::IsUsing())
+			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
 				m_GizmoType = ImGuizmo::OPERATION::SCALE;
 			break;
 		}
+		
 		}
 	}
 
@@ -509,6 +511,7 @@ namespace RoseRoot {
 		{
 			m_EditorScene = newScene;
 			m_EditorScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_SceneName = m_EditorScene->GetName();
 			m_Gravity = m_EditorScene->GetGravity2D();
 			m_SceneHierarchyPanel.SetContext(m_EditorScene);
 			
@@ -544,6 +547,7 @@ namespace RoseRoot {
 
 	void EditorLayer::OnScenePlay()
 	{
+		m_GizmoType = -1;
 		m_ActiveScene = Scene::Copy(m_EditorScene);
 		m_ActiveScene->OnRuntimeStart();
 
@@ -573,8 +577,19 @@ namespace RoseRoot {
 	{
 		ImGui::Begin("Scene Settings");
 
+		char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		std::strncpy(buffer, m_SceneName.c_str(), sizeof(buffer));
+		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
+		{
+			m_SceneName = std::string(buffer);
+			m_EditorScene->SetName(m_SceneName);
+		}
+
 		if (ImGui::TreeNodeEx("Physics2D"))
 		{
+				
+
 			if (ImGui::DragFloat2("Gravity 2D", glm::value_ptr(m_Gravity)))
 			{
 				if (m_SceneState == SceneState::Edit)

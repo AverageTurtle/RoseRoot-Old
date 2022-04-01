@@ -136,6 +136,70 @@ typedef enum class KeyCode : uint16_t
 	Menu = 348
 } Key;
 
+static const KeyCode AllKeys[] = { 
+Key::Space,Key::Apostrophe,Key::Comma,Key::Minus,Key::Period,Key::Slash,
+
+Key::D0,Key::D1,Key::D2,Key::D3,Key::D4,Key::D5,Key::D6,Key::D7,Key::D8,Key::D9,Key::Semicolon,Key::Equal,
+Key::A,Key::B,Key::C,Key::D,Key::E,Key::F,Key::G,Key::H,Key::I,Key::J,Key::K,Key::L,Key::M,Key::N,Key::O,Key::P,Key::Q,Key::R,Key::S,Key::T,Key::U,
+Key::V,Key::W,Key::X,Key::Y,Key::Z,
+
+Key::LeftBracket,Key::Backslash,Key::RightBracket,Key::GraveAccent,Key::World1,Key::World2,
+Key::Escape,Key::Enter,Key::Tab,Key::Backspace,Key::Insert,Key::Delete,Key::Right,Key::Left,Key::Down,Key::Up,Key::PageUp,Key::PageDown,
+Key::Home,Key::End,Key::CapsLock,Key::ScrollLock,Key::NumLock,Key::PrintScreen,Key::Pause,
+
+Key::F1,Key::F2,Key::F3,Key::F4,Key::F5,Key::F6,Key::F7,Key::F8,Key::F9,Key::F10,Key::F11,Key::F12,Key::F13,Key::F14,Key::F15,
+Key::F16,Key::F17,Key::F18,Key::F19,Key::F20,Key::F21,Key::F22,Key::F23,Key::F24,Key::F25,
+
+Key::KP0,Key::KP1,Key::KP2,Key::KP3,Key::KP4,Key::KP5,Key::KP6,Key::KP7,Key::KP8,Key::KP9,
+
+Key::KPDecimal,Key::KPDivide,Key::KPMultiply,Key::KPSubtract,Key::KPAdd,Key::KPEnter,Key::KPEqual,
+Key::LeftShift,Key::LeftControl,Key::LeftAlt,Key::LeftSuper,Key::RightShift,Key::RightControl,Key::RightAlt,Key::RightSuper,Key::Menu
+};
+
+static std::string KeyToString(Key key) {
+	switch (key) {
+	case Key::Space: return "Space"; case Key::Apostrophe: return "apostrophe"; case Key::Comma: return "comma";
+	case Key::Minus: return "minus"; case Key::Period: return "period"; case Key::Slash: return "slash";
+	case Key::D0: return "0"; case Key::D1: return "1"; case Key::D2: return "2"; case Key::D3: return "3"; case Key::D4: return "4"; 
+	case Key::D5: return "5"; case Key::D6: return "6"; case Key::D7: return "7"; case Key::D8: return "8"; case Key::D9: return "9";
+	case Key::Semicolon: return "semicolon"; case Key::Equal: return "equal";
+
+	case Key::A: return "a"; case Key::B: return "b"; case Key::C: return "c"; case Key::D: return "d"; case Key::E: return "e"; case Key::F: return "f"; 
+	case Key::G: return "g"; case Key::H: return "h"; case Key::I: return "i"; case Key::J: return "j"; case Key::K: return "k"; case Key::L: return "l"; 
+	case Key::M: return "m"; case Key::N: return "n"; case Key::O: return "o"; case Key::P: return "p"; case Key::Q: return "q"; case Key::R: return "r"; 
+	case Key::S: return "s"; case Key::T: return "t"; case Key::U: return "u"; case Key::V: return "v"; case Key::W: return "w"; case Key::X: return "x"; 
+	case Key::Y: return "y"; case Key::Z: return "z";
+
+	case Key::LeftBracket: return "left_bracket"; case Key::Backslash: return "backslash"; case Key::RightBracket:  return "right_bracket";
+	case Key::GraveAccent: return "grave_accent"; case Key::World1: return "world1"; case Key::World2: return "world2"; case Key::Escape: return "escape"; 
+	case Key::Enter: return "enter"; case Key::Tab: return "tab"; case Key::Backspace: return "backspace"; case Key::Insert: return "insert"; 
+	case Key::Delete: return "Delete";
+
+	case Key::Left: return "left"; case Key::Right: return "right"; case Key::Up: return "up"; case Key::Down: return "down";
+
+	case Key::PageUp: return "pageup"; case Key::PageDown: return "pagedown"; case Key::Home: return "home"; case Key::End: return "end";
+	case Key::CapsLock: return "capslock"; case Key::ScrollLock: return "scroll_lock"; case Key::NumLock: "numlock"; case Key::PrintScreen: return "printscreen"; 
+	case Key::Pause: return "pause";
+
+	case Key::F1: return "f1"; case Key::F2: return "f2"; case Key::F3: return "f3"; case Key::F4: return "f4"; case Key::F5: return "f5";
+	case Key::F6: return "f6"; case Key::F7: return "f7"; case Key::F8: return "f8"; case Key::F9: return "f9"; case Key::F10: return "f10"; 
+	case Key::F11: return "f11"; case Key::F12: return "f12"; case Key::F13: return "f13"; case Key::F14: return "f14"; case Key::F15: return "f15";
+	case Key::F16: return "f16"; case Key::F17: return "f17"; case Key::F18: return "f18"; case Key::F19: return "f19"; case Key::F20: return "f20";
+	case Key::F21: return "f21"; case Key::F22: return "f22"; case Key::F23: return "f23"; case Key::F24: return "f24"; case Key::F25: return "f25";
+
+	case Key::KP0: return "kp_0"; case Key::KP1: return "kp_1"; case Key::KP2: return "kp_2"; case Key::KP3: return "kp_3"; case Key::KP4: return "kp_4";
+	case Key::KP5: return "kp_5"; case Key::KP6: return "kp_6"; case Key::KP7: return "kp_7"; case Key::KP8: return "kp_8"; case Key::KP9: return "kp_9";
+
+	case Key::KPDecimal: return "kp_decimal"; case Key::KPDivide: return "kp_divide"; case Key::KPMultiply: return "kp_multiply";
+	case Key::KPSubtract: return "kp_subtract"; case Key::KPAdd: return "kp_add"; case Key::KPEnter: return "kp_enter"; case Key::KPEqual: return "kp_equal";
+
+	case Key::LeftShift: return "left_shift"; case Key::LeftControl: return "left_control"; case Key::LeftAlt: return "left_alt"; 
+	case Key::LeftSuper: return "left_super"; case Key::RightShift: return "right_shift"; case Key::RightControl: return "right_control";
+	case Key::RightAlt: return "right_alt"; case Key::RightSuper: return "right_super"; case Key::Menu: return "menu"; default: break; }
+
+	RR_CORE_WARN("Key {0} is not mapped to a string!", key);
+	return "unmapped";
+}
 inline std::ostream& operator<<(std::ostream& os, KeyCode keyCode)
 {
 	os << static_cast<int32_t>(keyCode);

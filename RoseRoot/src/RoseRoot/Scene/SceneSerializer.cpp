@@ -276,7 +276,7 @@ namespace RoseRoot {
 	{
 		YAML::Emitter out;
 		out << YAML::BeginMap;
-		out << YAML::Key << "Scene" << YAML::Value << "Untitled";
+		out << YAML::Key << "Scene" << YAML::Value << m_Scene->m_SceneSettings.Name.c_str();
 
 		out << YAML::Key << "Scene Settings";
 		out << YAML::BeginMap;
@@ -324,10 +324,12 @@ namespace RoseRoot {
 
 		std::string sceneName = data["Scene"].as<std::string>();
 		RR_CORE_TRACE("Deserializing scene '{0}'", sceneName);
-
+		
 		auto sceneSettings = data["Scene Settings"];
 		if (sceneSettings)
 		{
+			m_Scene->m_SceneSettings.Name = sceneName;
+
 			auto Gravity2D = sceneSettings["Gravity2D"];
 			if (Gravity2D)
 			{

@@ -39,4 +39,4 @@
 #include "RoseRoot/Renderer/Camera.h"
 
 //Scripting
-#include "RoseRoot/Scene/Lua.h"
+#include "RoseRoot/LUA/Lua.h"

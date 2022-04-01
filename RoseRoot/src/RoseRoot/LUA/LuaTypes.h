@@ -1,4 +1,6 @@
 #pragma once
+#include "RoseRoot/Scene/Components.h"
+#include <RoseRoot/Scene/Entity.h>
 
 namespace RoseRoot {
 	struct Vec2 {
@@ -26,21 +28,27 @@ namespace RoseRoot {
 		~Color() {}
 	};
 
-	struct LuaEntity{
+	struct LuaEntity {
 		Entity entity;
 
 		std::string Name = "entity";
-		float x;
 		Vec3 position;
 		Vec3 rotation;
 		Vec3 size;
 
 		LuaEntity(Entity ent) { entity = ent; SyncToRose(); }
 
+		void SetLinearVelocity(Vec2 vel);
+		Vec2 GetLinearVelocity();
+
+		void SetAnglearVelocity(float vel);
+		float GetAnglearVelocity();
+
+		void SetGravityScale(float scale);
+		float GetGravityScale();
+
 		void SyncToRose() {
-			{
-				Name = entity.GetComponent<TagComponent>().Tag;
-			}
+			{Name = entity.GetComponent<TagComponent>().Tag; }
 			{
 				TransformComponent tc = entity.GetComponent<TransformComponent>();
 				glm::vec3 gPos = tc.Translation;
@@ -54,14 +62,8 @@ namespace RoseRoot {
 			}
 
 		}
-		void SyncToLua() {
-			{entity.GetComponent<TagComponent>().Tag = Name; }
-			{
-				TransformComponent tc = entity.GetComponent<TransformComponent>();
-				entity.GetComponent<TransformComponent>().Translation = { position.x , position.y, position.z};
-				entity.GetComponent<TransformComponent>().Rotation = { rotation.x, rotation.y, rotation.z };
-				entity.GetComponent<TransformComponent>().Scale = { size.x, size.y, size.z };
-			}
-		}
+
+		void SyncToLua();
 	};
+
 }

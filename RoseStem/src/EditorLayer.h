@@ -58,6 +58,7 @@ namespace RoseRoot {
 		Ref<Texture2D> m_SpriteSheet, m_ViewTest;
 		Ref<SubTexture2D> m_GrassTexture, m_StoneTexture, m_GlassTexture;
 
+		std::string m_SceneName = "Untitled";
 		glm::vec2 m_Gravity = { 0.0, -9.8 };
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;

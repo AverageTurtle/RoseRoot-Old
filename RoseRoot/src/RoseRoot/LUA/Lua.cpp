@@ -1,10 +1,16 @@
 #include "rrpch.h"
 #include "Lua.h"
+#include <string>
+
 #include "RoseRoot/Renderer/Renderer2D.h"
-#include "Components.h"
+#include "RoseRoot/Scene/Components.h"
+
 namespace RoseRoot {
 
 	
+
+	Vec2 CreateVec2(float x, float y)
+	{ return Vec2(x, y);}
 	Vec3 CreateVec3(float x, float y, float z)
 	{ return Vec3(x, y, z);}
 
@@ -14,7 +20,9 @@ namespace RoseRoot {
 	static void DrawQuadSimple(Vec2 pos, Vec2 size, Color color)
 	{	//Lua Renderer2D functions will not work with rosestem.
 		Renderer2D::DrawQuad({ pos.x, pos.y }, { size.x, size.y }, { color.r, color.g, color.b, color.a });}
-
+	static bool LUAIsKeyDown(Key key) {
+		return Input::IsKeyPressed(key);
+	}
 	
 	LuaScript::LuaScript(Entity entity, const std::string& filepath)
 		:m_LuaEntity(CreateRef<LuaEntity>(LuaEntity(entity)))
@@ -33,19 +41,33 @@ namespace RoseRoot {
 											"name",&LuaEntity::Name,
 											"position",&LuaEntity::position,
 											"rotation",&LuaEntity::rotation,
-											"size",&LuaEntity::size
+											"size",&LuaEntity::size,
+											"SetLinearVelocity", &LuaEntity::SetLinearVelocity,
+											"GetLinearVelocity", &LuaEntity::GetLinearVelocity,
+											"SetAnglearVelocity", &LuaEntity::SetAnglearVelocity,
+											"GetAnglearVelocity", &LuaEntity::GetAnglearVelocity,
+											"SetGravityScale", &LuaEntity::SetGravityScale,
+											"GetGravityScale", &LuaEntity::GetGravityScale
 										  );
-
 
 		//Register Util/Core Functions
 		m_LuaState.set_function("log", &BindRoseLog);
 
 		m_LuaState.set_function("CreateColor", &CreateColor);
+		m_LuaState.set_function("CreateVec2", &CreateVec2);
 		m_LuaState.set_function("CreateVec3", &CreateVec3);
 
 		//Render2D lua Binding
 		auto renderer2D = m_LuaState["Renderer2D"].get_or_create<sol::table>();
 		renderer2D.set_function("DrawSimpleQuad", &DrawQuadSimple);
+
+		//Input
+		auto key = m_LuaState["Key"].get_or_create<sol::table>();
+		for (auto& value : AllKeys) {
+			key[KeyToString(value)] = value;
+		}
+		auto input = m_LuaState["Input"].get_or_create<sol::table>();
+		input.set_function("IsKeyPressed", &LUAIsKeyDown);
 
 		//Globals
 		m_LuaState["rself"] = m_LuaEntity;
