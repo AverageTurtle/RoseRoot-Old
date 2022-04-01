@@ -28,6 +28,9 @@
     <Filter Include="src\RoseRoot\ImGui">
       <UniqueIdentifier>{E3E946FC-CFCD-0752-382E-02A52431F2D3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\RoseRoot\LUA">
+      <UniqueIdentifier>{CA0693CB-B6FF-B11D-DF31-97A2CB899129}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\RoseRoot\Math">
       <UniqueIdentifier>{72A6F43D-DEBC-F2D3-2734-7EF59389C35B}</UniqueIdentifier>
     </Filter>
@@ -168,6 +171,12 @@
     <ClInclude Include="src\RoseRoot\ImGui\ImGuiLayer.h">
       <Filter>src\RoseRoot\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\LUA\Lua.h">
+      <Filter>src\RoseRoot\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoseRoot\LUA\LuaTypes.h">
+      <Filter>src\RoseRoot\LUA</Filter>
+    </ClInclude>
     <ClInclude Include="src\RoseRoot\Math\Math.h">
       <Filter>src\RoseRoot\Math</Filter>
     </ClInclude>
@@ -220,9 +229,6 @@
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\RoseRoot\Scene\Entity.h">
-      <Filter>src\RoseRoot\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RoseRoot\LUA\Lua.h">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\RoseRoot\Scene\Scene.h">
@@ -1503,7 +1509,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\RoseRoot\LUA\LuaTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1563,6 +1568,12 @@
     <ClCompile Include="src\RoseRoot\ImGui\ImGuiLayer.cpp">
       <Filter>src\RoseRoot\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\RoseRoot\LUA\Lua.cpp">
+      <Filter>src\RoseRoot\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RoseRoot\LUA\LuaTypes.cpp">
+      <Filter>src\RoseRoot\LUA</Filter>
+    </ClCompile>
     <ClCompile Include="src\RoseRoot\Math\Math.cpp">
       <Filter>src\RoseRoot\Math</Filter>
     </ClCompile>
@@ -1611,9 +1622,6 @@
     <ClCompile Include="src\RoseRoot\Scene\Entity.cpp">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\RoseRoot\LUA\Lua.cpp">
-      <Filter>src\RoseRoot\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="src\RoseRoot\Scene\Scene.cpp">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClCompile>
@@ -1632,6 +1640,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\RoseRoot\LUA\LuaTypes.cpp" />
   </ItemGroup>
 </Project>

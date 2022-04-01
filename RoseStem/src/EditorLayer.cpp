@@ -372,32 +372,31 @@ namespace RoseRoot {
 
 			break;
 		}
-		if (m_SceneState == SceneState::Edit) {
+		
 			// Gizmos
-			case Key::Q:
-			{
-				if (!ImGuizmo::IsUsing())
-					m_GizmoType = -1;
-				break;
-			}
-			case Key::W:
-			{
-				if (!ImGuizmo::IsUsing())
-					m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
-				break;
-			}
-			case Key::E:
-			{
-				if (!ImGuizmo::IsUsing())
-					m_GizmoType = ImGuizmo::OPERATION::ROTATE;
-				break;
-			}
-			case Key::R:
-			{
-				if (!ImGuizmo::IsUsing())
-					m_GizmoType = ImGuizmo::OPERATION::SCALE;
-				break;
-			}
+		case Key::Q:
+		{
+			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
+				m_GizmoType = -1;
+			break;
+		}
+		case Key::W:
+		{
+			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
+				m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
+			break;
+		}
+		case Key::E:
+		{
+			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
+				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
+			break;
+		}
+		case Key::R:
+		{
+			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
+				m_GizmoType = ImGuizmo::OPERATION::SCALE;
+			break;
 		}
 		
 		}
@@ -548,6 +547,7 @@ namespace RoseRoot {
 
 	void EditorLayer::OnScenePlay()
 	{
+		m_GizmoType = -1;
 		m_ActiveScene = Scene::Copy(m_EditorScene);
 		m_ActiveScene->OnRuntimeStart();
 

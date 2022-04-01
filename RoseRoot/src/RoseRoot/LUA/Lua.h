@@ -3,6 +3,7 @@
 #include "RoseRoot/Scene/Entity.h"
 #include "LuaTypes.h"
 
+#define SOL_ALL_SAFETIES_ON
 #include <sol.hpp>
 
 namespace RoseRoot {
