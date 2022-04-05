@@ -13,6 +13,7 @@
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h">
       <Filter>Panels</Filter>
     </ClInclude>
+    <ClInclude Include="src\Project\Project.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -23,5 +24,6 @@
       <Filter>Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\RoseStemApp.cpp" />
+    <ClCompile Include="src\Project\Project.cpp" />
   </ItemGroup>
 </Project>

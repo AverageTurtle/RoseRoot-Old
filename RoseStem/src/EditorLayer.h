@@ -5,6 +5,8 @@
 
 #include "RoseRoot/Renderer/EditorCamera.h"
 
+#include "Project/Project.h"
+
 namespace RoseRoot {
 	class EditorLayer : public Layer
 	{
@@ -42,6 +44,7 @@ namespace RoseRoot {
 		//UI Panels
 		void UI_Toolbar();
 	private:
+		Project m_Project;
 
 		Ref<Scene> m_ActiveScene;
 		Ref<Scene> m_EditorScene;

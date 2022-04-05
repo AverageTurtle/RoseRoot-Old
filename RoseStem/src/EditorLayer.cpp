@@ -544,6 +544,9 @@ namespace RoseRoot {
 
 	void EditorLayer::SerializeScene(Ref<Scene> scene, const std::filesystem::path& path)
 	{
+		if (m_SceneState != SceneState::Edit)
+			return;
+
 		SceneSerializer serializer(scene);
 		serializer.Serialize(path.string());
 	}

@@ -22,6 +22,8 @@
 #include "RoseRoot/Scene/ScriptableEntity.h"
 #include "RoseRoot/Scene/Components.h"
 
+#include "RoseRoot/LUA/Lua.h"
+
 //Renderer
 #include "RoseRoot/Renderer/Renderer.h"
 #include "RoseRoot/Renderer/RendererVoxel.h"
@@ -38,5 +40,3 @@
 
 #include "RoseRoot/Renderer/Camera.h"
 
-//Scripting
-#include "RoseRoot/LUA/Lua.h"
