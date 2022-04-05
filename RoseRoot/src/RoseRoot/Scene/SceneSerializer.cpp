@@ -199,6 +199,9 @@ namespace RoseRoot {
 
 			auto& spriteRendererComponent = entity.GetComponent<SpriteRendererComponent>();
 			out << YAML::Key << "Color" << YAML::Value << spriteRendererComponent.Color;
+			if (spriteRendererComponent.Path.c_str() != "no_texture") {
+				out << YAML::Key << "Path" << YAML::Value << spriteRendererComponent.Path;
+			}
 
 			out << YAML::EndMap; // SpriteRendererComponent
 		}
@@ -390,6 +393,15 @@ namespace RoseRoot {
 				{
 					auto& src = deserializedEntity.AddComponent<SpriteRendererComponent>();
 					src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
+					if (spriteRendererComponent["Path"]) {
+						Ref<Texture2D> texture = Texture2D::Create(spriteRendererComponent["Path"].as<std::string>());
+						if (texture->IsLoaded()) {
+							src.Path = spriteRendererComponent["Path"].as<std::string>();
+							src.Texture = texture;
+						}
+						else
+							RR_CORE_WARN("Could not load texture {0}", spriteRendererComponent["Path"].as<std::string>());
+					}
 				}
 
 				auto circleRendererComponent = entity["CircleRendererComponent"];

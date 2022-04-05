@@ -2,6 +2,18 @@ Scene: Untitled
 Scene Settings:
   Gravity2D: [0, -9.80000019]
 Entities:
+  - Entity: 13373971991912305407
+    TagComponent:
+      Tag: Sprite
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      Path: assets\textures\GrassBlockTop.png
+    LuaScriptComponent:
+      Path: assets/scripts/move.lua
   - Entity: 10413073816626717145
     TagComponent:
       Tag: Camera
@@ -20,14 +32,3 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
-  - Entity: 13373971991912305407
-    TagComponent:
-      Tag: Sprite
-    TransformComponent:
-      Translation: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
-    LuaScriptComponent:
-      Path: assets/scripts/move.lua

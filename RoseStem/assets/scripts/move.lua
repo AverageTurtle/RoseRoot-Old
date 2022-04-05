@@ -1,33 +1,34 @@
 speed = 4
 rotspeed = 2
+
 vel = Vec2.new()
-rot = 0
-pos = Vec3.new()
-pos = rself.position
+angvel = 0
+
 rself:SetGravityScale(0)
 log(Key.left)
-function Update(ts)
 
+function Update(ts)
 	if Input.IsKeyPressed(Key.right) then
-		pos.x = pos.x + (speed* ts)
+		vel.x = vel.x + speed
 	end
 	if Input.IsKeyPressed(Key.left) then
-		pos.x = pos.x - (speed* ts)
+		vel.x = vel.x - speed
 	end
 	if Input.IsKeyPressed(Key.up) then
-		pos.y = pos.y + (speed* ts)
+		vel.y = vel.y + speed
 	end
 	if Input.IsKeyPressed(Key.down) then
-		pos.y = pos.y - (speed* ts)
+		vel.y = vel.y - speed
 	end
 	if Input.IsKeyPressed(Key.e) then
-		rot = rot - (rotspeed* ts)
+		angvel = angvel - rotspeed
 	end
 	if Input.IsKeyPressed(Key.q) then
-		rot = rot + (rotspeed* ts)
+		angvel = angvel + rotspeed
 	end
-	rself.rotation.z = rot
-	rself.position = pos
+
 	rself:SetLinearVelocity(vel)
-	rself:SetAnglearVelocity(0) 
+	rself:SetAnglearVelocity(angvel) 
+	vel = Vec2.new()
+	angvel = 0
 end

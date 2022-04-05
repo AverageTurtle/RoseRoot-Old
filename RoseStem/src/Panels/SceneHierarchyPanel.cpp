@@ -378,8 +378,10 @@ namespace RoseRoot {
 						const wchar_t* path = (const wchar_t*)payload->Data;
 						std::filesystem::path texturePath = std::filesystem::path(g_AssetPath) / path;
 						Ref<Texture2D> texture = Texture2D::Create(texturePath.string());
-						if (texture->IsLoaded())
+						if (texture->IsLoaded()) {
+							component.Path = texturePath.string();
 							component.Texture = texture;
+						}
 						else
 							RR_WARN("Could not load texture {0}", texturePath.filename().string());
 					}
