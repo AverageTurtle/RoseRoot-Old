@@ -449,13 +449,17 @@ namespace RoseRoot {
 
 		DrawComponent<LuaScriptComponent>("Lua Script", entity, [](auto& component)
 			{
+				ImGui::Button("Script", ImVec2(100.0f, 0.0f));
 
-				char buffer[256];
-				memset(buffer, 0, sizeof(buffer));
-				std::strncpy(buffer, component.Path.c_str(), sizeof(buffer));
-				if (ImGui::InputText("Path", buffer, sizeof(buffer)))
+				if (ImGui::BeginDragDropTarget())
 				{
-					component.Path = std::string(buffer);
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						const wchar_t* path = (const wchar_t*)payload->Data;
+						std::filesystem::path scriptPath = std::filesystem::path(g_AssetPath) / path;
+						component.Path = scriptPath.string();
+					}
+					ImGui::EndDragDropTarget();
 				}
 			});
 	}
