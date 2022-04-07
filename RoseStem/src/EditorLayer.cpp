@@ -13,9 +13,6 @@
 #include "RoseRoot/Math/Math.h"
 
 namespace RoseRoot {
-
-	extern const std::filesystem::path g_AssetPath;
-
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer")
 	{
@@ -39,11 +36,12 @@ namespace RoseRoot {
 		auto commandLineArgs = Application::Get().GetCommandLineArgs();
 		if (commandLineArgs.Count > 1)
 		{
-			auto sceneFilePath = commandLineArgs[1];
-			SceneSerializer serializer(m_ActiveScene);
-			serializer.Deserialize(sceneFilePath);
+			auto projectFilePath = commandLineArgs[1];
+			m_Project = Project(projectFilePath);
 		}
 
+		m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
+		m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
 		NewScene();
@@ -166,17 +164,22 @@ namespace RoseRoot {
 				// Disabling fullscreen would allow the window to be moved to the front of other windows, 
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);1
-				if (ImGui::MenuItem("New", "Ctrl+N"))
+				if (ImGui::MenuItem("New Project"))
+					NewProject();
+				if (ImGui::MenuItem("Open Project"))
+					OpenProject();
+
+				if (ImGui::MenuItem("New Scene", "Ctrl+N"))
 					NewScene();
 
-				if (ImGui::MenuItem("Open...", "Ctrl+O"))
+				if (ImGui::MenuItem("Open Scene", "Ctrl+O"))
 					OpenScene();
 
-				if (ImGui::MenuItem("Save...", "Ctrl+S"))
+				if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
 					SaveScene();
 
-				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
-					SaveSceneAs();
+				if (ImGui::MenuItem("Save Scene As", "Ctrl+Shift+S"))
+					SaveSceneAs();  
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
@@ -229,7 +232,7 @@ namespace RoseRoot {
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 			{
 				const wchar_t* path = (const wchar_t*)payload->Data;
-				OpenScene(std::filesystem::path(g_AssetPath) / path);
+				OpenScene(m_Project.GetAssetPath() / path);
 			}
 			ImGui::EndDragDropTarget();
 		}
@@ -478,6 +481,29 @@ namespace RoseRoot {
 			}
 
 			Renderer2D::EndScene();
+		}
+	}
+	void EditorLayer::NewProject()
+	{
+		SaveScene();
+		NewScene();
+		std::filesystem::path filepath = FileDialogs::SaveFile("Rose Project");
+		if (!filepath.empty())
+		{
+			m_Project = Project(filepath);
+			m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+		}	
+	} 
+	void EditorLayer::OpenProject()
+	{
+		SaveScene();
+		NewScene();
+		std::string filepath = FileDialogs::OpenFile("Rose Project (*.rproj)\0*.rproj\0");
+		if (!filepath.empty()) {
+			m_Project.OpenProject(filepath);
+			m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
 		}
 	}
 	void EditorLayer::NewScene()

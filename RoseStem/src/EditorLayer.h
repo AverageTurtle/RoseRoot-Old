@@ -5,8 +5,6 @@
 
 #include "RoseRoot/Renderer/EditorCamera.h"
 
-#include "Project/Project.h"
-
 namespace RoseRoot {
 	class EditorLayer : public Layer
 	{
@@ -25,6 +23,10 @@ namespace RoseRoot {
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
 		void OnOverlayRender();
+
+
+		void NewProject();
+		void OpenProject();
 
 		void NewScene();
 		void OpenScene();
