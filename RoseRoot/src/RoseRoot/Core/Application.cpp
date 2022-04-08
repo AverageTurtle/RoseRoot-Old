@@ -80,7 +80,7 @@ namespace RoseRoot {
 		{
 			RR_PROFILE_SCOPE("|| RunLoop ||");
 
-			float time = (float)glfwGetTime(); //TO::DO Platform::GetTime
+			float time = m_Window->GetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 

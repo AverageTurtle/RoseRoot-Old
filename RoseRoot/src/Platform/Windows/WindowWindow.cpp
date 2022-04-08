@@ -164,6 +164,11 @@ namespace RoseRoot {
 		m_Context->SwapBuffers();
 	}
 
+	float WindowsWindow::GetTime() const
+	{
+		return (float)glfwGetTime();
+	}
+
 	void WindowsWindow::SetWindowIcon(const std::string& path) const
 	{
 		stbi_set_flip_vertically_on_load(0);

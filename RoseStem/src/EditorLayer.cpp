@@ -485,7 +485,8 @@ namespace RoseRoot {
 	}
 	void EditorLayer::NewProject()
 	{
-		SaveScene();
+		//TODO Saftey net for unsaved scenes.
+		//SaveScene();
 		NewScene();
 		std::filesystem::path filepath = FileDialogs::SaveFile("Rose Project");
 		if (!filepath.empty())
@@ -497,7 +498,8 @@ namespace RoseRoot {
 	} 
 	void EditorLayer::OpenProject()
 	{
-		SaveScene();
+		//TODO Saftey net for unsaved scenes.
+		//SaveScene();
 		NewScene();
 		std::string filepath = FileDialogs::OpenFile("Rose Project (*.rproj)\0*.rproj\0");
 		if (!filepath.empty()) {
