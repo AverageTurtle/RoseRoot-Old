@@ -1,2 +1,7 @@
 Project: UntitledProject
 Path: startup-project
+Scenes:
+  - Scene: 0
+    Path: startup-project\assets\ScriptingTest.rose
+  - Scene: 1
+    Path: startup-project\assets\scenes\CircleTest.rose

@@ -44,7 +44,7 @@ namespace RoseRoot {
 		m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
-		m_NumberOfScenes = m_Project.GetSizeOfSceneIndex();
+		ResetToProjectSettings();
 		NewScene();
 	}
 
@@ -488,9 +488,8 @@ namespace RoseRoot {
 
 				ImGui::SameLine();
 
-				std::string  scene = "Scene ";
-				scene = scene + std::to_string(i);
-				ImGui::Button(scene.c_str(), ImVec2(100.0f, 0.0f));
+				std::string  scene = m_ScenePathsBuffer.at(i).second.filename().string();
+				ImGui::Button(scene.c_str(), ImVec2(150.0f, 0.0f));
 
 				if (ImGui::BeginDragDropTarget())
 				{
@@ -509,17 +508,38 @@ namespace RoseRoot {
 
 		ImGui::Text("");
 
-		if (ImGui::Button("Save Project Settings", {200, 30})) {
-
-		}
-		
+		if (ImGui::Button("Save Project Settings", { 200, 30 }))
+			SaveProjectSettings();
 		
 
-		if (ImGui::Button("Reset To Project Settings", { 200, 20 })) {
-			
-		}	
+		if (ImGui::Button("Reset To Project Settings", { 200, 21 }))
+			ResetToProjectSettings();
 		
 		ImGui::End();
+	}
+
+	void EditorLayer::ResetToProjectSettings()
+	{
+		m_ScenePathsBuffer.clear();
+
+		m_NumberOfScenes = m_Project.GetSizeOfSceneIndex();
+
+		auto sceneIndexPtr = m_Project.GetSceneIndexPtr();
+
+		int i = 0;
+		std::for_each(sceneIndexPtr->begin() , sceneIndexPtr->end(), [&](std::pair<int, std::filesystem::path> elements) {
+			m_ScenePathsBuffer.insert(std::make_pair(i, elements));
+			i++;
+		});
+	}
+
+	void EditorLayer::SaveProjectSettings()
+	{
+		for (int i = 0; i < m_NumberOfScenes; i++) {
+			m_Project.SetSceneToIndex(m_ScenePathsBuffer.at(i).first, m_ScenePathsBuffer.at(i).second);
+		}
+
+		m_Project.SaveProject();
 	}
 
 	void EditorLayer::OnOverlayRender()
@@ -616,6 +636,7 @@ namespace RoseRoot {
 			m_Project.OpenProject(filepath);
 			m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
 			m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+			ResetToProjectSettings();
 		}
 	}
 	void EditorLayer::NewScene()

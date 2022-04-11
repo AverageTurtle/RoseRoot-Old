@@ -14,7 +14,8 @@ namespace RoseRoot {
 		std::filesystem::path GetPath() { return m_Path; }
 		std::filesystem::path GetAssetPath() { std::filesystem::path path = m_Path / "assets"; return path; }
 
-		void SetSceneToIndex(int index, std::filesystem::path path) { m_ScenePaths.at(index) = path; }
+		std::unordered_map<int, std::filesystem::path>* GetSceneIndexPtr() { return &m_ScenePaths; }
+		void SetSceneToIndex(int index, std::filesystem::path path);
 		bool IsSceneAtIndex(int index);
 
 		std::filesystem::path GetScenePathFromIndex(int index) { return m_ScenePaths.at(index); }

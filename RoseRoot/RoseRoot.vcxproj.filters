@@ -231,6 +231,9 @@
     <ClInclude Include="src\RoseRoot\Scene\Entity.h">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\Scene\Project.h">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\RoseRoot\Scene\Scene.h">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
@@ -1509,7 +1512,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\RoseRoot\Scene\Project.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1623,6 +1625,9 @@
     <ClCompile Include="src\RoseRoot\Scene\Entity.cpp">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\RoseRoot\Scene\Project.cpp">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\RoseRoot\Scene\Scene.cpp">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClCompile>
@@ -1641,6 +1646,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\RoseRoot\Scene\Project.cpp" />
   </ItemGroup>
 </Project>

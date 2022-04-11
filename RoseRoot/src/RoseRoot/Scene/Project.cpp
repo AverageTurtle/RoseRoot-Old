@@ -35,6 +35,16 @@ namespace RoseRoot {
 	{
 	}
 
+	void Project::SetSceneToIndex(int index, std::filesystem::path path)
+	{
+		if (IsSceneAtIndex(index)) {
+			m_ScenePaths.at(index) = path;
+		}
+		else {
+			m_ScenePaths.insert(std::make_pair(index, path));
+		}
+	}
+
 	bool Project::IsSceneAtIndex(int index)
 	{
 		if (m_ScenePaths.find(index) == m_ScenePaths.end()) {

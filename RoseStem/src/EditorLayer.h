@@ -25,6 +25,9 @@ namespace RoseRoot {
 		void SceneSettingsWindow();
 		void ProjectSettingsWindow();
 
+		void ResetToProjectSettings();
+		void SaveProjectSettings();
+
 		void OnOverlayRender();
 
 		void NewProject();
