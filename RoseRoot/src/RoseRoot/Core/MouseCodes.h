@@ -20,6 +20,29 @@ namespace RoseRoot
 		ButtonMiddle = Button2
 	} Mouse;
 
+	static const MouseCode AllMouseButtons[] = {
+		Mouse::Button0, Mouse::Button1, Mouse::Button2, Mouse::Button3, Mouse::Button4, Mouse::Button5, Mouse::Button6, Mouse::Button7,
+	};
+
+	static std::string MouseToString(Mouse button) { 
+		switch (button)
+		{
+		case Mouse::Button0: return "left";
+		case Mouse::Button1: return "right";
+		case Mouse::Button2: return "button2";
+		case Mouse::Button3: return "button3";
+		case Mouse::Button4: return "button4";
+		case Mouse::Button5: return "button5";
+		case Mouse::Button6: return "button6";
+		case Mouse::Button7: return "button7";
+
+		default:
+			break;
+		}
+		RR_CORE_WARN("Mouse Button {0} is not mapped to a string!", button);
+		return "unmapped";
+	}
+
 	inline std::ostream& operator<<(std::ostream& os, MouseCode mouseCode)
 	{
 		os << static_cast<int32_t>(mouseCode);

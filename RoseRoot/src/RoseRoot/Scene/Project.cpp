@@ -35,12 +35,37 @@ namespace RoseRoot {
 	{
 	}
 
+	bool Project::IsSceneAtIndex(int index)
+	{
+		if (m_ScenePaths.find(index) == m_ScenePaths.end()) {
+			return false;
+		}
+
+		return true;
+	}
+
+	int Project::GetSizeOfSceneIndex()
+	{
+		int size = 0;
+		std::for_each(m_ScenePaths.begin(), m_ScenePaths.end(), [&](std::pair<int, std::filesystem::path> elements) { size += 1; });
+		return size;
+	}
 	void Project::SaveProject()
 	{
 		YAML::Emitter out;
 		out << YAML::BeginMap;
 		out << YAML::Key << "Project" << YAML::Value << "UntitledProject";
 		out << YAML::Key << "Path" << YAML::Value << m_Path.string();
+
+		out << YAML::Key << "Scenes" << YAML::Value << YAML::BeginSeq;
+		std::for_each(m_ScenePaths.begin(), m_ScenePaths.end(), [&](std::pair<int, std::filesystem::path> elements) {
+			out << YAML::BeginMap;
+			out << YAML::Key << "Scene" << YAML::Value << elements.first;
+			out << YAML::Key << "Path" << YAML::Value << elements.second.string();
+			out << YAML::EndMap;
+		});
+		out << YAML::EndSeq;
+
 		out << YAML::EndMap;
 
 		std::ofstream fout(m_Path / "UntitledProject.rproj");
@@ -48,6 +73,8 @@ namespace RoseRoot {
 	}
 	bool Project::OpenProject(std::filesystem::path path)
 	{
+		m_ScenePaths.clear();
+
 		YAML::Node data;
 		try
 		{
@@ -63,7 +90,17 @@ namespace RoseRoot {
 
 		std::string projectName = data["Project"].as<std::string>();
 		RR_CORE_TRACE("Deserializing project '{0}'", projectName);
-
 		m_Path = path.parent_path();
+
+		RR_CORE_TRACE("Deserializing Scene Index");
+		auto scenes = data["Scenes"];
+		if (scenes)
+		{
+			for (auto scene : scenes)
+			{
+				SetSceneToIndex(scene["Scene"].as<int>(), scene["Path"].as<std::string>());
+				RR_CORE_TRACE("Scene Index:'{0}' Path:'{1}'", scene["Scene"].as<int>(), scene["Path"].as<std::string>());
+			}
+		}
 	}
 }

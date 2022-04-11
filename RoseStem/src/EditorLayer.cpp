@@ -44,6 +44,7 @@ namespace RoseRoot {
 		m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
+		m_NumberOfScenes = m_Project.GetSizeOfSceneIndex();
 		NewScene();
 	}
 
@@ -187,9 +188,10 @@ namespace RoseRoot {
 
 			if (ImGui::BeginMenu("Window"))
 			{
-				if (ImGui::MenuItem("Scene Settings", "Ctrl+P"))
+				if (ImGui::MenuItem("Scene Settings", "Ctrl+L"))
 					m_SceneSettingsOpen = !m_SceneSettingsOpen;
-
+				if (ImGui::MenuItem("Project Settings", "Ctrl+P"))
+					m_ProjectSettingsOpen = !m_ProjectSettingsOpen;
 				ImGui::EndMenu();
 			}
 
@@ -295,6 +297,8 @@ namespace RoseRoot {
 		UI_Toolbar();
 		if (m_SceneSettingsOpen)
 			SceneSettingsWindow();
+		if (m_ProjectSettingsOpen)
+			ProjectSettingsWindow();
 
 		ImGui::End();
 	}
@@ -375,7 +379,16 @@ namespace RoseRoot {
 
 			break;
 		}
-		
+		case Key::L:
+		{
+			m_SceneSettingsOpen = !m_SceneSettingsOpen;
+			break;
+		}
+		case Key::P:
+		{
+			m_ProjectSettingsOpen = !m_ProjectSettingsOpen;
+			break;
+		}
 			// Gizmos
 		case Key::Q:
 		{
@@ -413,6 +426,100 @@ namespace RoseRoot {
 				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
 		}
 		return false;
+	}
+
+	void EditorLayer::SceneSettingsWindow()
+	{
+		ImGui::Begin("Scene Settings");
+
+		char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		std::strncpy(buffer, m_SceneName.c_str(), sizeof(buffer));
+		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
+		{
+			m_SceneName = std::string(buffer);
+			m_EditorScene->SetName(m_SceneName);
+		}
+
+		if (ImGui::TreeNodeEx("Physics2D"))
+		{
+
+
+			if (ImGui::DragFloat2("Gravity 2D", glm::value_ptr(m_Gravity)))
+			{
+				if (m_SceneState == SceneState::Edit)
+					m_EditorScene->SetGravity2D(m_Gravity);
+			}
+			ImGui::TreePop();
+		}
+
+		ImGui::Checkbox("Show Colliders", &m_ShowPhysicsColliders);
+		ImGui::End();
+	}
+
+	void EditorLayer::ProjectSettingsWindow()
+	{
+		ImGui::Begin("Project Settings");
+
+		char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		std::strncpy(buffer, m_Project.GetName().c_str(), sizeof(buffer));
+		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
+		{
+			m_Project.SetName(std::string(buffer));
+		}
+
+		ImGui::PushItemWidth(70);
+		ImGui::InputInt("Number of Scenes", &m_NumberOfScenes, 0, 100);
+		ImGui::PopItemWidth();
+
+		if (ImGui::TreeNodeEx("Scene Index"))
+		{
+			for (int i = 0; i < m_NumberOfScenes; i++) {
+				if (m_ScenePathsBuffer.find(i) == m_ScenePathsBuffer.end()) {
+					m_ScenePathsBuffer.insert(std::make_pair(i, std::pair<int, std::filesystem::path>(i, "no-scene")));
+				}
+
+				ImGui::PushItemWidth(70);
+				std::string index = "##Index ";
+				index += std::to_string(i);
+				ImGui::InputInt(index.c_str(), &m_ScenePathsBuffer.at(i).first, 0, 100);
+				ImGui::PopItemWidth();
+
+				ImGui::SameLine();
+
+				std::string  scene = "Scene ";
+				scene = scene + std::to_string(i);
+				ImGui::Button(scene.c_str(), ImVec2(100.0f, 0.0f));
+
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						const wchar_t* path = (const wchar_t*)payload->Data;
+						std::filesystem::path scenePath = m_Project.GetAssetPath() / path;
+						m_ScenePathsBuffer.at(i).second = scenePath;
+					}
+					ImGui::EndDragDropTarget();
+				}
+			}
+
+			ImGui::TreePop();
+		}
+
+		ImGui::Text("");
+
+		if (ImGui::Button("Save Project Settings", {200, 30})) {
+
+		}
+		
+		
+
+		if (ImGui::Button("Reset To Project Settings", { 200, 20 })) {
+			
+		}	
+		
+		ImGui::End();
 	}
 
 	void EditorLayer::OnOverlayRender()
@@ -483,6 +590,9 @@ namespace RoseRoot {
 			Renderer2D::EndScene();
 		}
 	}
+
+	
+
 	void EditorLayer::NewProject()
 	{
 		//TODO Saftey net for unsaved scenes.
@@ -607,33 +717,6 @@ namespace RoseRoot {
 			m_EditorScene->DuplicateEntity(m_SceneHierarchyPanel.GetSelectedEntity());
 	}
 
-	void EditorLayer::SceneSettingsWindow()
-	{
-		ImGui::Begin("Scene Settings");
-
-		char buffer[256];
-		memset(buffer, 0, sizeof(buffer));
-		std::strncpy(buffer, m_SceneName.c_str(), sizeof(buffer));
-		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
-		{
-			m_SceneName = std::string(buffer);
-			m_EditorScene->SetName(m_SceneName);
-		}
-
-		if (ImGui::TreeNodeEx("Physics2D"))
-		{
-				
-
-			if (ImGui::DragFloat2("Gravity 2D", glm::value_ptr(m_Gravity)))
-			{
-				if (m_SceneState == SceneState::Edit)
-					m_EditorScene->SetGravity2D(m_Gravity);
-			}
-			ImGui::TreePop();
-		}
-
-		ImGui::Checkbox("Show Colliders", &m_ShowPhysicsColliders);
-		ImGui::End();
-	}
+	
 
 }
