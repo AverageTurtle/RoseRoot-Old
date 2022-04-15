@@ -5,12 +5,13 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "RoseRoot/Scene/SceneSerializer.h"
-
 #include "RoseRoot/Utils/PlatformUtils.h"
+#include "RoseRoot/Math/Math.h"
 
+#include "State/StateManager.h"
+#include "State/SceneManager.h"
 #include "ImGuizmo.h"
 
-#include "RoseRoot/Math/Math.h"
 
 namespace RoseRoot {
 	EditorLayer::EditorLayer()
@@ -21,6 +22,7 @@ namespace RoseRoot {
 	void EditorLayer::OnAttach()
 	{
 		RR_PROFILE_FUNCTION();
+		g_State.Project = CreateRef<Project>();
 
 		Application::Get().GetWindow().SetWindowIcon("Resources/icon.png");
 		m_IconPlay = Texture2D::Create("Resources/Icons/PlayButton.png");
@@ -37,15 +39,15 @@ namespace RoseRoot {
 		if (commandLineArgs.Count > 1)
 		{
 			auto projectFilePath = commandLineArgs[1];
-			m_Project = Project(projectFilePath);
+			g_State.Project = CreateRef<Project>(projectFilePath);
 		}
 
-		m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
-		m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+		m_ContentBrowserPanel.SetAssetPath(g_State.Project->GetAssetPath());
+		m_SceneHierarchyPanel.SetAssetPath(g_State.Project->GetAssetPath());
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
 		ResetToProjectSettings();
-		NewScene();
+		SceneManager::NewScene(&m_SceneHierarchyPanel);
 	}
 
 	void EditorLayer::OnDetach()
@@ -59,12 +61,12 @@ namespace RoseRoot {
 
 		// Resize
 		if (FramebufferSpecification spec = m_Framebuffer->GetSpecification();
-			m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
-			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
+			g_State.ViewportSize.x > 0.0f && g_State.ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
+			(spec.Width != g_State.ViewportSize.x || spec.Height != g_State.ViewportSize.y))
 		{
-			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
-			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_Framebuffer->Resize((uint32_t)g_State.ViewportSize.x, (uint32_t)g_State.ViewportSize.y);
+			m_EditorCamera.SetViewportSize(g_State.ViewportSize.x, g_State.ViewportSize.y);
+			g_State.ActiveScene->OnViewportResize((uint32_t)g_State.ViewportSize.x, (uint32_t)g_State.ViewportSize.y);
 		}
 
 		// Update
@@ -80,10 +82,13 @@ namespace RoseRoot {
 		m_Framebuffer->ClearAttachment(1, -1);
 
 		// Update scene
-		if (m_SceneState == SceneState::Edit)
-			m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
-		else if (m_SceneState == SceneState::Play)
-			m_ActiveScene->OnUpdateRuntime(ts);
+		if (g_State.SceneState == SceneState::Edit)
+			g_State.ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
+		else if (g_State.SceneState == SceneState::Play) {
+			m_GizmoType = -1;
+			g_State.ActiveScene->OnUpdateRuntime(ts);
+		}
+			
 
 		auto [mx, my] = ImGui::GetMousePos();
 		mx -= m_ViewportBounds[0].x;
@@ -96,7 +101,7 @@ namespace RoseRoot {
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 		{
 			int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
-			m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
+			m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, g_State.ActiveScene.get());
 		}
 
 		OnOverlayRender();
@@ -171,16 +176,16 @@ namespace RoseRoot {
 					OpenProject();
 
 				if (ImGui::MenuItem("New Scene", "Ctrl+N"))
-					NewScene();
+					SceneManager::NewScene(&m_SceneHierarchyPanel);
 
 				if (ImGui::MenuItem("Open Scene", "Ctrl+O"))
-					OpenScene();
+					SceneManager::OpenScene(&m_SceneHierarchyPanel);
 
 				if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
-					SaveScene();
+					SceneManager::SaveScene();
 
 				if (ImGui::MenuItem("Save Scene As", "Ctrl+Shift+S"))
-					SaveSceneAs();  
+					SceneManager::SaveSceneAs();
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
@@ -224,21 +229,20 @@ namespace RoseRoot {
 		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused && !m_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+		g_State.ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
 		uint64_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ g_State.ViewportSize.x, g_State.ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 		if (ImGui::BeginDragDropTarget())
 		{
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 			{
 				const wchar_t* path = (const wchar_t*)payload->Data;
-				OpenScene(m_Project.GetAssetPath() / path);
+				SceneManager::OpenScene(g_State.Project->GetAssetPath() / path, &m_SceneHierarchyPanel);
 			}
 			ImGui::EndDragDropTarget();
 		}
-
 
 		// Gizmos
 		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
@@ -314,14 +318,14 @@ namespace RoseRoot {
 		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
 		float size = ImGui::GetWindowHeight() - 4.0f;
-		Ref<Texture2D> icon = m_SceneState == SceneState::Edit ? m_IconPlay : m_IconStop;
+		Ref<Texture2D> icon = g_State.SceneState == SceneState::Edit ? m_IconPlay : m_IconStop;
 		ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
 		if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0,0), ImVec2(1,1), 0))
 		{
-			if (m_SceneState == SceneState::Edit)
-				OnScenePlay();
-			else if (m_SceneState == SceneState::Play)
-				OnSceneStop();
+			if (g_State.SceneState == SceneState::Edit)
+				SceneManager::OnScenePlay(&m_SceneHierarchyPanel);
+			else if (g_State.SceneState == SceneState::Play)
+				SceneManager::OnSceneStop(&m_SceneHierarchyPanel);
 		}
 		ImGui::PopStyleVar(2);
 		ImGui::PopStyleColor(3);
@@ -351,23 +355,23 @@ namespace RoseRoot {
 		case Key::N:
 		{
 			if (control)
-				NewScene();
+				SceneManager::NewScene(&m_SceneHierarchyPanel);
 
 			break;
 		}
 		case Key::O:
 		{
 			if (control)
-				OpenScene();
+				SceneManager::OpenScene(&m_SceneHierarchyPanel);
 
 			break;
 		}
 		case Key::S:
 		{
 			if (control && alt)
-				SaveSceneAs();
+				SceneManager::SaveSceneAs();
 			if (control)
-				SaveScene();
+				SceneManager::SaveScene();
 
 			break;
 		}
@@ -392,25 +396,25 @@ namespace RoseRoot {
 			// Gizmos
 		case Key::Q:
 		{
-			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
+			if (!ImGuizmo::IsUsing() && g_State.SceneState == SceneState::Edit)
 				m_GizmoType = -1;
 			break;
 		}
 		case Key::W:
 		{
-			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
+			if (!ImGuizmo::IsUsing() && g_State.SceneState == SceneState::Edit)
 				m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
 			break;
 		}
 		case Key::E:
 		{
-			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
+			if (!ImGuizmo::IsUsing() && g_State.SceneState == SceneState::Edit)
 				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
 			break;
 		}
 		case Key::R:
 		{
-			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
+			if (!ImGuizmo::IsUsing() && g_State.SceneState == SceneState::Edit)
 				m_GizmoType = ImGuizmo::OPERATION::SCALE;
 			break;
 		}
@@ -434,21 +438,21 @@ namespace RoseRoot {
 
 		char buffer[256];
 		memset(buffer, 0, sizeof(buffer));
-		std::strncpy(buffer, m_SceneName.c_str(), sizeof(buffer));
+		std::strncpy(buffer, g_State.SceneName.c_str(), sizeof(buffer));
 		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
 		{
-			m_SceneName = std::string(buffer);
-			m_EditorScene->SetName(m_SceneName);
+			g_State.SceneName = std::string(buffer);
+			g_State.EditorScene->SetName(g_State.SceneName);
 		}
 
 		if (ImGui::TreeNodeEx("Physics2D"))
 		{
 
 
-			if (ImGui::DragFloat2("Gravity 2D", glm::value_ptr(m_Gravity)))
+			if (ImGui::DragFloat2("Gravity 2D", glm::value_ptr(g_State.Gravity)))
 			{
-				if (m_SceneState == SceneState::Edit)
-					m_EditorScene->SetGravity2D(m_Gravity);
+				if (g_State.SceneState == SceneState::Edit)
+					g_State.EditorScene->SetGravity2D(g_State.Gravity);
 			}
 			ImGui::TreePop();
 		}
@@ -463,10 +467,10 @@ namespace RoseRoot {
 
 		char buffer[256];
 		memset(buffer, 0, sizeof(buffer));
-		std::strncpy(buffer, m_Project.GetName().c_str(), sizeof(buffer));
+		std::strncpy(buffer, g_State.Project->GetName().c_str(), sizeof(buffer));
 		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
 		{
-			m_Project.SetName(std::string(buffer));
+			g_State.Project->SetName(std::string(buffer));
 		}
 
 		ImGui::PushItemWidth(70);
@@ -496,7 +500,7 @@ namespace RoseRoot {
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 					{
 						const wchar_t* path = (const wchar_t*)payload->Data;
-						std::filesystem::path scenePath = m_Project.GetAssetPath() / path;
+						std::filesystem::path scenePath = g_State.Project->GetAssetPath() / path;
 						m_ScenePathsBuffer.at(i).second = scenePath;
 					}
 					ImGui::EndDragDropTarget();
@@ -522,9 +526,9 @@ namespace RoseRoot {
 	{
 		m_ScenePathsBuffer.clear();
 
-		m_NumberOfScenes = m_Project.GetSizeOfSceneIndex();
+		m_NumberOfScenes = g_State.Project->GetSizeOfSceneIndex();
 
-		auto sceneIndexPtr = m_Project.GetSceneIndexPtr();
+		auto sceneIndexPtr = g_State.Project->GetSceneIndexPtr();
 
 		int i = 0;
 		std::for_each(sceneIndexPtr->begin() , sceneIndexPtr->end(), [&](std::pair<int, std::filesystem::path> elements) {
@@ -535,18 +539,19 @@ namespace RoseRoot {
 
 	void EditorLayer::SaveProjectSettings()
 	{
+		g_State.Project->ClearSceneIndex();
 		for (int i = 0; i < m_NumberOfScenes; i++) {
-			m_Project.SetSceneToIndex(m_ScenePathsBuffer.at(i).first, m_ScenePathsBuffer.at(i).second);
+			g_State.Project->SetSceneToIndex(m_ScenePathsBuffer.at(i).first, m_ScenePathsBuffer.at(i).second);
 		}
 
-		m_Project.SaveProject();
+		g_State.Project->SaveProject();
 	}
 
 	void EditorLayer::OnOverlayRender()
 	{
-		if (m_SceneState == SceneState::Play)
+		if (g_State.SceneState == SceneState::Play)
 		{
-			Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
+			Entity camera = g_State.ActiveScene->GetPrimaryCameraEntity();
 			if (camera) {
 				Renderer2D::BeginScene(camera.GetComponent<CameraComponent>().Camera, camera.GetComponent<TransformComponent>().GetTransform());
 			}
@@ -559,9 +564,9 @@ namespace RoseRoot {
 
 		if (m_ShowPhysicsColliders)
 		{
-			if (m_SceneState == SceneState::Play)
+			if (g_State.SceneState == SceneState::Play)
 			{
-				Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
+				Entity camera = g_State.ActiveScene->GetPrimaryCameraEntity();
 				Renderer2D::BeginScene(camera.GetComponent<CameraComponent>().Camera, camera.GetComponent<TransformComponent>().GetTransform());
 			}
 			else
@@ -573,7 +578,7 @@ namespace RoseRoot {
 			{
 				// Box Colliders
 				{
-					auto view = m_ActiveScene->GetAllEntitiesWith<TransformComponent, BoxCollider2DComponent>();
+					auto view = g_State.ActiveScene->GetAllEntitiesWith<TransformComponent, BoxCollider2DComponent>();
 					for (auto entity : view)
 					{
 						auto [tc, bc2d] = view.get<TransformComponent, BoxCollider2DComponent>(entity);
@@ -591,7 +596,7 @@ namespace RoseRoot {
 
 				// Circle Colliders
 				{
-					auto view = m_ActiveScene->GetAllEntitiesWith<TransformComponent, CircleCollider2DComponent>();
+					auto view = g_State.ActiveScene->GetAllEntitiesWith<TransformComponent, CircleCollider2DComponent>();
 					for (auto entity : view)
 					{
 						auto [tc, cc2d] = view.get<TransformComponent, CircleCollider2DComponent>(entity);
@@ -617,127 +622,35 @@ namespace RoseRoot {
 	{
 		//TODO Saftey net for unsaved scenes.
 		//SaveScene();
-		NewScene();
+		SceneManager::NewScene(&m_SceneHierarchyPanel);
 		std::filesystem::path filepath = FileDialogs::SaveFile("Rose Project");
 		if (!filepath.empty())
 		{
-			m_Project = Project(filepath);
-			m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
-			m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+			g_State.Project = CreateRef<Project>(filepath);
+			m_ContentBrowserPanel.SetAssetPath(g_State.Project->GetAssetPath());
+			m_SceneHierarchyPanel.SetAssetPath(g_State.Project->GetAssetPath());
 		}	
 	} 
 	void EditorLayer::OpenProject()
 	{
 		//TODO Saftey net for unsaved scenes.
 		//SaveScene();
-		NewScene();
+		SceneManager::NewScene(&m_SceneHierarchyPanel);
 		std::string filepath = FileDialogs::OpenFile("Rose Project (*.rproj)\0*.rproj\0");
 		if (!filepath.empty()) {
-			m_Project.OpenProject(filepath);
-			m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
-			m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+			g_State.Project->OpenProject(filepath);
+			m_ContentBrowserPanel.SetAssetPath(g_State.Project->GetAssetPath());
+			m_SceneHierarchyPanel.SetAssetPath(g_State.Project->GetAssetPath());
 			ResetToProjectSettings();
 		}
-	}
-	void EditorLayer::NewScene()
-	{
-		m_ActiveScene = CreateRef<Scene>();
-		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-		m_Gravity = m_ActiveScene->GetGravity2D();
-
-		m_EditorScene = m_ActiveScene;
-		m_EditorScenePath = std::filesystem::path();
-	}
-
-	void EditorLayer::OpenScene()
-	{
-		std::string filepath = FileDialogs::OpenFile("Rose Scene (*.rose)\0*.rose\0");
-		if (!filepath.empty())
-			OpenScene(filepath);
-	}
-
-	void EditorLayer::OpenScene(const std::filesystem::path& path)
-	{
-		if (m_SceneState != SceneState::Edit)
-			OnSceneStop();
-		if (path.extension().string() != ".rose")
-		{
-			RR_WARN("Could not load {0} - not a scene file", path.filename().string());
-			return;
-		}
-
-		Ref<Scene> newScene = CreateRef<Scene>();
-		SceneSerializer serializer(newScene);
-		if (serializer.Deserialize(path.string()))
-		{
-			m_EditorScene = newScene;
-			m_EditorScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_SceneName = m_EditorScene->GetName();
-			m_Gravity = m_EditorScene->GetGravity2D();
-			m_SceneHierarchyPanel.SetContext(m_EditorScene);
-			
-			m_ActiveScene = m_EditorScene;
-			m_EditorScenePath = path;
-		}
-
-	}
-
-	void EditorLayer::SaveSceneAs()
-	{
-		std::string filepath = FileDialogs::SaveFile("Rose Scene (*.rose)\0*.rose\0");
-		if (!filepath.empty())
-		{
-			SerializeScene(m_ActiveScene, filepath);
-			m_EditorScenePath = filepath;
-		}
-	}
-
-	void EditorLayer::SaveScene()
-	{
-		if (!m_EditorScenePath.empty())
-			SerializeScene(m_ActiveScene, m_EditorScenePath);
-		else
-			SaveSceneAs();
-	}
-
-	void EditorLayer::SerializeScene(Ref<Scene> scene, const std::filesystem::path& path)
-	{
-		if (m_SceneState != SceneState::Edit)
-			return;
-
-		SceneSerializer serializer(scene);
-		serializer.Serialize(path.string());
-	}
-
-	void EditorLayer::OnScenePlay()
-	{
-		m_GizmoType = -1;
-		m_ActiveScene = Scene::Copy(m_EditorScene);
-		m_ActiveScene->OnRuntimeStart();
-
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-		m_SceneState = SceneState::Play;
-	}
-
-	void EditorLayer::OnSceneStop()
-	{
-		m_ActiveScene->OnRuntimeStop();
-		m_ActiveScene = m_EditorScene;
-
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-		m_SceneState = SceneState::Edit;
 	}
 
 	void EditorLayer::OnDuplicateEntity()
 	{
-		if (m_SceneState != SceneState::Edit)
+		if (g_State.SceneState != SceneState::Edit)
 			return;
 
 		if (m_SceneHierarchyPanel.GetSelectedEntity())
-			m_EditorScene->DuplicateEntity(m_SceneHierarchyPanel.GetSelectedEntity());
+			g_State.EditorScene->DuplicateEntity(m_SceneHierarchyPanel.GetSelectedEntity());
 	}
-
-	
-
 }

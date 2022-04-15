@@ -141,12 +141,15 @@
     <ClInclude Include="src\EditorLayer.h" />
     <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
+    <ClInclude Include="src\State\SceneManager.h" />
+    <ClInclude Include="src\State\StateManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
     <ClCompile Include="src\Panels\ContentBrowserPanel.cpp" />
     <ClCompile Include="src\Panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="src\RoseStemApp.cpp" />
+    <ClCompile Include="src\State\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RoseRoot\RoseRoot.vcxproj">
