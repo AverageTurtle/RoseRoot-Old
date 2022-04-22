@@ -14,6 +14,7 @@ namespace RoseRoot {
 		virtual ~WindowsWindow();
 
 		void OnUpdate() override;
+		virtual float GetTime() const override;
 
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }

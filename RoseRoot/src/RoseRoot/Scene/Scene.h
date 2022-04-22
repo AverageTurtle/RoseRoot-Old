@@ -28,7 +28,7 @@ namespace RoseRoot {
 		void OnRuntimeStart();
 		void OnRuntimeStop();
 
-		void OnUpdateRuntime(Timestep ts);
+		void OnUpdateRuntime(Timestep ts, bool pause = false);
 		void OnUpdateEditor(Timestep ts, EditorCamera& camera);
 		void OnViewportResize(uint32_t width, uint32_t height);
 

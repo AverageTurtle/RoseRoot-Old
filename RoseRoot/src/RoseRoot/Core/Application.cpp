@@ -9,8 +9,6 @@
 
 #include "glm/glm.hpp"
 
-#include <GLFW/glfw3.h>
-
 namespace RoseRoot {
 
 	Application* Application::s_Instance = nullptr;
@@ -80,7 +78,7 @@ namespace RoseRoot {
 		{
 			RR_PROFILE_SCOPE("|| RunLoop ||");
 
-			float time = (float)glfwGetTime(); //TO::DO Platform::GetTime
+			float time = m_Window->GetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 

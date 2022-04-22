@@ -18,9 +18,12 @@
 #include "RoseRoot/ImGui/ImGuiLayer.h"
 
 #include "RoseRoot/Scene/Scene.h"
+#include "RoseRoot/Scene/Project.h"
 #include "RoseRoot/Scene/Entity.h"
 #include "RoseRoot/Scene/ScriptableEntity.h"
 #include "RoseRoot/Scene/Components.h"
+
+#include "RoseRoot/LUA/Lua.h"
 
 //Renderer
 #include "RoseRoot/Renderer/Renderer.h"
@@ -38,5 +41,3 @@
 
 #include "RoseRoot/Renderer/Camera.h"
 
-//Scripting
-#include "RoseRoot/LUA/Lua.h"

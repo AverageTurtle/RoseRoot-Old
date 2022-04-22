@@ -195,6 +195,7 @@
     <ClInclude Include="src\RoseRoot\Renderer\VertexArray.h" />
     <ClInclude Include="src\RoseRoot\Scene\Components.h" />
     <ClInclude Include="src\RoseRoot\Scene\Entity.h" />
+    <ClInclude Include="src\RoseRoot\Scene\Project.h" />
     <ClInclude Include="src\RoseRoot\Scene\Scene.h" />
     <ClInclude Include="src\RoseRoot\Scene\SceneCamera.h" />
     <ClInclude Include="src\RoseRoot\Scene\SceneSerializer.h" />
@@ -660,6 +661,7 @@
     <ClCompile Include="src\RoseRoot\Renderer\UniformBuffer.cpp" />
     <ClCompile Include="src\RoseRoot\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\Entity.cpp" />
+    <ClCompile Include="src\RoseRoot\Scene\Project.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\Scene.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\RoseRoot\Scene\SceneSerializer.cpp" />

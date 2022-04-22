@@ -9,6 +9,10 @@
 #include "RoseRoot/Core/Application.h"
 
 namespace RoseRoot {
+	std::string FileDialogs::OpenDirectory(const char* filter)
+	{
+		return std::string();
+	}
 	std::string FileDialogs::OpenFile(const char* filter)
 	{
 		OPENFILENAMEA ofn;

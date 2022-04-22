@@ -23,6 +23,9 @@ namespace RoseRoot {
 	static bool LUAIsKeyDown(Key key) {
 		return Input::IsKeyPressed(key);
 	}
+	static bool LUAIsMouseButtonPressed(Mouse button) {
+		return Input::IsMouseButtonPressed(button);
+	}
 	
 	LuaScript::LuaScript(Entity entity, const std::string& filepath)
 		:m_LuaEntity(CreateRef<LuaEntity>(LuaEntity(entity)))
@@ -66,8 +69,14 @@ namespace RoseRoot {
 		for (auto& value : AllKeys) {
 			key[KeyToString(value)] = value;
 		}
+		auto mouse = m_LuaState["Mouse"].get_or_create<sol::table>();
+		for (auto& value : AllMouseButtons) {
+			mouse[MouseToString(value)] = value;
+		}
+
 		auto input = m_LuaState["Input"].get_or_create<sol::table>();
 		input.set_function("IsKeyPressed", &LUAIsKeyDown);
+		input.set_function("IsMouseButtonPressed", &LUAIsMouseButtonPressed);
 
 		//Globals
 		m_LuaState["rself"] = m_LuaEntity;

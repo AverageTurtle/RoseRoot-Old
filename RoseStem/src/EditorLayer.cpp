@@ -13,9 +13,6 @@
 #include "RoseRoot/Math/Math.h"
 
 namespace RoseRoot {
-
-	extern const std::filesystem::path g_AssetPath;
-
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer")
 	{
@@ -39,13 +36,15 @@ namespace RoseRoot {
 		auto commandLineArgs = Application::Get().GetCommandLineArgs();
 		if (commandLineArgs.Count > 1)
 		{
-			auto sceneFilePath = commandLineArgs[1];
-			SceneSerializer serializer(m_ActiveScene);
-			serializer.Deserialize(sceneFilePath);
+			auto projectFilePath = commandLineArgs[1];
+			m_Project = Project(projectFilePath);
 		}
 
+		m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
+		m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
+		ResetToProjectSettings();
 		NewScene();
 	}
 
@@ -166,17 +165,22 @@ namespace RoseRoot {
 				// Disabling fullscreen would allow the window to be moved to the front of other windows, 
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);1
-				if (ImGui::MenuItem("New", "Ctrl+N"))
+				if (ImGui::MenuItem("New Project"))
+					NewProject();
+				if (ImGui::MenuItem("Open Project"))
+					OpenProject();
+
+				if (ImGui::MenuItem("New Scene", "Ctrl+N"))
 					NewScene();
 
-				if (ImGui::MenuItem("Open...", "Ctrl+O"))
+				if (ImGui::MenuItem("Open Scene", "Ctrl+O"))
 					OpenScene();
 
-				if (ImGui::MenuItem("Save...", "Ctrl+S"))
+				if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
 					SaveScene();
 
-				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
-					SaveSceneAs();
+				if (ImGui::MenuItem("Save Scene As", "Ctrl+Shift+S"))
+					SaveSceneAs();  
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
@@ -184,9 +188,10 @@ namespace RoseRoot {
 
 			if (ImGui::BeginMenu("Window"))
 			{
-				if (ImGui::MenuItem("Scene Settings", "Ctrl+P"))
+				if (ImGui::MenuItem("Scene Settings", "Ctrl+L"))
 					m_SceneSettingsOpen = !m_SceneSettingsOpen;
-
+				if (ImGui::MenuItem("Project Settings", "Ctrl+P"))
+					m_ProjectSettingsOpen = !m_ProjectSettingsOpen;
 				ImGui::EndMenu();
 			}
 
@@ -229,7 +234,7 @@ namespace RoseRoot {
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 			{
 				const wchar_t* path = (const wchar_t*)payload->Data;
-				OpenScene(std::filesystem::path(g_AssetPath) / path);
+				OpenScene(m_Project.GetAssetPath() / path);
 			}
 			ImGui::EndDragDropTarget();
 		}
@@ -292,6 +297,8 @@ namespace RoseRoot {
 		UI_Toolbar();
 		if (m_SceneSettingsOpen)
 			SceneSettingsWindow();
+		if (m_ProjectSettingsOpen)
+			ProjectSettingsWindow();
 
 		ImGui::End();
 	}
@@ -372,7 +379,16 @@ namespace RoseRoot {
 
 			break;
 		}
-		
+		case Key::L:
+		{
+			m_SceneSettingsOpen = !m_SceneSettingsOpen;
+			break;
+		}
+		case Key::P:
+		{
+			m_ProjectSettingsOpen = !m_ProjectSettingsOpen;
+			break;
+		}
 			// Gizmos
 		case Key::Q:
 		{
@@ -410,6 +426,120 @@ namespace RoseRoot {
 				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
 		}
 		return false;
+	}
+
+	void EditorLayer::SceneSettingsWindow()
+	{
+		ImGui::Begin("Scene Settings");
+
+		char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		std::strncpy(buffer, m_SceneName.c_str(), sizeof(buffer));
+		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
+		{
+			m_SceneName = std::string(buffer);
+			m_EditorScene->SetName(m_SceneName);
+		}
+
+		if (ImGui::TreeNodeEx("Physics2D"))
+		{
+
+
+			if (ImGui::DragFloat2("Gravity 2D", glm::value_ptr(m_Gravity)))
+			{
+				if (m_SceneState == SceneState::Edit)
+					m_EditorScene->SetGravity2D(m_Gravity);
+			}
+			ImGui::TreePop();
+		}
+
+		ImGui::Checkbox("Show Colliders", &m_ShowPhysicsColliders);
+		ImGui::End();
+	}
+
+	void EditorLayer::ProjectSettingsWindow()
+	{
+		ImGui::Begin("Project Settings");
+
+		char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		std::strncpy(buffer, m_Project.GetName().c_str(), sizeof(buffer));
+		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
+		{
+			m_Project.SetName(std::string(buffer));
+		}
+
+		ImGui::PushItemWidth(70);
+		ImGui::InputInt("Number of Scenes", &m_NumberOfScenes, 0, 100);
+		ImGui::PopItemWidth();
+
+		if (ImGui::TreeNodeEx("Scene Index"))
+		{
+			for (int i = 0; i < m_NumberOfScenes; i++) {
+				if (m_ScenePathsBuffer.find(i) == m_ScenePathsBuffer.end()) {
+					m_ScenePathsBuffer.insert(std::make_pair(i, std::pair<int, std::filesystem::path>(i, "no-scene")));
+				}
+
+				ImGui::PushItemWidth(70);
+				std::string index = "##Index ";
+				index += std::to_string(i);
+				ImGui::InputInt(index.c_str(), &m_ScenePathsBuffer.at(i).first, 0, 100);
+				ImGui::PopItemWidth();
+
+				ImGui::SameLine();
+
+				std::string  scene = m_ScenePathsBuffer.at(i).second.filename().string();
+				ImGui::Button(scene.c_str(), ImVec2(150.0f, 0.0f));
+
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						const wchar_t* path = (const wchar_t*)payload->Data;
+						std::filesystem::path scenePath = m_Project.GetAssetPath() / path;
+						m_ScenePathsBuffer.at(i).second = scenePath;
+					}
+					ImGui::EndDragDropTarget();
+				}
+			}
+
+			ImGui::TreePop();
+		}
+
+		ImGui::Text("");
+
+		if (ImGui::Button("Save Project Settings", { 200, 30 }))
+			SaveProjectSettings();
+		
+
+		if (ImGui::Button("Reset To Project Settings", { 200, 21 }))
+			ResetToProjectSettings();
+		
+		ImGui::End();
+	}
+
+	void EditorLayer::ResetToProjectSettings()
+	{
+		m_ScenePathsBuffer.clear();
+
+		m_NumberOfScenes = m_Project.GetSizeOfSceneIndex();
+
+		auto sceneIndexPtr = m_Project.GetSceneIndexPtr();
+
+		int i = 0;
+		std::for_each(sceneIndexPtr->begin() , sceneIndexPtr->end(), [&](std::pair<int, std::filesystem::path> elements) {
+			m_ScenePathsBuffer.insert(std::make_pair(i, elements));
+			i++;
+		});
+	}
+
+	void EditorLayer::SaveProjectSettings()
+	{
+		for (int i = 0; i < m_NumberOfScenes; i++) {
+			m_Project.SetSceneToIndex(m_ScenePathsBuffer.at(i).first, m_ScenePathsBuffer.at(i).second);
+		}
+
+		m_Project.SaveProject();
 	}
 
 	void EditorLayer::OnOverlayRender()
@@ -480,6 +610,35 @@ namespace RoseRoot {
 			Renderer2D::EndScene();
 		}
 	}
+
+	
+
+	void EditorLayer::NewProject()
+	{
+		//TODO Saftey net for unsaved scenes.
+		//SaveScene();
+		NewScene();
+		std::filesystem::path filepath = FileDialogs::SaveFile("Rose Project");
+		if (!filepath.empty())
+		{
+			m_Project = Project(filepath);
+			m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+		}	
+	} 
+	void EditorLayer::OpenProject()
+	{
+		//TODO Saftey net for unsaved scenes.
+		//SaveScene();
+		NewScene();
+		std::string filepath = FileDialogs::OpenFile("Rose Project (*.rproj)\0*.rproj\0");
+		if (!filepath.empty()) {
+			m_Project.OpenProject(filepath);
+			m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+			ResetToProjectSettings();
+		}
+	}
 	void EditorLayer::NewScene()
 	{
 		m_ActiveScene = CreateRef<Scene>();
@@ -544,6 +703,9 @@ namespace RoseRoot {
 
 	void EditorLayer::SerializeScene(Ref<Scene> scene, const std::filesystem::path& path)
 	{
+		if (m_SceneState != SceneState::Edit)
+			return;
+
 		SceneSerializer serializer(scene);
 		serializer.Serialize(path.string());
 	}
@@ -576,33 +738,6 @@ namespace RoseRoot {
 			m_EditorScene->DuplicateEntity(m_SceneHierarchyPanel.GetSelectedEntity());
 	}
 
-	void EditorLayer::SceneSettingsWindow()
-	{
-		ImGui::Begin("Scene Settings");
-
-		char buffer[256];
-		memset(buffer, 0, sizeof(buffer));
-		std::strncpy(buffer, m_SceneName.c_str(), sizeof(buffer));
-		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
-		{
-			m_SceneName = std::string(buffer);
-			m_EditorScene->SetName(m_SceneName);
-		}
-
-		if (ImGui::TreeNodeEx("Physics2D"))
-		{
-				
-
-			if (ImGui::DragFloat2("Gravity 2D", glm::value_ptr(m_Gravity)))
-			{
-				if (m_SceneState == SceneState::Edit)
-					m_EditorScene->SetGravity2D(m_Gravity);
-			}
-			ImGui::TreePop();
-		}
-
-		ImGui::Checkbox("Show Colliders", &m_ShowPhysicsColliders);
-		ImGui::End();
-	}
+	
 
 }

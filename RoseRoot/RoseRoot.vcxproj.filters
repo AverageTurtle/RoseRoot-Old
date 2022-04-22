@@ -231,6 +231,9 @@
     <ClInclude Include="src\RoseRoot\Scene\Entity.h">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\RoseRoot\Scene\Project.h">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\RoseRoot\Scene\Scene.h">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClInclude>
@@ -1620,6 +1623,9 @@
       <Filter>src\RoseRoot\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\RoseRoot\Scene\Entity.cpp">
+      <Filter>src\RoseRoot\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RoseRoot\Scene\Project.cpp">
       <Filter>src\RoseRoot\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\RoseRoot\Scene\Scene.cpp">

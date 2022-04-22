@@ -35,8 +35,8 @@ namespace RoseRoot {
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
-		io.Fonts->AddFontFromFileTTF("assets/fonts/ubuntu/Ubuntu-Bold.ttf", 16.f);
-		io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/ubuntu/Ubuntu-Regular.ttf", 16.f);
+		io.Fonts->AddFontFromFileTTF("Resources/Fonts/ubuntu/Ubuntu-Bold.ttf", 16.f);
+		io.FontDefault = io.Fonts->AddFontFromFileTTF("Resources/Fonts/ubuntu/Ubuntu-Regular.ttf", 16.f);
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();

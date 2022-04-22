@@ -22,7 +22,16 @@ namespace RoseRoot {
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
+		void SceneSettingsWindow();
+		void ProjectSettingsWindow();
+
+		void ResetToProjectSettings();
+		void SaveProjectSettings();
+
 		void OnOverlayRender();
+
+		void NewProject();
+		void OpenProject();
 
 		void NewScene();
 		void OpenScene();
@@ -37,11 +46,11 @@ namespace RoseRoot {
 
 		void OnDuplicateEntity();
 
-		void SceneSettingsWindow();
 
 		//UI Panels
 		void UI_Toolbar();
 	private:
+		Project m_Project;
 
 		Ref<Scene> m_ActiveScene;
 		Ref<Scene> m_EditorScene;
@@ -52,6 +61,11 @@ namespace RoseRoot {
 
 		bool m_ShowPhysicsColliders = false;
 		bool m_SceneSettingsOpen = true;
+		bool m_ProjectSettingsOpen = true;
+
+		//Project Buffer
+		int m_NumberOfScenes = 0;
+		std::unordered_map<int, std::pair<int, std::filesystem::path>> m_ScenePathsBuffer;
 
 		EditorCamera m_EditorCamera;
 

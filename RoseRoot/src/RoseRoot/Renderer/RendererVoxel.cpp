@@ -91,7 +91,7 @@ namespace RoseRoot {
 		for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
 			samplers[i] = i;
 
-		s_Data.TextureShader = Shader::Create("assets/shaders/Block.glsl");
+		s_Data.TextureShader = Shader::Create("Resources/DefaultShaders/Block.glsl");
 		s_Data.TextureShader->Bind();
 		s_Data.TextureShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
 
