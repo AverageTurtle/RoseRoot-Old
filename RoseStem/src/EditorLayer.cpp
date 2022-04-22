@@ -4,12 +4,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "RoseRoot/Scene/SceneSerializer.h"
-
 #include "RoseRoot/Utils/PlatformUtils.h"
 
 #include "ImGuizmo.h"
-
 #include "RoseRoot/Math/Math.h"
 
 namespace Rose {
@@ -23,15 +20,6 @@ namespace Rose {
 		RR_PROFILE_FUNCTION();
 
 		Application::Get().GetWindow().SetWindowIcon("Resources/icon.png");
-		m_IconPlay = Texture2D::Create("Resources/Icons/PlayButton.png");
-		m_IconStop = Texture2D::Create("Resources/Icons/StopButton.png");
-
-		FramebufferSpecification fbSpec;
-		fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
-		fbSpec.Width = 1280;
-		fbSpec.Height = 720;
-		m_Framebuffer = Framebuffer::Create(fbSpec);
-
 
 		auto commandLineArgs = Application::Get().GetCommandLineArgs();
 		if (commandLineArgs.Count > 1)
@@ -40,12 +28,11 @@ namespace Rose {
 			m_Project = Project(projectFilePath);
 		}
 
-		m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
-		m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
-		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
+		m_SceneManager.m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
+		m_SceneManager.m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
 
 		ResetToProjectSettings();
-		NewScene();
+		m_SceneManager.NewScene();
 	}
 
 	void EditorLayer::OnDetach()
@@ -57,33 +44,8 @@ namespace Rose {
 	{
 		RR_PROFILE_FUNCTION();
 
-		// Resize
-		if (FramebufferSpecification spec = m_Framebuffer->GetSpecification();
-			m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
-			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
-		{
-			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
-			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-		}
-
-		// Update
-		m_EditorCamera.OnUpdate(ts);
-
-		// Render
-		Renderer2D::ResetStats();
-		m_Framebuffer->Bind();
-		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-		RenderCommand::Clear();
-
-		// Clear our entity ID attachment to -1
-		m_Framebuffer->ClearAttachment(1, -1);
-
 		// Update scene
-		if (m_SceneState == SceneState::Edit)
-			m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
-		else if (m_SceneState == SceneState::Play)
-			m_ActiveScene->OnUpdateRuntime(ts);
+		m_SceneManager.OnUpdate(ts);
 
 		auto [mx, my] = ImGui::GetMousePos();
 		mx -= m_ViewportBounds[0].x;
@@ -95,13 +57,13 @@ namespace Rose {
 
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 		{
-			int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
-			m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
+			int pixelData = m_SceneManager.m_Framebuffer->ReadPixel(1, mouseX, mouseY);
+			m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_SceneManager.getActiveScene().get());
 		}
 
-		OnOverlayRender();
+		m_SceneManager.OnOverlayRender();
 
-		m_Framebuffer->Unbind();
+		m_SceneManager.m_Framebuffer->Unbind();
 	}
 
 	void EditorLayer::OnImGuiRender()
@@ -171,16 +133,16 @@ namespace Rose {
 					OpenProject();
 
 				if (ImGui::MenuItem("New Scene", "Ctrl+N"))
-					NewScene();
+					m_SceneManager.NewScene();
 
 				if (ImGui::MenuItem("Open Scene", "Ctrl+O"))
-					OpenScene();
+					m_SceneManager.OpenScene();
 
 				if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
-					SaveScene();
+					m_SceneManager.SaveScene();
 
 				if (ImGui::MenuItem("Save Scene As", "Ctrl+Shift+S"))
-					SaveSceneAs();  
+					m_SceneManager.SaveSceneAs();
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
@@ -208,8 +170,8 @@ namespace Rose {
 
 		ImGui::End();
 
-		m_SceneHierarchyPanel.OnImGuiRender();
-		m_ContentBrowserPanel.OnImGuiRender();
+		m_SceneManager.m_SceneHierarchyPanel.OnImGuiRender();
+		m_SceneManager.m_ContentBrowserPanel.OnImGuiRender();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Viewport");
@@ -224,25 +186,25 @@ namespace Rose {
 		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused && !m_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+		m_SceneManager.m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
-		uint64_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		uint64_t textureID = m_SceneManager.m_Framebuffer->GetColorAttachmentRendererID();
+		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_SceneManager.m_ViewportSize.x, m_SceneManager.m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 		if (ImGui::BeginDragDropTarget())
 		{
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 			{
 				const wchar_t* path = (const wchar_t*)payload->Data;
-				OpenScene(m_Project.GetAssetPath() / path);
+				m_SceneManager.OpenScene(m_Project.GetAssetPath() / path);
 			}
 			ImGui::EndDragDropTarget();
 		}
 
 
 		// Gizmos
-		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
-		if (selectedEntity && m_GizmoType != -1)
+		Entity selectedEntity = m_SceneManager.m_SceneHierarchyPanel.GetSelectedEntity();
+		if (selectedEntity && m_SceneManager.m_GizmoType != -1)
 		{
 			ImGuizmo::SetOrthographic(false);
 			ImGuizmo::SetDrawlist();
@@ -258,8 +220,8 @@ namespace Rose {
 			// glm::mat4 cameraView = glm::inverse(cameraEntity.GetComponent<TransformComponent>().GetTransform());
 
 			// Editor camera
-			const glm::mat4& cameraProjection = m_EditorCamera.GetProjection();
-			glm::mat4 cameraView = m_EditorCamera.GetViewMatrix();
+			const glm::mat4& cameraProjection = m_SceneManager.m_EditorCamera.GetProjection();
+			glm::mat4 cameraView = m_SceneManager.m_EditorCamera.GetViewMatrix();
 
 			// Entity transform
 			auto& tc = selectedEntity.GetComponent<TransformComponent>();
@@ -269,13 +231,13 @@ namespace Rose {
 			bool snap = Input::IsKeyPressed(Key::LeftControl);
 			float snapValue = 0.5f; // Snap to 0.5m for translation/scale
 			// Snap to 45 degrees for rotation
-			if (m_GizmoType == ImGuizmo::OPERATION::ROTATE)
+			if (m_SceneManager.m_GizmoType == ImGuizmo::OPERATION::ROTATE)
 				snapValue = 45.0f;
 
 			float snapValues[3] = { snapValue, snapValue, snapValue };
 
 			ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProjection),
-				(ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::LOCAL, glm::value_ptr(transform),
+				(ImGuizmo::OPERATION)m_SceneManager.m_GizmoType, ImGuizmo::LOCAL, glm::value_ptr(transform),
 				nullptr, snap ? snapValues : nullptr);
 
 			if (ImGuizmo::IsUsing())
@@ -294,43 +256,19 @@ namespace Rose {
 		ImGui::End();
 		ImGui::PopStyleVar();
 
-		UI_Toolbar();
+		m_SceneManager.UI_Toolbar();
 		if (m_SceneSettingsOpen)
-			SceneSettingsWindow();
+			m_SceneManager.SceneSettingsWindow();
 		if (m_ProjectSettingsOpen)
 			ProjectSettingsWindow();
 
 		ImGui::End();
 	}
-	
-	void EditorLayer::UI_Toolbar()
-	{
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));
-		ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing, ImVec2(0, 0));
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 0));
 
-		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-
-		float size = ImGui::GetWindowHeight() - 4.0f;
-		Ref<Texture2D> icon = m_SceneState == SceneState::Edit ? m_IconPlay : m_IconStop;
-		ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
-		if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0,0), ImVec2(1,1), 0))
-		{
-			if (m_SceneState == SceneState::Edit)
-				OnScenePlay();
-			else if (m_SceneState == SceneState::Play)
-				OnSceneStop();
-		}
-		ImGui::PopStyleVar(2);
-		ImGui::PopStyleColor(3);
-		ImGui::End();
-	}
 
 	void EditorLayer::OnEvent(Event& e)
 	{
-		m_EditorCamera.OnEvent(e);
+		m_SceneManager.m_EditorCamera.OnEvent(e);
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(RR_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
@@ -351,23 +289,23 @@ namespace Rose {
 		case Key::N:
 		{
 			if (control)
-				NewScene();
+				m_SceneManager.NewScene();
 
 			break;
 		}
 		case Key::O:
 		{
 			if (control)
-				OpenScene();
+				m_SceneManager.OpenScene();
 
 			break;
 		}
 		case Key::S:
 		{
 			if (control && alt)
-				SaveSceneAs();
+				m_SceneManager.SaveSceneAs();
 			if (control)
-				SaveScene();
+				m_SceneManager.SaveScene();
 
 			break;
 		}
@@ -375,7 +313,7 @@ namespace Rose {
 		case Key::D:
 		{
 			if (control)
-				OnDuplicateEntity();
+				m_SceneManager.OnDuplicateEntity();
 
 			break;
 		}
@@ -392,26 +330,26 @@ namespace Rose {
 			// Gizmos
 		case Key::Q:
 		{
-			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
-				m_GizmoType = -1;
+			if (!ImGuizmo::IsUsing() && m_SceneManager.isEditing())
+				m_SceneManager.m_GizmoType = -1;
 			break;
 		}
 		case Key::W:
 		{
-			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
-				m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
+			if (!ImGuizmo::IsUsing() && m_SceneManager.isEditing())
+				m_SceneManager.m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
 			break;
 		}
 		case Key::E:
 		{
-			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
-				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
+			if (!ImGuizmo::IsUsing() && m_SceneManager.isEditing())
+				m_SceneManager.m_GizmoType = ImGuizmo::OPERATION::ROTATE;
 			break;
 		}
 		case Key::R:
 		{
-			if (!ImGuizmo::IsUsing() && m_SceneState == SceneState::Edit)
-				m_GizmoType = ImGuizmo::OPERATION::SCALE;
+			if (!ImGuizmo::IsUsing() && m_SceneManager.isEditing())
+				m_SceneManager.m_GizmoType = ImGuizmo::OPERATION::SCALE;
 			break;
 		}
 		
@@ -423,39 +361,12 @@ namespace Rose {
 		if (e.GetMouseButton() == Mouse::ButtonLeft)
 		{
 			if (m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(Key::LeftAlt))
-				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
+				m_SceneManager.m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
 		}
 		return false;
 	}
 
-	void EditorLayer::SceneSettingsWindow()
-	{
-		ImGui::Begin("Scene Settings");
-
-		char buffer[256];
-		memset(buffer, 0, sizeof(buffer));
-		std::strncpy(buffer, m_SceneName.c_str(), sizeof(buffer));
-		if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
-		{
-			m_SceneName = std::string(buffer);
-			m_EditorScene->SetName(m_SceneName);
-		}
-
-		if (ImGui::TreeNodeEx("Physics2D"))
-		{
-
-
-			if (ImGui::DragFloat2("Gravity 2D", glm::value_ptr(m_Gravity)))
-			{
-				if (m_SceneState == SceneState::Edit)
-					m_EditorScene->SetGravity2D(m_Gravity);
-			}
-			ImGui::TreePop();
-		}
-
-		ImGui::Checkbox("Show Colliders", &m_ShowPhysicsColliders);
-		ImGui::End();
-	}
+	
 
 	void EditorLayer::ProjectSettingsWindow()
 	{
@@ -542,202 +453,30 @@ namespace Rose {
 		m_Project.SaveProject();
 	}
 
-	void EditorLayer::OnOverlayRender()
-	{
-		if (m_SceneState == SceneState::Play)
-		{
-			Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
-			if (camera) {
-				Renderer2D::BeginScene(camera.GetComponent<CameraComponent>().Camera, camera.GetComponent<TransformComponent>().GetTransform());
-			}
-			
-		}
-		else
-		{
-			Renderer2D::BeginScene(m_EditorCamera);
-		}
-
-		if (m_ShowPhysicsColliders)
-		{
-			if (m_SceneState == SceneState::Play)
-			{
-				Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
-				Renderer2D::BeginScene(camera.GetComponent<CameraComponent>().Camera, camera.GetComponent<TransformComponent>().GetTransform());
-			}
-			else
-			{
-				Renderer2D::BeginScene(m_EditorCamera);
-			}
-
-			if (m_ShowPhysicsColliders)
-			{
-				// Box Colliders
-				{
-					auto view = m_ActiveScene->GetAllEntitiesWith<TransformComponent, BoxCollider2DComponent>();
-					for (auto entity : view)
-					{
-						auto [tc, bc2d] = view.get<TransformComponent, BoxCollider2DComponent>(entity);
-
-						glm::vec3 translation = tc.Translation + glm::vec3(bc2d.Offset, 0.001f);
-						glm::vec3 scale = tc.Scale * glm::vec3(bc2d.Size * 2.0f, 1.0f);
-
-						glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
-							* glm::rotate(glm::mat4(1.0f), tc.Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f))
-							* glm::scale(glm::mat4(1.0f), scale);
-
-						Renderer2D::DrawRect(transform, glm::vec4(0.2f, 0.2f, 1, 1));
-					}
-				}
-
-				// Circle Colliders
-				{
-					auto view = m_ActiveScene->GetAllEntitiesWith<TransformComponent, CircleCollider2DComponent>();
-					for (auto entity : view)
-					{
-						auto [tc, cc2d] = view.get<TransformComponent, CircleCollider2DComponent>(entity);
-
-						glm::vec3 translation = tc.Translation + glm::vec3(cc2d.Offset, 0.001f);
-						glm::vec3 scale = tc.Scale * glm::vec3(cc2d.Radius * 2.0f);
-
-						glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
-							* glm::scale(glm::mat4(1.0f), scale);
-
-						Renderer2D::DrawCircle(transform, glm::vec4(0.2f, 0.2f, 1, 1), 0.05f);
-					}
-				}
-			}
-
-			Renderer2D::EndScene();
-		}
-	}
-
-	
-
 	void EditorLayer::NewProject()
 	{
 		//TODO Saftey net for unsaved scenes.
 		//SaveScene();
-		NewScene();
+		m_SceneManager.NewScene();
 		std::filesystem::path filepath = FileDialogs::SaveFile("Rose Project");
 		if (!filepath.empty())
 		{
 			m_Project = Project(filepath);
-			m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
-			m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneManager.m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneManager.m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
 		}	
 	} 
 	void EditorLayer::OpenProject()
 	{
 		//TODO Saftey net for unsaved scenes.
 		//SaveScene();
-		NewScene();
+		m_SceneManager.NewScene();
 		std::string filepath = FileDialogs::OpenFile("Rose Project (*.rproj)\0*.rproj\0");
 		if (!filepath.empty()) {
 			m_Project.OpenProject(filepath);
-			m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
-			m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneManager.m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneManager.m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
 			ResetToProjectSettings();
 		}
 	}
-	void EditorLayer::NewScene()
-	{
-		m_ActiveScene = CreateRef<Scene>();
-		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-		m_Gravity = m_ActiveScene->GetGravity2D();
-
-		m_EditorScene = m_ActiveScene;
-		m_EditorScenePath = std::filesystem::path();
-	}
-
-	void EditorLayer::OpenScene()
-	{
-		std::string filepath = FileDialogs::OpenFile("Rose Scene (*.rose)\0*.rose\0");
-		if (!filepath.empty())
-			OpenScene(filepath);
-	}
-
-	void EditorLayer::OpenScene(const std::filesystem::path& path)
-	{
-		if (m_SceneState != SceneState::Edit)
-			OnSceneStop();
-		if (path.extension().string() != ".rose")
-		{
-			RR_WARN("Could not load {0} - not a scene file", path.filename().string());
-			return;
-		}
-
-		Ref<Scene> newScene = CreateRef<Scene>();
-		SceneSerializer serializer(newScene);
-		if (serializer.Deserialize(path.string()))
-		{
-			m_EditorScene = newScene;
-			m_EditorScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_SceneName = m_EditorScene->GetName();
-			m_Gravity = m_EditorScene->GetGravity2D();
-			m_SceneHierarchyPanel.SetContext(m_EditorScene);
-			
-			m_ActiveScene = m_EditorScene;
-			m_EditorScenePath = path;
-		}
-
-	}
-
-	void EditorLayer::SaveSceneAs()
-	{
-		std::string filepath = FileDialogs::SaveFile("Rose Scene (*.rose)\0*.rose\0");
-		if (!filepath.empty())
-		{
-			SerializeScene(m_ActiveScene, filepath);
-			m_EditorScenePath = filepath;
-		}
-	}
-
-	void EditorLayer::SaveScene()
-	{
-		if (!m_EditorScenePath.empty())
-			SerializeScene(m_ActiveScene, m_EditorScenePath);
-		else
-			SaveSceneAs();
-	}
-
-	void EditorLayer::SerializeScene(Ref<Scene> scene, const std::filesystem::path& path)
-	{
-		if (m_SceneState != SceneState::Edit)
-			return;
-
-		SceneSerializer serializer(scene);
-		serializer.Serialize(path.string());
-	}
-
-	void EditorLayer::OnScenePlay()
-	{
-		m_GizmoType = -1;
-		m_ActiveScene = Scene::Copy(m_EditorScene);
-		m_ActiveScene->OnRuntimeStart();
-
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-		m_SceneState = SceneState::Play;
-	}
-
-	void EditorLayer::OnSceneStop()
-	{
-		m_ActiveScene->OnRuntimeStop();
-		m_ActiveScene = m_EditorScene;
-
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-		m_SceneState = SceneState::Edit;
-	}
-
-	void EditorLayer::OnDuplicateEntity()
-	{
-		if (m_SceneState != SceneState::Edit)
-			return;
-
-		if (m_SceneHierarchyPanel.GetSelectedEntity())
-			m_EditorScene->DuplicateEntity(m_SceneHierarchyPanel.GetSelectedEntity());
-	}
-
-	
-
 }
