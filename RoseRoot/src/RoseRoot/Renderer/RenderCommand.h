@@ -2,7 +2,8 @@
 
 #include "RendererAPI.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class RenderCommand
 	{

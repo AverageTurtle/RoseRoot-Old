@@ -3,7 +3,8 @@
 #include <memory>
 #include "RoseRoot/Renderer/Buffer.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class VertexArray
 	{

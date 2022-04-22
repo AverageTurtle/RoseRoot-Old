@@ -2,7 +2,7 @@
 #include "RoseRoot/Scene/Components.h"
 #include <RoseRoot/Scene/Entity.h>
 
-namespace RoseRoot {
+namespace Rose {
 	struct Vec2 {
 		float x = 0, y = 0;
 

@@ -12,7 +12,7 @@
 
 #include "RoseRoot/Math/Math.h"
 
-namespace RoseRoot {
+namespace Rose {
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer")
 	{

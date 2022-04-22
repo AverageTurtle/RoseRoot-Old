@@ -3,7 +3,7 @@
 
 #include <glad/glad.h>
 
-namespace RoseRoot {
+namespace Rose {
 
 	static const uint32_t s_MaxFramebufferSize = 8192;
 

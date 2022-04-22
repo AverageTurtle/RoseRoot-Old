@@ -2,7 +2,7 @@
 #include "LuaTypes.h"
 #include <box2d/b2_body.h>
 
-namespace RoseRoot {
+namespace Rose {
 	void LuaEntity::SetLinearVelocity(Vec2 vel)
 	{
 		if (entity.HasComponent<Rigidbody2DComponent>()) {

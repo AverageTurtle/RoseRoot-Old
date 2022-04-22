@@ -17,15 +17,16 @@
 #include "Box2D/b2_polygon_shape.h"
 #include "Box2D/b2_circle_shape.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	static b2BodyType Rigidbody2DTypeToBox2DBody(Rigidbody2DComponent::BodyType bodyType) 
 	{
 		switch (bodyType)
 		{
-		case RoseRoot::Rigidbody2DComponent::BodyType::Static:   return b2_staticBody;
-		case RoseRoot::Rigidbody2DComponent::BodyType::Dynamic:  return b2_dynamicBody;
-		case RoseRoot::Rigidbody2DComponent::BodyType::Kinematic:return b2_kinematicBody;
+		case Rose::Rigidbody2DComponent::BodyType::Static:   return b2_staticBody;
+		case Rose::Rigidbody2DComponent::BodyType::Dynamic:  return b2_dynamicBody;
+		case Rose::Rigidbody2DComponent::BodyType::Kinematic:return b2_kinematicBody;
 		}
 
 		RR_CORE_ASSERT(false, "Unknown body type");
@@ -104,7 +105,7 @@ namespace RoseRoot {
 		return CreateEntityWithUUID(UUID(), name);
 	}
 
-	RoseRoot::Entity Scene::CreateEntityWithUUID(UUID uuid, const std::string& name)
+	Rose::Entity Scene::CreateEntityWithUUID(UUID uuid, const std::string& name)
 	{
 		Entity entity = { m_Registry.create(), this };
 		entity.AddComponent<IDComponent>(uuid);

@@ -4,7 +4,8 @@
 
 #include <glad/glad.h>
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class OpenGLTexture2D : public Texture2D
 	{

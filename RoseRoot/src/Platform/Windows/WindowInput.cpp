@@ -4,7 +4,8 @@
 #include "RoseRoot/Core/Application.h"
 #include <GLFW/glfw3.h>
 
-namespace RoseRoot {
+namespace Rose
+ {
 	
 	bool Input::IsKeyPressed(KeyCode key)
 	{

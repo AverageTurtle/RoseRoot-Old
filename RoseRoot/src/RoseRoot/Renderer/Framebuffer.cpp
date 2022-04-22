@@ -4,7 +4,7 @@
 #include "RoseRoot/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLFramebuffer.h"
 
-namespace RoseRoot {
+namespace Rose {
 	Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification& spec)
 	{
 		switch (Renderer::GetAPI())

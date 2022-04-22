@@ -10,7 +10,8 @@
 
 class b2World;
 
-namespace RoseRoot {
+namespace Rose
+{
 
 	class Entity;
 

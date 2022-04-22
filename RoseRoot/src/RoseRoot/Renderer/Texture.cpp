@@ -4,7 +4,8 @@
 #include "Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
 	{

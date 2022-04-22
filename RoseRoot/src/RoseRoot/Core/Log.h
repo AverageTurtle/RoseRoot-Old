@@ -4,7 +4,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 
-namespace RoseRoot 
+namespace Rose 
 {
 	class Log
 	{
@@ -20,15 +20,15 @@ namespace RoseRoot
 }
 
 //Core log macros
-#define RR_CORE_FATAL(...) ::RoseRoot::Log::GetCoreLogger()->fatal(__VA_ARGS__)
-#define RR_CORE_ERROR(...) ::RoseRoot::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define RR_CORE_WARN(...)  ::RoseRoot::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define RR_CORE_INFO(...)  ::RoseRoot::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define RR_CORE_TRACE(...) ::RoseRoot::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define RR_CORE_FATAL(...) ::Rose::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define RR_CORE_ERROR(...) ::Rose::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define RR_CORE_WARN(...)  ::Rose::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define RR_CORE_INFO(...)  ::Rose::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define RR_CORE_TRACE(...) ::Rose::Log::GetCoreLogger()->trace(__VA_ARGS__)
 
 //Cleint log macros
-#define RR_FATAL(...)      ::RoseRoot::Log::GetClientLogger()->fatal(__VA_ARGS__)
-#define RR_ERROR(...)      ::RoseRoot::Log::GetClientLogger()->error(__VA_ARGS__)
-#define RR_WARN(...)       ::RoseRoot::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define RR_INFO(...)       ::RoseRoot::Log::GetClientLogger()->info(__VA_ARGS__)
-#define RR_TRACE(...)      ::RoseRoot::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define RR_FATAL(...)      ::Rose::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define RR_ERROR(...)      ::Rose::Log::GetClientLogger()->error(__VA_ARGS__)
+#define RR_WARN(...)       ::Rose::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define RR_INFO(...)       ::Rose::Log::GetClientLogger()->info(__VA_ARGS__)
+#define RR_TRACE(...)      ::Rose::Log::GetClientLogger()->trace(__VA_ARGS__)

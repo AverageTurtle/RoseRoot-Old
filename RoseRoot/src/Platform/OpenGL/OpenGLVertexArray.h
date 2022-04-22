@@ -2,7 +2,8 @@
 
 #include "RoseRoot/Renderer/VertexArray.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class OpenGLVertexArray : public VertexArray
 	{

@@ -3,7 +3,7 @@
 #include "RoseRoot/Core/Core.h"
 #include "Layer.h"
 
-namespace RoseRoot {
+namespace Rose {
 	class LayerStack
 	{
 	public:

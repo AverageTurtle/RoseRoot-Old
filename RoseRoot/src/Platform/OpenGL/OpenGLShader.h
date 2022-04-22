@@ -8,7 +8,8 @@
 // TODO: REMOVE!
 typedef unsigned int GLenum;
 
-namespace RoseRoot {
+namespace Rose
+{
 
 	class OpenGLShader : public Shader
 	{

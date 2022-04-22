@@ -3,7 +3,8 @@
 
 #include <yaml-cpp/yaml.h>
 
-namespace RoseRoot {
+namespace Rose
+ {
 	Project::Project(std::filesystem::path path)
 		: m_Path(path)
 	{

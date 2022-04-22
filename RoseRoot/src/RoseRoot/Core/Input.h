@@ -4,7 +4,7 @@
 #include "KeyCodes.h"
 #include "MouseCodes.h"
 
-namespace RoseRoot {
+namespace Rose {
 
 	class Input
 	{

@@ -5,7 +5,8 @@
 
 #include <GLFW/glfw3.h>
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class WindowsWindow : public Window
 	{

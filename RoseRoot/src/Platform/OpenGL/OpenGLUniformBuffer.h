@@ -2,7 +2,8 @@
 
 #include "RoseRoot/Renderer/UniformBuffer.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class OpenGLUniformBuffer : public UniformBuffer
 	{

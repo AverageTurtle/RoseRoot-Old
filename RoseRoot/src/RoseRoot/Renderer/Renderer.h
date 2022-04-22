@@ -5,7 +5,8 @@
 #include "Camera.h"
 #include "Shader.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class Renderer
 	{

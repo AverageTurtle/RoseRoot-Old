@@ -6,7 +6,7 @@
 #include "RoseRoot/Events/MouseEvent.h"
 #include "RoseRoot/Events/ApplicationEvent.h"
 
-namespace RoseRoot {
+namespace Rose {
 
 	class ImGuiLayer : public Layer
 	{

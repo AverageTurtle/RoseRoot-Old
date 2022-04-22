@@ -11,7 +11,7 @@
 
 #include "RoseRoot/ImGui/ImGuiLayer.h"
 
-namespace RoseRoot {
+namespace Rose {
 	
 	struct ApplicationCommandLineArgs
 	{

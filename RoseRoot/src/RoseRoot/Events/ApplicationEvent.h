@@ -2,7 +2,7 @@
 
 #include "Event.h"
 
-namespace RoseRoot {
+namespace Rose {
 
 	class WindowResizeEvent : public Event
 	{

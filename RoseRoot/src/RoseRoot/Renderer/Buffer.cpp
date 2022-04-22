@@ -5,7 +5,7 @@
 
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
-namespace RoseRoot {
+namespace Rose {
 	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
 	{
 		switch (Renderer::GetAPI())

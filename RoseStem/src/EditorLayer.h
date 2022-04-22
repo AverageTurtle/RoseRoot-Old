@@ -5,7 +5,7 @@
 
 #include "RoseRoot/Renderer/EditorCamera.h"
 
-namespace RoseRoot {
+namespace Rose {
 	class EditorLayer : public Layer
 	{
 	public:

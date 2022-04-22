@@ -5,7 +5,8 @@
 #include "RoseRoot/Core/Core.h"
 #include "RoseRoot/Events/Event.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	struct WindowProps
 	{

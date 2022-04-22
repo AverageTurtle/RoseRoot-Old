@@ -4,7 +4,8 @@
 
 #include "RoseRoot/Core/Core.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class Texture
 	{

@@ -1,7 +1,7 @@
 #include "rrpch.h"
 #include "Camera.h"
 
-namespace RoseRoot {
+namespace Rose {
 	PerspectiveCamera::PerspectiveCamera(float fov, float aspect, float nearClip, float farClip)
 		: m_Fov(fov), m_AspectRatio(aspect),m_NearClip(nearClip), m_FarClip(farClip),
 		 m_ProjectionMatrix(glm::perspective(glm::radians(fov), m_AspectRatio, nearClip, farClip)), m_ViewMatrix(1.0f)

@@ -1,7 +1,8 @@
 #pragma once
 #include "RoseRoot/Scene/Scene.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 	
 
 	class Project {

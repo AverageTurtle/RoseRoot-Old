@@ -6,7 +6,7 @@
 #define SOL_ALL_SAFETIES_ON 1
 #include <sol.hpp>
 
-namespace RoseRoot {
+namespace Rose {
 	
 	class LuaScript {
 	public:

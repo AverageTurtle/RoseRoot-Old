@@ -4,7 +4,7 @@
 #include "RoseRoot/Core/Timestep.h"
 #include "RoseRoot/Events/Event.h"
 
-namespace RoseRoot {
+namespace Rose {
 
 	class Layer
 	{

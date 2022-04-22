@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RoseRoot {
+namespace Rose {
 
 	enum class ShaderDataType
 	{

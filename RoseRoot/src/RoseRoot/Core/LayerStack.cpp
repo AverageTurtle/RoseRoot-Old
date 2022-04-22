@@ -1,7 +1,7 @@
 #include "rrpch.h"
 #include "LayerStack.h"
 
-namespace RoseRoot {
+namespace Rose {
 
 	LayerStack::LayerStack()
 	{

@@ -8,7 +8,7 @@
 
 #include "RoseRoot/Scene/Components.h"
 
-namespace RoseRoot {
+namespace Rose {
 	static std::filesystem::path s_AssetPath;
 
 	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& context)

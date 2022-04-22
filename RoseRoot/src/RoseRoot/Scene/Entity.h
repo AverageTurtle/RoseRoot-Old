@@ -6,7 +6,7 @@
 
 #include "entt.hpp"
 
-namespace RoseRoot {
+namespace Rose {
 
 	class Entity
 	{

@@ -4,7 +4,8 @@
 
 #include "Texture.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class SubTexture2D
 	{

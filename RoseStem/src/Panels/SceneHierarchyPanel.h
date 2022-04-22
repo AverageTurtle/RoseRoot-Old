@@ -4,7 +4,7 @@
 #include "RoseRoot/Scene/Scene.h"
 #include "RoseRoot/Scene/Entity.h"
 
-namespace RoseRoot {
+namespace Rose {
 
 	class SceneHierarchyPanel
 	{

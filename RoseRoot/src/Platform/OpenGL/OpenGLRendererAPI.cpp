@@ -4,7 +4,8 @@
 #include <glad/glad.h>
 
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	void OpenGLMessageCallback(
 		unsigned source,

@@ -3,7 +3,7 @@
 
 #include <imgui/imgui.h>
 
-namespace RoseRoot {
+namespace Rose {
 
 	ContentBrowserPanel::ContentBrowserPanel(std::filesystem::path path)
 		: m_AssetPath(path)

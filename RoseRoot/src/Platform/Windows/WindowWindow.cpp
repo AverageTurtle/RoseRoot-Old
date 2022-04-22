@@ -7,7 +7,9 @@
 
 #include "Platform/OpenGL/OpenGLContext.h"
 #include <stb_image.h>
-namespace RoseRoot {
+
+namespace Rose
+ {
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description)

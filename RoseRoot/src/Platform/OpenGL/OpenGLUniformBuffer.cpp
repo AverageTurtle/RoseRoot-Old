@@ -3,7 +3,8 @@
 
 #include <glad/glad.h>
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	OpenGLUniformBuffer::OpenGLUniformBuffer(uint32_t size, uint32_t binding)
 	{

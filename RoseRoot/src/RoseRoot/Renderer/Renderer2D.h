@@ -9,7 +9,8 @@
 
 #include "RoseRoot/Scene/Components.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class Renderer2D
 	{

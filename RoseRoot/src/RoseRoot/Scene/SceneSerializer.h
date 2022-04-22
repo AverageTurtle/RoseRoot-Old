@@ -2,7 +2,8 @@
 
 #include "Scene.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class SceneSerializer
 	{
