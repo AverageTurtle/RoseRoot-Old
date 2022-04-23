@@ -121,7 +121,7 @@ namespace Rose
 		
 	}
 
-	void Scene::OnRuntimeStart()
+	void Scene::OnRuntimeStart(const std::string& assetPath)
 	{
 		RR_PROFILE_FUNCTION();
 		RR_CORE_TRACE("-----Runtime Scene Started-----");
@@ -179,7 +179,7 @@ namespace Rose
 
 		m_Registry.view<LuaScriptComponent>().each([=](auto entity, LuaScriptComponent& lsc)
 			{
-				lsc.Script = CreateRef<LuaScript>(Entity{ entity, this }, lsc.Path);
+				lsc.Script = CreateRef<LuaScript>(Entity{ entity, this }, assetPath + "\\" + lsc.Path);
 				lsc.Script->Init();
 			});
 	}

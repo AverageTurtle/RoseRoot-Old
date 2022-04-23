@@ -179,7 +179,7 @@ namespace Rose {
 
 		Ref<Scene> newScene = CreateRef<Scene>();
 		SceneSerializer serializer(newScene);
-		if (serializer.Deserialize(path.string()))
+		if (serializer.Deserialize(path.string(), m_AssetPath.string()))
 		{
 			m_EditorScene = newScene;
 			m_EditorScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
@@ -224,7 +224,7 @@ namespace Rose {
 	{
 		m_GizmoType = -1;
 		m_ActiveScene = Scene::Copy(m_EditorScene);
-		m_ActiveScene->OnRuntimeStart();
+		m_ActiveScene->OnRuntimeStart(m_AssetPath.string());
 
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 		m_SceneState = SceneState::Play;

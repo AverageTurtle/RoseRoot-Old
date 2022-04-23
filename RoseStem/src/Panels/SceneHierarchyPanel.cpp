@@ -380,8 +380,8 @@ namespace Rose {
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 					{
 						const wchar_t* path = (const wchar_t*)payload->Data;
-						std::filesystem::path texturePath = s_AssetPath / path;
-						Ref<Texture2D> texture = Texture2D::Create(texturePath.string());
+						std::filesystem::path texturePath = path;
+						Ref<Texture2D> texture = Texture2D::Create(s_AssetPath.string() + "\\" + texturePath.string());
 						if (texture->IsLoaded()) {
 							component.Path = texturePath.string();
 							component.Texture = texture;
@@ -460,7 +460,7 @@ namespace Rose {
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 					{
 						const wchar_t* path = (const wchar_t*)payload->Data;
-						std::filesystem::path scriptPath = s_AssetPath / path;
+						std::filesystem::path scriptPath = path;
 						component.Path = scriptPath.string();
 					}
 					ImGui::EndDragDropTarget();

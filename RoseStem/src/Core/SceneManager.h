@@ -32,7 +32,10 @@ namespace Rose {
 
 		void UI_Toolbar();
 		void OnDuplicateEntity();
+
+		void SetAssetPath(const std::filesystem::path& path) { m_AssetPath = path; }
 	public:
+		
 		//Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 		ContentBrowserPanel m_ContentBrowserPanel;
@@ -44,6 +47,8 @@ namespace Rose {
 
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
 	private:
+		std::filesystem::path m_AssetPath;
+
 		Ref<Scene> m_ActiveScene;
 		Ref<Scene> m_EditorScene;
 		std::filesystem::path m_EditorScenePath;

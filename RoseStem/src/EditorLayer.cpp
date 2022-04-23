@@ -30,6 +30,7 @@ namespace Rose {
 
 		m_SceneManager.m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
 		m_SceneManager.m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+		m_SceneManager.SetAssetPath(m_Project.GetAssetPath());
 
 		ResetToProjectSettings();
 		m_SceneManager.NewScene();
@@ -464,6 +465,7 @@ namespace Rose {
 			m_Project = Project(filepath);
 			m_SceneManager.m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
 			m_SceneManager.m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneManager.SetAssetPath(m_Project.GetAssetPath());
 		}	
 	} 
 	void EditorLayer::OpenProject()
@@ -476,6 +478,7 @@ namespace Rose {
 			m_Project.OpenProject(filepath);
 			m_SceneManager.m_ContentBrowserPanel.SetAssetPath(m_Project.GetAssetPath());
 			m_SceneManager.m_SceneHierarchyPanel.SetAssetPath(m_Project.GetAssetPath());
+			m_SceneManager.SetAssetPath(m_Project.GetAssetPath());
 			ResetToProjectSettings();
 		}
 	}

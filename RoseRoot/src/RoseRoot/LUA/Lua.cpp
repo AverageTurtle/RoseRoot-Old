@@ -82,9 +82,15 @@ namespace Rose {
 		m_LuaState["rself"] = m_LuaEntity;
 
 		int resultL = luaL_loadfile(m_LuaState, filepath.c_str());
-		RR_CORE_ASSERT(resultL == LUA_OK, "Failed to load file!");
-		resultL = lua_pcall(m_LuaState, 0, LUA_MULTRET, 0);
-		RR_CORE_ASSERT(resultL == LUA_OK, "LUA Script failed to run!!");
+		if (resultL == LUA_OK) {
+			resultL = lua_pcall(m_LuaState, 0, LUA_MULTRET, 0);
+			if (resultL == LUA_OK) {
+				m_luaOK = true;
+			}else
+				RR_CORE_WARN("LUA Script failed to run: {0}", filepath.c_str());
+		}else
+			RR_CORE_WARN("Failed to lua load file {0}", filepath.c_str());
+		
 	}
 
 	LuaScript::~LuaScript()
@@ -95,6 +101,8 @@ namespace Rose {
 	void LuaScript::Init()
 	{
 		RR_PROFILE_FUNCTION();
+		if (!m_luaOK)
+			return;
 		sol::function Init = m_LuaState["Init"];
 		Init();
 	}
@@ -102,6 +110,9 @@ namespace Rose {
 	void LuaScript::Update(Timestep ts)
 	{
 		RR_PROFILE_FUNCTION();
+		if (!m_luaOK)
+			return;
+
 		m_LuaEntity->SyncToRose();
 		sol::function Update = m_LuaState["Update"];
 		Update((float)ts);

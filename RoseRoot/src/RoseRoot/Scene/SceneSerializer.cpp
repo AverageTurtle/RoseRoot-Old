@@ -312,7 +312,7 @@ namespace Rose
 		RR_CORE_ASSERT(false);
 	}
 
-	bool SceneSerializer::Deserialize(const std::string& filepath)
+	bool SceneSerializer::Deserialize(const std::string& filepath, const std::string& assetPath)
 	{
 		YAML::Node data;
 		try
@@ -396,7 +396,7 @@ namespace Rose
 					auto& src = deserializedEntity.AddComponent<SpriteRendererComponent>();
 					src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
 					if (spriteRendererComponent["Path"] && spriteRendererComponent["Path"].as<std::string>() != "no_texture") {
-						Ref<Texture2D> texture = Texture2D::Create(spriteRendererComponent["Path"].as<std::string>());
+						Ref<Texture2D> texture = Texture2D::Create(assetPath + "\\" + spriteRendererComponent["Path"].as<std::string>());
 						if (texture->IsLoaded()) {
 							src.Path = spriteRendererComponent["Path"].as<std::string>();
 							src.Texture = texture;

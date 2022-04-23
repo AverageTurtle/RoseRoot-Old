@@ -66,7 +66,6 @@ namespace Rose
 		YAML::Emitter out;
 		out << YAML::BeginMap;
 		out << YAML::Key << "Project" << YAML::Value << "UntitledProject";
-		out << YAML::Key << "Path" << YAML::Value << m_Path.string();
 
 		out << YAML::Key << "Scenes" << YAML::Value << YAML::BeginSeq;
 		std::for_each(m_ScenePaths.begin(), m_ScenePaths.end(), [&](std::pair<int, std::filesystem::path> elements) {

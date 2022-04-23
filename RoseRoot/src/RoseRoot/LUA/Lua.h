@@ -20,6 +20,7 @@ namespace Rose {
 	private:
 		static int BindRoseLog(lua_State* ptrState);
 	private:
+		bool m_luaOK = false;
 		Ref<LuaEntity> m_LuaEntity;
 		sol::state m_LuaState;
 	};

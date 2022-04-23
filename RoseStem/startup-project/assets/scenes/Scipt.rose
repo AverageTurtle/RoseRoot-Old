@@ -11,9 +11,9 @@ Entities:
       Scale: [1, 1, 1]
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
-      Path: assets\textures\GrassBlockTop.png
+      Path: beach_ball_00.png
     LuaScriptComponent:
-      Path: assets/scripts/move.lua
+      Path: scripts\test.lua
   - Entity: 10413073816626717145
     TagComponent:
       Tag: Camera
