@@ -8,6 +8,7 @@
 
 #include "ImGuizmo.h"
 #include "RoseRoot/Math/Math.h"
+#include "Core/CommandHistory.h"
 
 namespace Rose {
 	EditorLayer::EditorLayer()
@@ -18,8 +19,8 @@ namespace Rose {
 	void EditorLayer::OnAttach()
 	{
 		RR_PROFILE_FUNCTION();
-
 		Application::Get().GetWindow().SetWindowIcon("Resources/icon.png");
+		CommandHistory::Init();
 
 		auto commandLineArgs = Application::Get().GetCommandLineArgs();
 		if (commandLineArgs.Count > 1)
@@ -148,7 +149,14 @@ namespace Rose {
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 			}
-
+			if (ImGui::BeginMenu("Edit"))
+			{
+				if (ImGui::MenuItem("Undo", "Ctrl+Z"))
+					CommandHistory::Undo();
+				if (ImGui::MenuItem("Redo", "Ctrl+Y"))
+					CommandHistory::Redo();
+				ImGui::EndMenu();
+			}
 			if (ImGui::BeginMenu("Window"))
 			{
 				if (ImGui::MenuItem("Scene Settings", "Ctrl+L"))
@@ -328,7 +336,21 @@ namespace Rose {
 			m_ProjectSettingsOpen = !m_ProjectSettingsOpen;
 			break;
 		}
-			// Gizmos
+		case Key::Z:
+		{
+			if (control)
+				CommandHistory::Undo();
+
+			break;
+		}
+		case Key::Y:
+		{
+			if (control)
+				CommandHistory::Redo();
+
+			break;
+		}
+		// Gizmos
 		case Key::Q:
 		{
 			if (!ImGuizmo::IsUsing() && m_SceneManager.isEditing())

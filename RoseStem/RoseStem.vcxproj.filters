@@ -14,6 +14,7 @@
       <Filter>Panels</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\SceneManager.h" />
+    <ClInclude Include="src\Core\CommandHistory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -25,5 +26,6 @@
     </ClCompile>
     <ClCompile Include="src\RoseStemApp.cpp" />
     <ClCompile Include="src\Core\SceneManager.cpp" />
+    <ClCompile Include="src\Core\CommandHistory.cpp" />
   </ItemGroup>
 </Project>

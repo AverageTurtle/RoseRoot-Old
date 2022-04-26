@@ -7,7 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "RoseRoot/Scene/Components.h"
-
+#include "../Core/CommandHistory.h"
 namespace Rose {
 	static std::filesystem::path s_AssetPath;
 
@@ -109,6 +109,9 @@ namespace Rose {
 		ImGuiIO& io = ImGui::GetIO();
 		auto boldFont = io.Fonts->Fonts[0];
 
+		//TODO Remove
+		glm::vec3 tempVec = values;
+
 		ImGui::PushID(label.c_str());
 
 		ImGui::Columns(2);
@@ -127,12 +130,14 @@ namespace Rose {
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 0.0f });
 		ImGui::PushFont(boldFont);
 		if (ImGui::Button("X", buttonSize))
-			values.x = resetValue;\
-		ImGui::PopFont();
+			values.x = resetValue; \
+			ImGui::PopFont();
 		ImGui::PopStyleColor(3);
 
 		ImGui::SameLine();
-		ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
+		if (ImGui::DragFloat("##X", &tempVec.x, 0.1f, 0.0f, 0.0f, "%.2f")) {
+			CommandHistory::Execute(CreateRef<ChangeValueCommand<glm::vec3>>(values, tempVec));
+		};
 		ImGui::PopItemWidth();
 		ImGui::SameLine();
 
@@ -146,7 +151,9 @@ namespace Rose {
 		ImGui::PopStyleColor(3);
 
 		ImGui::SameLine();
-		ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
+		if(ImGui::DragFloat("##Y", &tempVec.y, 0.1f, 0.0f, 0.0f, "%.2f")) {
+			CommandHistory::Execute(CreateRef<ChangeValueCommand<glm::vec3>>(values, tempVec));
+		}
 		ImGui::PopItemWidth();
 		ImGui::SameLine();
 
@@ -160,7 +167,9 @@ namespace Rose {
 		ImGui::PopStyleColor(3);
 
 		ImGui::SameLine();
-		ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
+		if (ImGui::DragFloat("##Z", &tempVec.z, 0.1f, 0.0f, 0.0f, "%.2f")) {
+			CommandHistory::Execute(CreateRef<ChangeValueCommand<glm::vec3>>(values, tempVec));
+		};
 		ImGui::PopItemWidth();
 
 		ImGui::PopStyleVar();
