@@ -135,9 +135,7 @@ namespace Rose {
 		ImGui::PopStyleColor(3);
 
 		ImGui::SameLine();
-		if (ImGui::DragFloat("##X", &tempVec.x, 0.1f, 0.0f, 0.0f, "%.2f")) {
-			CommandHistory::Execute(CreateRef<ChangeValueCommand<glm::vec3>>(values, tempVec));
-		};
+		ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
 		ImGui::PopItemWidth();
 		ImGui::SameLine();
 
@@ -151,9 +149,7 @@ namespace Rose {
 		ImGui::PopStyleColor(3);
 
 		ImGui::SameLine();
-		if(ImGui::DragFloat("##Y", &tempVec.y, 0.1f, 0.0f, 0.0f, "%.2f")) {
-			CommandHistory::Execute(CreateRef<ChangeValueCommand<glm::vec3>>(values, tempVec));
-		}
+		ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
 		ImGui::PopItemWidth();
 		ImGui::SameLine();
 
@@ -167,9 +163,7 @@ namespace Rose {
 		ImGui::PopStyleColor(3);
 
 		ImGui::SameLine();
-		if (ImGui::DragFloat("##Z", &tempVec.z, 0.1f, 0.0f, 0.0f, "%.2f")) {
-			CommandHistory::Execute(CreateRef<ChangeValueCommand<glm::vec3>>(values, tempVec));
-		};
+		ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
 		ImGui::PopItemWidth();
 
 		ImGui::PopStyleVar();
@@ -312,11 +306,24 @@ namespace Rose {
 
 		DrawComponent<TransformComponent>("Transform", entity, [](auto& component)
 			{
-				DrawVec3Control("Translation", component.Translation);
+				glm::vec3 translation = component.Translation;
+				DrawVec3Control("Translation", translation);
+				if (translation != component.Translation) {
+					CommandHistory::ChangeVec3(CreateRef<ChangeValueCommand<glm::vec3>>(component.Translation, translation));
+				}
+
 				glm::vec3 rotation = glm::degrees(component.Rotation);
 				DrawVec3Control("Rotation", rotation);
+				if (glm::radians(rotation) != component.Rotation) {
+					CommandHistory::ChangeVec3(CreateRef < ChangeValueCommand<glm::vec3>>(component.Rotation, glm::radians(rotation)));
+				}
 				component.Rotation = glm::radians(rotation);
-				DrawVec3Control("Scale", component.Scale, 1.0f);
+
+				glm::vec3 scale = component.Scale;
+				DrawVec3Control("Scale", scale, 1.0f);
+				if (scale != component.Scale) {
+					CommandHistory::ChangeVec3(CreateRef<ChangeValueCommand<glm::vec3>>(component.Scale, scale));
+				}
 			});
 
 		DrawComponent<CameraComponent>("Camera", entity, [](auto& component)

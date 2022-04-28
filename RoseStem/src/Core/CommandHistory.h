@@ -26,6 +26,13 @@ namespace Rose {
 		virtual void Undo() override {
 			m_ValToChange = m_OldVal;
 		}
+		void Ammend(Ref<ChangeValueCommand<T>> command) {
+			m_NewVal = command->getNewVal();
+			m_ValToChange = m_NewVal;
+		}
+
+		T getNewVal() { return m_NewVal; }
+		T& getPointer() { return m_ValToChange; }
 	private:
 		T& m_ValToChange;
 		T m_NewVal;
@@ -38,8 +45,14 @@ namespace Rose {
 
 		static void Clear();
 
+		//A generic execute for command without ammending
 		static void Execute(Ref<Command> command);
+		
 		static void Undo();
 		static void Redo();
+
+		//Special cases for ammendable commands
+		static void ChangeVec3(Ref<ChangeValueCommand<glm::vec3>> command);
+		
 	};
 }

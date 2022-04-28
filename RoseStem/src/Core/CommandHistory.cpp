@@ -22,12 +22,17 @@ namespace Rose {
 		s_commandData.Location = 0;
 	}
 
+	
 	void CommandHistory::Execute(Ref<Command> command)
 	{
 		s_commandData.Location = 0;
+
 		command->Execute();
+		
 		s_commandData.commandBuffer.push_front(command);
 	}
+
+	
 
 	void CommandHistory::Undo()
 	{
@@ -63,5 +68,25 @@ namespace Rose {
 		iterator->get()->Execute();
 	}
 
-}
+	void CommandHistory::ChangeVec3(Ref<ChangeValueCommand<glm::vec3>> command)
+	{
+		bool same = dynamic_cast<ChangeValueCommand<glm::vec3>*>(s_commandData.commandBuffer.front().get()) != nullptr;
+		if (same && s_commandData.Location == 0) {
+			Ref<ChangeValueCommand<glm::vec3>> oldCommand = std::static_pointer_cast<ChangeValueCommand<glm::vec3>>(s_commandData.commandBuffer.front());
+			if (std::addressof(command->getPointer()) == std::addressof(oldCommand->getPointer())) {
+				oldCommand->Ammend(command);
+			}
+			else {
+				s_commandData.Location = 0;
+				command->Execute();
+				s_commandData.commandBuffer.push_front(command);
+			}
+		} else {
+			s_commandData.Location = 0;
+			command->Execute();
+			s_commandData.commandBuffer.push_front(command);
+		}
 
+	}
+
+}

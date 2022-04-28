@@ -254,10 +254,20 @@ namespace Rose {
 				glm::vec3 translation, rotation, scale;
 				Math::DecomposeTransform(transform, translation, rotation, scale);
 
+				if (translation != tc.Translation) {
+					CommandHistory::ChangeVec3(CreateRef<ChangeValueCommand<glm::vec3>>(tc.Translation, translation));
+				}
+
 				glm::vec3 deltaRotation = rotation - tc.Rotation;
-				tc.Translation = translation;
-				tc.Rotation += deltaRotation;
-				tc.Scale = scale;
+				if (deltaRotation != glm::vec3(0.0f)) {
+					glm::vec3 copy = tc.Rotation;
+					copy += deltaRotation;
+					CommandHistory::ChangeVec3(CreateRef < ChangeValueCommand<glm::vec3>>(tc.Rotation, copy));
+				}
+
+				if (scale != tc.Scale) {
+					CommandHistory::ChangeVec3(CreateRef<ChangeValueCommand<glm::vec3>>(tc.Scale, scale));
+				}
 			}
 		}
 
