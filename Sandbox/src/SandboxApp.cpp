@@ -6,7 +6,8 @@
 
 #include "MainLayer.h"
 
-namespace RoseRoot {
+
+ {
 	class RoseStem : public Application
 	{
 	public:

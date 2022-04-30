@@ -9,7 +9,7 @@
 
 #include "glm/glm.hpp"
 
-namespace RoseRoot {
+namespace Rose {
 
 	Application* Application::s_Instance = nullptr;
 

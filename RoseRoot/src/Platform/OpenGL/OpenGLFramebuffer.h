@@ -2,7 +2,8 @@
 
 #include "RoseRoot/Renderer/Framebuffer.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class OpenGLFramebuffer : public Framebuffer
 	{

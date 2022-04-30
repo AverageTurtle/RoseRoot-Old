@@ -2,7 +2,7 @@
 
 #include "RoseRoot/Core/Core.h"
 
-namespace RoseRoot
+namespace Rose
 {
 
 	enum class FramebufferTextureFormat

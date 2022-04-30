@@ -7,8 +7,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "RoseRoot/Scene/Components.h"
-
-namespace RoseRoot {
+#include "../Core/CommandHistory.h"
+namespace Rose {
 	static std::filesystem::path s_AssetPath;
 
 	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& context)
@@ -109,6 +109,9 @@ namespace RoseRoot {
 		ImGuiIO& io = ImGui::GetIO();
 		auto boldFont = io.Fonts->Fonts[0];
 
+		//TODO Remove
+		glm::vec3 tempVec = values;
+
 		ImGui::PushID(label.c_str());
 
 		ImGui::Columns(2);
@@ -127,8 +130,8 @@ namespace RoseRoot {
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 0.0f });
 		ImGui::PushFont(boldFont);
 		if (ImGui::Button("X", buttonSize))
-			values.x = resetValue;\
-		ImGui::PopFont();
+			values.x = resetValue; \
+			ImGui::PopFont();
 		ImGui::PopStyleColor(3);
 
 		ImGui::SameLine();
@@ -303,11 +306,24 @@ namespace RoseRoot {
 
 		DrawComponent<TransformComponent>("Transform", entity, [](auto& component)
 			{
-				DrawVec3Control("Translation", component.Translation);
+				glm::vec3 translation = component.Translation;
+				DrawVec3Control("Translation", translation);
+				if (translation != component.Translation) {
+					CommandHistory::ChangeVec3(CreateRef<ChangeValueCommand<glm::vec3>>(component.Translation, translation));
+				}
+
 				glm::vec3 rotation = glm::degrees(component.Rotation);
 				DrawVec3Control("Rotation", rotation);
+				if (glm::radians(rotation) != component.Rotation) {
+					CommandHistory::ChangeVec3(CreateRef < ChangeValueCommand<glm::vec3>>(component.Rotation, glm::radians(rotation)));
+				}
 				component.Rotation = glm::radians(rotation);
-				DrawVec3Control("Scale", component.Scale, 1.0f);
+
+				glm::vec3 scale = component.Scale;
+				DrawVec3Control("Scale", scale, 1.0f);
+				if (scale != component.Scale) {
+					CommandHistory::ChangeVec3(CreateRef<ChangeValueCommand<glm::vec3>>(component.Scale, scale));
+				}
 			});
 
 		DrawComponent<CameraComponent>("Camera", entity, [](auto& component)
@@ -380,8 +396,8 @@ namespace RoseRoot {
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 					{
 						const wchar_t* path = (const wchar_t*)payload->Data;
-						std::filesystem::path texturePath = s_AssetPath / path;
-						Ref<Texture2D> texture = Texture2D::Create(texturePath.string());
+						std::filesystem::path texturePath = path;
+						Ref<Texture2D> texture = Texture2D::Create(s_AssetPath.string() + "\\" + texturePath.string());
 						if (texture->IsLoaded()) {
 							component.Path = texturePath.string();
 							component.Texture = texture;
@@ -460,7 +476,7 @@ namespace RoseRoot {
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 					{
 						const wchar_t* path = (const wchar_t*)payload->Data;
-						std::filesystem::path scriptPath = s_AssetPath / path;
+						std::filesystem::path scriptPath = path;
 						component.Path = scriptPath.string();
 					}
 					ImGui::EndDragDropTarget();

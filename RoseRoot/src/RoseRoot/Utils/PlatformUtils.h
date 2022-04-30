@@ -2,7 +2,8 @@
 
 #include <string>
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class FileDialogs
 	{

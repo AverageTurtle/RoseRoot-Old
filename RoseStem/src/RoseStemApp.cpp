@@ -6,7 +6,7 @@
 
 #include "EditorLayer.h"
 
-namespace RoseRoot {
+namespace Rose {
 	class RoseStem : public Application
 	{
 	public:

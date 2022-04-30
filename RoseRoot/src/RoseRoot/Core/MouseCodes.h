@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RoseRoot
+namespace Rose
 {
 	typedef enum class MouseCode : uint16_t
 	{
@@ -50,15 +50,15 @@ namespace RoseRoot
 	}
 }
 //From glfw3.h
-#define RR_MOUSE_BUTTON_0      ::RoseRoot::Mouse::Button0
-#define RR_MOUSE_BUTTON_1      ::RoseRoot::Mouse::Button1
-#define RR_MOUSE_BUTTON_2      ::RoseRoot::Mouse::Button2
-#define RR_MOUSE_BUTTON_3      ::RoseRoot::Mouse::Button3
-#define RR_MOUSE_BUTTON_4      ::RoseRoot::Mouse::Button4
-#define RR_MOUSE_BUTTON_5      ::RoseRoot::Mouse::Button5
-#define RR_MOUSE_BUTTON_6      ::RoseRoot::Mouse::Button6
-#define RR_MOUSE_BUTTON_7      ::RoseRoot::Mouse::Button7
-#define RR_MOUSE_BUTTON_LAST   ::RoseRoot::Mouse::ButtonLast
-#define RR_MOUSE_BUTTON_LEFT   ::RoseRoot::Mouse::ButtonLeft
-#define RR_MOUSE_BUTTON_RIGHT  ::RoseRoot::Mouse::ButtonRight
-#define RR_MOUSE_BUTTON_MIDDLE ::RoseRoot::Mouse::ButtonMiddle
+#define RR_MOUSE_BUTTON_0      ::Rose::Mouse::Button0
+#define RR_MOUSE_BUTTON_1      ::Rose::Mouse::Button1
+#define RR_MOUSE_BUTTON_2      ::Rose::Mouse::Button2
+#define RR_MOUSE_BUTTON_3      ::Rose::Mouse::Button3
+#define RR_MOUSE_BUTTON_4      ::Rose::Mouse::Button4
+#define RR_MOUSE_BUTTON_5      ::Rose::Mouse::Button5
+#define RR_MOUSE_BUTTON_6      ::Rose::Mouse::Button6
+#define RR_MOUSE_BUTTON_7      ::Rose::Mouse::Button7
+#define RR_MOUSE_BUTTON_LAST   ::Rose::Mouse::ButtonLast
+#define RR_MOUSE_BUTTON_LEFT   ::Rose::Mouse::ButtonLeft
+#define RR_MOUSE_BUTTON_RIGHT  ::Rose::Mouse::ButtonRight
+#define RR_MOUSE_BUTTON_MIDDLE ::Rose::Mouse::ButtonMiddle

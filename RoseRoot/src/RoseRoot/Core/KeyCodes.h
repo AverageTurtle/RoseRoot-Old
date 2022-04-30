@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RoseRoot {
+namespace Rose {
 typedef enum class KeyCode : uint16_t
 {
 	// From glfw3.h
@@ -207,128 +207,128 @@ inline std::ostream& operator<<(std::ostream& os, KeyCode keyCode)
 }
 }
 // From glfw3.h
-#define RR_KEY_SPACE           ::RoseRoot::Key::Space
-#define RR_KEY_APOSTROPHE      ::RoseRoot::Key::Apostrophe    /* ' */
-#define RR_KEY_COMMA           ::RoseRoot::Key::Comma         /* , */
-#define RR_KEY_MINUS           ::RoseRoot::Key::Minus         /* - */
-#define RR_KEY_PERIOD          ::RoseRoot::Key::Period        /* . */
-#define RR_KEY_SLASH           ::RoseRoot::Key::Slash         /* / */
-#define RR_KEY_0               ::RoseRoot::Key::D0
-#define RR_KEY_1               ::RoseRoot::Key::D1
-#define RR_KEY_2               ::RoseRoot::Key::D2
-#define RR_KEY_3               ::RoseRoot::Key::D3
-#define RR_KEY_4               ::RoseRoot::Key::D4
-#define RR_KEY_5               ::RoseRoot::Key::D5
-#define RR_KEY_6               ::RoseRoot::Key::D6
-#define RR_KEY_7               ::RoseRoot::Key::D7
-#define RR_KEY_8               ::RoseRoot::Key::D8
-#define RR_KEY_9               ::RoseRoot::Key::D9
-#define RR_KEY_SEMICOLON       ::RoseRoot::Key::Semicolon     /* ; */
-#define RR_KEY_EQUAL           ::RoseRoot::Key::Equal         /* = */
-#define RR_KEY_A               ::RoseRoot::Key::A
-#define RR_KEY_B               ::RoseRoot::Key::B
-#define RR_KEY_C               ::RoseRoot::Key::C
-#define RR_KEY_D               ::RoseRoot::Key::D
-#define RR_KEY_E               ::RoseRoot::Key::E
-#define RR_KEY_F               ::RoseRoot::Key::F
-#define RR_KEY_G               ::RoseRoot::Key::G
-#define RR_KEY_H               ::RoseRoot::Key::H
-#define RR_KEY_I               ::RoseRoot::Key::I
-#define RR_KEY_J               ::RoseRoot::Key::J
-#define RR_KEY_K               ::RoseRoot::Key::K
-#define RR_KEY_L               ::RoseRoot::Key::L
-#define RR_KEY_M               ::RoseRoot::Key::M
-#define RR_KEY_N               ::RoseRoot::Key::N
-#define RR_KEY_O               ::RoseRoot::Key::O
-#define RR_KEY_P               ::RoseRoot::Key::P
-#define RR_KEY_Q               ::RoseRoot::Key::Q
-#define RR_KEY_R               ::RoseRoot::Key::R
-#define RR_KEY_S               ::RoseRoot::Key::S
-#define RR_KEY_T               ::RoseRoot::Key::T
-#define RR_KEY_U               ::RoseRoot::Key::U
-#define RR_KEY_V               ::RoseRoot::Key::V
-#define RR_KEY_W               ::RoseRoot::Key::W
-#define RR_KEY_X               ::RoseRoot::Key::X
-#define RR_KEY_Y               ::RoseRoot::Key::Y
-#define RR_KEY_Z               ::RoseRoot::Key::Z
-#define RR_KEY_LEFT_BRACKET    ::RoseRoot::Key::LeftBracket   /* [ */
-#define RR_KEY_BACKSLASH       ::RoseRoot::Key::Backslash     /* \ */
-#define RR_KEY_RIGHT_BRACKET   ::RoseRoot::Key::RightBracket  /* ] */
-#define RR_KEY_GRAVE_ACCENT    ::RoseRoot::Key::GraveAccent   /* ` */
-#define RR_KEY_WORLD_1         ::RoseRoot::Key::World1        /* non-US #1 */
-#define RR_KEY_WORLD_2         ::RoseRoot::Key::World2        /* non-US #2 */
+#define RR_KEY_SPACE           ::Rose::Key::Space
+#define RR_KEY_APOSTROPHE      ::Rose::Key::Apostrophe    /* ' */
+#define RR_KEY_COMMA           ::Rose::Key::Comma         /* , */
+#define RR_KEY_MINUS           ::Rose::Key::Minus         /* - */
+#define RR_KEY_PERIOD          ::Rose::Key::Period        /* . */
+#define RR_KEY_SLASH           ::Rose::Key::Slash         /* / */
+#define RR_KEY_0               ::Rose::Key::D0
+#define RR_KEY_1               ::Rose::Key::D1
+#define RR_KEY_2               ::Rose::Key::D2
+#define RR_KEY_3               ::Rose::Key::D3
+#define RR_KEY_4               ::Rose::Key::D4
+#define RR_KEY_5               ::Rose::Key::D5
+#define RR_KEY_6               ::Rose::Key::D6
+#define RR_KEY_7               ::Rose::Key::D7
+#define RR_KEY_8               ::Rose::Key::D8
+#define RR_KEY_9               ::Rose::Key::D9
+#define RR_KEY_SEMICOLON       ::Rose::Key::Semicolon     /* ; */
+#define RR_KEY_EQUAL           ::Rose::Key::Equal         /* = */
+#define RR_KEY_A               ::Rose::Key::A
+#define RR_KEY_B               ::Rose::Key::B
+#define RR_KEY_C               ::Rose::Key::C
+#define RR_KEY_D               ::Rose::Key::D
+#define RR_KEY_E               ::Rose::Key::E
+#define RR_KEY_F               ::Rose::Key::F
+#define RR_KEY_G               ::Rose::Key::G
+#define RR_KEY_H               ::Rose::Key::H
+#define RR_KEY_I               ::Rose::Key::I
+#define RR_KEY_J               ::Rose::Key::J
+#define RR_KEY_K               ::Rose::Key::K
+#define RR_KEY_L               ::Rose::Key::L
+#define RR_KEY_M               ::Rose::Key::M
+#define RR_KEY_N               ::Rose::Key::N
+#define RR_KEY_O               ::Rose::Key::O
+#define RR_KEY_P               ::Rose::Key::P
+#define RR_KEY_Q               ::Rose::Key::Q
+#define RR_KEY_R               ::Rose::Key::R
+#define RR_KEY_S               ::Rose::Key::S
+#define RR_KEY_T               ::Rose::Key::T
+#define RR_KEY_U               ::Rose::Key::U
+#define RR_KEY_V               ::Rose::Key::V
+#define RR_KEY_W               ::Rose::Key::W
+#define RR_KEY_X               ::Rose::Key::X
+#define RR_KEY_Y               ::Rose::Key::Y
+#define RR_KEY_Z               ::Rose::Key::Z
+#define RR_KEY_LEFT_BRACKET    ::Rose::Key::LeftBracket   /* [ */
+#define RR_KEY_BACKSLASH       ::Rose::Key::Backslash     /* \ */
+#define RR_KEY_RIGHT_BRACKET   ::Rose::Key::RightBracket  /* ] */
+#define RR_KEY_GRAVE_ACCENT    ::Rose::Key::GraveAccent   /* ` */
+#define RR_KEY_WORLD_1         ::Rose::Key::World1        /* non-US #1 */
+#define RR_KEY_WORLD_2         ::Rose::Key::World2        /* non-US #2 */
 								 			 
 /* Function keys */				 			 
-#define RR_KEY_ESCAPE          ::RoseRoot::Key::Escape
-#define RR_KEY_ENTER           ::RoseRoot::Key::Enter
-#define RR_KEY_TAB             ::RoseRoot::Key::Tab
-#define RR_KEY_BACKSPACE       ::RoseRoot::Key::Backspace
-#define RR_KEY_INSERT          ::RoseRoot::Key::Insert
-#define RR_KEY_DELETE          ::RoseRoot::Key::Delete
-#define RR_KEY_RIGHT           ::RoseRoot::Key::Right
-#define RR_KEY_LEFT            ::RoseRoot::Key::Left
-#define RR_KEY_DOWN            ::RoseRoot::Key::Down
-#define RR_KEY_UP              ::RoseRoot::Key::Up
-#define RR_KEY_PAGE_UP         ::RoseRoot::Key::PageUp
-#define RR_KEY_PAGE_DOWN       ::RoseRoot::Key::PageDown
-#define RR_KEY_HOME            ::RoseRoot::Key::Home
-#define RR_KEY_END             ::RoseRoot::Key::End
-#define RR_KEY_CAPS_LOCK       ::RoseRoot::Key::CapsLock
-#define RR_KEY_SCROLL_LOCK     ::RoseRoot::Key::ScrollLock
-#define RR_KEY_NUM_LOCK        ::RoseRoot::Key::NumLock
-#define RR_KEY_PRINT_SCREEN    ::RoseRoot::Key::PrintScreen
-#define RR_KEY_PAUSE           ::RoseRoot::Key::Pause
-#define RR_KEY_F1              ::RoseRoot::Key::F1
-#define RR_KEY_F2              ::RoseRoot::Key::F2
-#define RR_KEY_F3              ::RoseRoot::Key::F3
-#define RR_KEY_F4              ::RoseRoot::Key::F4
-#define RR_KEY_F5              ::RoseRoot::Key::F5
-#define RR_KEY_F6              ::RoseRoot::Key::F6
-#define RR_KEY_F7              ::RoseRoot::Key::F7
-#define RR_KEY_F8              ::RoseRoot::Key::F8
-#define RR_KEY_F9              ::RoseRoot::Key::F9
-#define RR_KEY_F10             ::RoseRoot::Key::F10
-#define RR_KEY_F11             ::RoseRoot::Key::F11
-#define RR_KEY_F12             ::RoseRoot::Key::F12
-#define RR_KEY_F13             ::RoseRoot::Key::F13
-#define RR_KEY_F14             ::RoseRoot::Key::F14
-#define RR_KEY_F15             ::RoseRoot::Key::F15
-#define RR_KEY_F16             ::RoseRoot::Key::F16
-#define RR_KEY_F17             ::RoseRoot::Key::F17
-#define RR_KEY_F18             ::RoseRoot::Key::F18
-#define RR_KEY_F19             ::RoseRoot::Key::F19
-#define RR_KEY_F20             ::RoseRoot::Key::F20
-#define RR_KEY_F21             ::RoseRoot::Key::F21
-#define RR_KEY_F22             ::RoseRoot::Key::F22
-#define RR_KEY_F23             ::RoseRoot::Key::F23
-#define RR_KEY_F24             ::RoseRoot::Key::F24
-#define RR_KEY_F25             ::RoseRoot::Key::F25
+#define RR_KEY_ESCAPE          ::Rose::Key::Escape
+#define RR_KEY_ENTER           ::Rose::Key::Enter
+#define RR_KEY_TAB             ::Rose::Key::Tab
+#define RR_KEY_BACKSPACE       ::Rose::Key::Backspace
+#define RR_KEY_INSERT          ::Rose::Key::Insert
+#define RR_KEY_DELETE          ::Rose::Key::Delete
+#define RR_KEY_RIGHT           ::Rose::Key::Right
+#define RR_KEY_LEFT            ::Rose::Key::Left
+#define RR_KEY_DOWN            ::Rose::Key::Down
+#define RR_KEY_UP              ::Rose::Key::Up
+#define RR_KEY_PAGE_UP         ::Rose::Key::PageUp
+#define RR_KEY_PAGE_DOWN       ::Rose::Key::PageDown
+#define RR_KEY_HOME            ::Rose::Key::Home
+#define RR_KEY_END             ::Rose::Key::End
+#define RR_KEY_CAPS_LOCK       ::Rose::Key::CapsLock
+#define RR_KEY_SCROLL_LOCK     ::Rose::Key::ScrollLock
+#define RR_KEY_NUM_LOCK        ::Rose::Key::NumLock
+#define RR_KEY_PRINT_SCREEN    ::Rose::Key::PrintScreen
+#define RR_KEY_PAUSE           ::Rose::Key::Pause
+#define RR_KEY_F1              ::Rose::Key::F1
+#define RR_KEY_F2              ::Rose::Key::F2
+#define RR_KEY_F3              ::Rose::Key::F3
+#define RR_KEY_F4              ::Rose::Key::F4
+#define RR_KEY_F5              ::Rose::Key::F5
+#define RR_KEY_F6              ::Rose::Key::F6
+#define RR_KEY_F7              ::Rose::Key::F7
+#define RR_KEY_F8              ::Rose::Key::F8
+#define RR_KEY_F9              ::Rose::Key::F9
+#define RR_KEY_F10             ::Rose::Key::F10
+#define RR_KEY_F11             ::Rose::Key::F11
+#define RR_KEY_F12             ::Rose::Key::F12
+#define RR_KEY_F13             ::Rose::Key::F13
+#define RR_KEY_F14             ::Rose::Key::F14
+#define RR_KEY_F15             ::Rose::Key::F15
+#define RR_KEY_F16             ::Rose::Key::F16
+#define RR_KEY_F17             ::Rose::Key::F17
+#define RR_KEY_F18             ::Rose::Key::F18
+#define RR_KEY_F19             ::Rose::Key::F19
+#define RR_KEY_F20             ::Rose::Key::F20
+#define RR_KEY_F21             ::Rose::Key::F21
+#define RR_KEY_F22             ::Rose::Key::F22
+#define RR_KEY_F23             ::Rose::Key::F23
+#define RR_KEY_F24             ::Rose::Key::F24
+#define RR_KEY_F25             ::Rose::Key::F25
 								 			 
 /* Keypad */					 			 
-#define RR_KEY_KP_0            ::RoseRoot::Key::KP0
-#define RR_KEY_KP_1            ::RoseRoot::Key::KP1
-#define RR_KEY_KP_2            ::RoseRoot::Key::KP2
-#define RR_KEY_KP_3            ::RoseRoot::Key::KP3
-#define RR_KEY_KP_4            ::RoseRoot::Key::KP4
-#define RR_KEY_KP_5            ::RoseRoot::Key::KP5
-#define RR_KEY_KP_6            ::RoseRoot::Key::KP6
-#define RR_KEY_KP_7            ::RoseRoot::Key::KP7
-#define RR_KEY_KP_8            ::RoseRoot::Key::KP8
-#define RR_KEY_KP_9            ::RoseRoot::Key::KP9
-#define RR_KEY_KP_DECIMAL      ::RoseRoot::Key::KPDecimal
-#define RR_KEY_KP_DIVIDE       ::RoseRoot::Key::KPDivide
-#define RR_KEY_KP_MULTIPLY     ::RoseRoot::Key::KPMultiply
-#define RR_KEY_KP_SUBTRACT     ::RoseRoot::Key::KPSubtract
-#define RR_KEY_KP_ADD          ::RoseRoot::Key::KPAdd
-#define RR_KEY_KP_ENTER        ::RoseRoot::Key::KPEnter
-#define RR_KEY_KP_EQUAL        ::RoseRoot::Key::KPEqual
+#define RR_KEY_KP_0            ::Rose::Key::KP0
+#define RR_KEY_KP_1            ::Rose::Key::KP1
+#define RR_KEY_KP_2            ::Rose::Key::KP2
+#define RR_KEY_KP_3            ::Rose::Key::KP3
+#define RR_KEY_KP_4            ::Rose::Key::KP4
+#define RR_KEY_KP_5            ::Rose::Key::KP5
+#define RR_KEY_KP_6            ::Rose::Key::KP6
+#define RR_KEY_KP_7            ::Rose::Key::KP7
+#define RR_KEY_KP_8            ::Rose::Key::KP8
+#define RR_KEY_KP_9            ::Rose::Key::KP9
+#define RR_KEY_KP_DECIMAL      ::Rose::Key::KPDecimal
+#define RR_KEY_KP_DIVIDE       ::Rose::Key::KPDivide
+#define RR_KEY_KP_MULTIPLY     ::Rose::Key::KPMultiply
+#define RR_KEY_KP_SUBTRACT     ::Rose::Key::KPSubtract
+#define RR_KEY_KP_ADD          ::Rose::Key::KPAdd
+#define RR_KEY_KP_ENTER        ::Rose::Key::KPEnter
+#define RR_KEY_KP_EQUAL        ::Rose::Key::KPEqual
 								 			 
-#define RR_KEY_LEFT_SHIFT      ::RoseRoot::Key::LeftShift
-#define RR_KEY_LEFT_CONTROL    ::RoseRoot::Key::LeftControl
-#define RR_KEY_LEFT_ALT        ::RoseRoot::Key::LeftAlt
-#define RR_KEY_LEFT_SUPER      ::RoseRoot::Key::LeftSuper
-#define RR_KEY_RIGHT_SHIFT     ::RoseRoot::Key::RightShift
-#define RR_KEY_RIGHT_CONTROL   ::RoseRoot::Key::RightControl
-#define RR_KEY_RIGHT_ALT       ::RoseRoot::Key::RightAlt
-#define RR_KEY_RIGHT_SUPER     ::RoseRoot::Key::RightSuper
-#define RR_KEY_MENU            ::RoseRoot::Key::Menu
+#define RR_KEY_LEFT_SHIFT      ::Rose::Key::LeftShift
+#define RR_KEY_LEFT_CONTROL    ::Rose::Key::LeftControl
+#define RR_KEY_LEFT_ALT        ::Rose::Key::LeftAlt
+#define RR_KEY_LEFT_SUPER      ::Rose::Key::LeftSuper
+#define RR_KEY_RIGHT_SHIFT     ::Rose::Key::RightShift
+#define RR_KEY_RIGHT_CONTROL   ::Rose::Key::RightControl
+#define RR_KEY_RIGHT_ALT       ::Rose::Key::RightAlt
+#define RR_KEY_RIGHT_SUPER     ::Rose::Key::RightSuper
+#define RR_KEY_MENU            ::Rose::Key::Menu

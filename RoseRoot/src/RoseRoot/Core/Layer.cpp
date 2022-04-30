@@ -2,7 +2,7 @@
 #include "RoseRoot/Core/Layer.h"
 
 
-namespace RoseRoot {
+namespace Rose {
 	Layer::Layer(const std::string& debugName)
 		: m_DebugName(debugName)
 	{

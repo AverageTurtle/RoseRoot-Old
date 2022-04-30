@@ -6,7 +6,7 @@
 #define SOL_ALL_SAFETIES_ON 1
 #include <sol.hpp>
 
-namespace RoseRoot {
+namespace Rose {
 	
 	class LuaScript {
 	public:
@@ -20,6 +20,7 @@ namespace RoseRoot {
 	private:
 		static int BindRoseLog(lua_State* ptrState);
 	private:
+		bool m_luaOK = false;
 		Ref<LuaEntity> m_LuaEntity;
 		sol::state m_LuaState;
 	};

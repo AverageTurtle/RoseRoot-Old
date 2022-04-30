@@ -1,7 +1,8 @@
 #pragma once
 #include "Entity.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class ScriptableEntity
 	{

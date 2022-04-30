@@ -1,5 +1,4 @@
 Project: UntitledProject
-Path: startup-project
 Scenes:
   - Scene: 0
     Path: startup-project\assets\ScriptingTest.rose

@@ -4,7 +4,8 @@
 
 #include "VertexArray.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class RendererAPI
 	{

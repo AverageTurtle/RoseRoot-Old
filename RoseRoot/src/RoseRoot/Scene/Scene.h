@@ -10,7 +10,8 @@
 
 class b2World;
 
-namespace RoseRoot {
+namespace Rose
+{
 
 	class Entity;
 
@@ -25,7 +26,7 @@ namespace RoseRoot {
 		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
-		void OnRuntimeStart();
+		void OnRuntimeStart(const std::string& assetPath);
 		void OnRuntimeStop();
 
 		void OnUpdateRuntime(Timestep ts, bool pause = false);

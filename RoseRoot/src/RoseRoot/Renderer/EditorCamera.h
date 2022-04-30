@@ -7,7 +7,7 @@
 
 #include <glm/glm.hpp>
 
-namespace RoseRoot {
+namespace Rose {
 
 	class EditorCamera : public Camera
 	{

@@ -2,7 +2,8 @@
 
 #include "RoseRoot/Renderer/RendererAPI.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class OpenGLRendererAPI : public RendererAPI
 	{

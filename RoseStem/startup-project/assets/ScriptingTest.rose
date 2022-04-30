@@ -12,7 +12,7 @@ Entities:
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
     LuaScriptComponent:
-      Path: startup-project\assets\scripts\cloud.lua
+      Path: scripts\cloud.lua
   - Entity: 18083992759530373765
     TagComponent:
       Tag: Cold Stan
@@ -41,7 +41,7 @@ Entities:
       Scale: [1, 1, 1]
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
-      Path: startup-project\assets\beach_ball_00.png
+      Path: beach_ball_00.png
     Rigidbody2DComponent:
       BodyType: Dynamic
       FixedRotation: false
@@ -119,7 +119,7 @@ Entities:
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
     LuaScriptComponent:
-      Path: startup-project\assets\scripts\cloud.lua
+      Path: scripts\cloud.lua
   - Entity: 1749492515585654155
     TagComponent:
       Tag: Bouncy Stan
@@ -208,7 +208,7 @@ Entities:
     TagComponent:
       Tag: Bricks
     TransformComponent:
-      Translation: [0.5, 0.550000012, 0]
+      Translation: [0.48980087, 0.532437563, 0]
       Rotation: [0, 0, 0.322885901]
       Scale: [3.00000024, 1, 1]
     SpriteRendererComponent:
@@ -233,7 +233,7 @@ Entities:
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
     LuaScriptComponent:
-      Path: startup-project\assets\scripts\cloud.lua
+      Path: scripts\cloud.lua
   - Entity: 4363679111961199607
     TagComponent:
       Tag: Cloud
@@ -244,7 +244,7 @@ Entities:
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
     LuaScriptComponent:
-      Path: startup-project\assets\scripts\cloud.lua
+      Path: scripts\cloud.lua
   - Entity: 14603567309299716690
     TagComponent:
       Tag: Cloud
@@ -265,7 +265,7 @@ Entities:
       Restitution: 0
       RestitutionThreshold: 0.5
     LuaScriptComponent:
-      Path: startup-project\assets\move.lua
+      Path: move.lua
   - Entity: 1764937667636027409
     TagComponent:
       Tag: Cloud
@@ -276,4 +276,4 @@ Entities:
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
     LuaScriptComponent:
-      Path: startup-project\assets\scripts\cloud.lua
+      Path: scripts\cloud.lua

@@ -4,7 +4,8 @@
 #include "Texture.h"
 #include "RoseRoot/Renderer/SubTexture2D.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class RendererVoxel
 	{

@@ -3,7 +3,8 @@
 
 #include <glad/glad.h>
 
-namespace RoseRoot {
+namespace Rose
+ {
 	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 	{
 		switch (type)

@@ -2,7 +2,8 @@
 
 #include <chrono>
 
-namespace RoseRoot {
+namespace Rose
+ {
 	class Timer
 	{
 	public:

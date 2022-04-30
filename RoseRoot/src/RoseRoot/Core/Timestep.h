@@ -1,6 +1,7 @@
 #pragma once
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class Timestep
 	{

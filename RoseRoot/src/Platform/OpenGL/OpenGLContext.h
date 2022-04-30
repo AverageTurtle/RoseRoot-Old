@@ -5,7 +5,8 @@
 
 struct GLFWwindow;
 
-namespace RoseRoot {
+namespace Rose
+{
 
 	class OpenGLContext : public GraphicsContext
 	{

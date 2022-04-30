@@ -4,7 +4,8 @@
 #include "Renderer.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	Ref<VertexArray> VertexArray::Create() 
 	{

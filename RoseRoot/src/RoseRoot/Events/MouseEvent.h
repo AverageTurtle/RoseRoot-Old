@@ -3,7 +3,7 @@
 #include "Event.h"
 #include "RoseRoot/Core/Input.h"
 
-namespace RoseRoot {
+namespace Rose {
 
 	class MouseMovedEvent : public Event
 	{

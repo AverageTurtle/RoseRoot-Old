@@ -8,7 +8,8 @@
 
 #include "RoseRoot/Core/Application.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 	std::string FileDialogs::OpenDirectory(const char* filter)
 	{
 		return std::string();

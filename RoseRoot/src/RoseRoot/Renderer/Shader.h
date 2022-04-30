@@ -5,7 +5,8 @@
 
 #include <glm/glm.hpp>
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class Shader
 	{

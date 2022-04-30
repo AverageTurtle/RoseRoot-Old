@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RoseRoot {
+namespace Rose {
 
 	enum class ShaderDataType
 	{
@@ -117,7 +117,7 @@ namespace RoseRoot {
 		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
 	};
 
-	// Currently Hazel only supports 32-bit index buffers
+	// Currently Rose only supports 32-bit index buffers
 	class IndexBuffer
 	{
 	public:

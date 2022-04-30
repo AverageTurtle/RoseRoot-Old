@@ -2,7 +2,8 @@
 
 #include "RoseRoot/Renderer/Camera.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 	class SceneCamera : public Camera
 	{
 	public:

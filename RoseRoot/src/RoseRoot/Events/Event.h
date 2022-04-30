@@ -3,7 +3,7 @@
 #include "rrpch.h"
 #include "RoseRoot/Core/Core.h"
 
-namespace RoseRoot {
+namespace Rose {
 
 	// Events in Rose Root are currently blocking, meaning when an event occurs it
 	// immediately gets dispatched and must be dealt with right then an there.

@@ -5,7 +5,8 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	Scope<Renderer::SceneData> Renderer::s_SceneData = CreateScope<Renderer::SceneData>();
 

@@ -4,7 +4,7 @@
 
 #include "RoseRoot/Renderer/Texture.h"
 
-namespace RoseRoot {
+namespace Rose {
 
 	class ContentBrowserPanel
 	{

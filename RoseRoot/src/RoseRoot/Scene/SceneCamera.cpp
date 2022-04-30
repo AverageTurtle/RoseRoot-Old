@@ -1,7 +1,8 @@
 #include "rrpch.h"
 #include "SceneCamera.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	SceneCamera::SceneCamera()
 	{

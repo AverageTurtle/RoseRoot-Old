@@ -11,7 +11,7 @@
 
 #include "RoseRoot/Core/Log.h"
 
-namespace RoseRoot {
+namespace Rose {
 	using FloatingPointMicroseconds = std::chrono::duration<double, std::micro>;
 
 	struct ProfileResult
@@ -224,10 +224,10 @@ namespace RoseRoot {
 #define RR_FUNC_SIG "RR_FUNC_SIG unknown!"
 #endif
 
-#define RR_PROFILE_BEGIN_SESSION(name, filepath) ::RoseRoot::Instrumentor::Get().BeginSession(name, filepath)
-#define RR_PROFILE_END_SESSION() ::RoseRoot::Instrumentor::Get().EndSession()
-#define RR_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::RoseRoot::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
-											   ::RoseRoot::InstrumentationTimer timer##line(fixedName##line.Data)
+#define RR_PROFILE_BEGIN_SESSION(name, filepath) ::Rose::Instrumentor::Get().BeginSession(name, filepath)
+#define RR_PROFILE_END_SESSION() ::Rose::Instrumentor::Get().EndSession()
+#define RR_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Rose::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+											   ::Rose::InstrumentationTimer timer##line(fixedName##line.Data)
 #define RR_PROFILE_SCOPE_LINE(name, line) RR_PROFILE_SCOPE_LINE2(name, line)
 #define RR_PROFILE_SCOPE(name) RR_PROFILE_SCOPE_LINE(name, __LINE__)
 #define RR_PROFILE_FUNCTION() RR_PROFILE_SCOPE(RR_FUNC_SIG)

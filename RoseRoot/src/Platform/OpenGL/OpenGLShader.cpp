@@ -12,7 +12,8 @@
 
 #include "RoseRoot/Core/Timer.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	static GLenum ShaderTypeFromString(const std::string& type)
 	{

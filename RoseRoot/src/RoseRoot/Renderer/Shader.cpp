@@ -4,7 +4,8 @@
 #include "Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 	Ref<Shader> Shader::Create(const std::string& fileath)
 	{
 		switch (Renderer::GetAPI())
@@ -42,21 +43,21 @@ namespace RoseRoot {
 		Add(name, shader);
 	}
 
-	Ref<RoseRoot::Shader> ShaderLibrary::Load(const std::string& filepath)
+	Ref<Rose::Shader> ShaderLibrary::Load(const std::string& filepath)
 	{
 		auto shader = Shader::Create(filepath);
 		Add(shader);
 		return shader;
 	}
 
-	Ref<RoseRoot::Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
+	Ref<Rose::Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
 	{
 		auto shader = Shader::Create(filepath);
 		Add(name, shader);
 		return shader;
 	}
 
-	Ref<RoseRoot::Shader> ShaderLibrary::Get(const std::string& name)
+	Ref<Rose::Shader> ShaderLibrary::Get(const std::string& name)
 	{
 		RR_CORE_ASSERT(Exist(name), "Shader not found");
 		return m_Shaders[name];

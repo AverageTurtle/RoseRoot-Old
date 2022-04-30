@@ -3,7 +3,8 @@
 
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	Scope<RendererAPI> RenderCommand::s_RendererAPI = RendererAPI::Create();
 }

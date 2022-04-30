@@ -2,7 +2,8 @@
 
 #include <xhash>
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	class UUID
 	{
@@ -20,9 +21,9 @@ namespace RoseRoot {
 namespace std {
 
 	template<>
-	struct hash<RoseRoot::UUID>
+	struct hash<Rose::UUID>
 	{
-		std::size_t operator()(const RoseRoot::UUID& uuid) const
+		std::size_t operator()(const Rose::UUID& uuid) const
 		{
 			return hash<uint64_t>()((uint64_t)uuid);
 		}

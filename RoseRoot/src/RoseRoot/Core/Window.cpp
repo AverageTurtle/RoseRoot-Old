@@ -5,7 +5,8 @@
 #include "Platform/Windows/WindowsWindow.h"
 #endif
 
-namespace RoseRoot {
+namespace Rose
+ {
 	Scope<Window> Window::Create(const WindowProps& props)
 	{
 #ifdef RR_PLATFORM_WINDOWS

@@ -11,7 +11,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "glm/gtx/quaternion.hpp"
 
-namespace RoseRoot {
+namespace Rose {
 
 	struct IDComponent
 	{

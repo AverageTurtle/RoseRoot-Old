@@ -5,7 +5,8 @@
 #include "glad/glad.h"
 #include <gl/GL.h>
 
-namespace RoseRoot {
+namespace Rose
+ {
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_windowHandle(windowHandle)
 	{

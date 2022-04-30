@@ -4,7 +4,8 @@
 #include "RoseRoot/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLUniformBuffer.h"
 
-namespace RoseRoot {
+namespace Rose
+ {
 
 	Ref<UniformBuffer> UniformBuffer::Create(uint32_t size, uint32_t binding)
 	{
