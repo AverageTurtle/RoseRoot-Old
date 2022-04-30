@@ -261,12 +261,8 @@ namespace Rose {
 				if (translation != tc.Translation) {
 					CommandHistory::ChangeVec3(CreateRef<ChangeValueCommand<glm::vec3>>(tc.Translation, translation));
 				}
-
-				glm::vec3 deltaRotation = rotation - tc.Rotation;
-				if (deltaRotation != glm::vec3(0.0f)) {
-					glm::vec3 copy = tc.Rotation;
-					copy += deltaRotation;
-					CommandHistory::ChangeVec3(CreateRef < ChangeValueCommand<glm::vec3>>(tc.Rotation, copy));
+				if (rotation != tc.Rotation) {
+					CommandHistory::ChangeVec3(CreateRef < ChangeValueCommand<glm::vec3>>(tc.Rotation,rotation));
 				}
 
 				if (scale != tc.Scale) {
