@@ -251,6 +251,10 @@ namespace Rose {
 
 			if (ImGuizmo::IsUsing())
 			{
+				if (!m_GizmoLastFrame) {
+					m_GizmoLastFrame = true;
+					CommandHistory::LockLastCommand();
+				}
 				glm::vec3 translation, rotation, scale;
 				Math::DecomposeTransform(transform, translation, rotation, scale);
 
@@ -268,7 +272,11 @@ namespace Rose {
 				if (scale != tc.Scale) {
 					CommandHistory::ChangeVec3(CreateRef<ChangeValueCommand<glm::vec3>>(tc.Scale, scale));
 				}
+			} else if (m_GizmoLastFrame) {
+				m_GizmoLastFrame = false;
+				CommandHistory::LockLastCommand();
 			}
+			
 		}
 
 

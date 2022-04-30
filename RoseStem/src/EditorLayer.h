@@ -30,6 +30,7 @@ namespace Rose {
 		void NewProject();
 		void OpenProject();
 	private:
+		bool m_GizmoLastFrame;
 		Project m_Project;
 		SceneManger m_SceneManager;
 

@@ -10,6 +10,8 @@ namespace Rose {
 
 		virtual void Execute() = 0;
 		virtual void Undo() = 0;
+		virtual void Lock() = 0;
+		virtual bool IsLocked() = 0;
 	};
 
 	template<typename T>
@@ -26,6 +28,9 @@ namespace Rose {
 		virtual void Undo() override {
 			m_ValToChange = m_OldVal;
 		}
+		virtual void Lock() override { m_Locked = true; }
+		virtual bool IsLocked() override { return m_Locked; }
+
 		void Ammend(Ref<ChangeValueCommand<T>> command) {
 			m_NewVal = command->getNewVal();
 			m_ValToChange = m_NewVal;
@@ -34,6 +39,7 @@ namespace Rose {
 		T getNewVal() { return m_NewVal; }
 		T& getPointer() { return m_ValToChange; }
 	private:
+		bool m_Locked = false;
 		T& m_ValToChange;
 		T m_NewVal;
 		T m_OldVal;
@@ -50,6 +56,8 @@ namespace Rose {
 		
 		static void Undo();
 		static void Redo();
+		//Makes the last command not ammendable
+		static void LockLastCommand();
 
 		//Special cases for ammendable commands
 		static void ChangeVec3(Ref<ChangeValueCommand<glm::vec3>> command);

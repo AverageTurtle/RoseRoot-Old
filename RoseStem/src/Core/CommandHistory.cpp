@@ -10,7 +10,6 @@ namespace Rose {
 
 	static CommandHistoryData s_commandData;
 
-
 	void CommandHistory::Init()
 	{
 		s_commandData.commandBuffer.resize(s_commandData.MaxSize);
@@ -21,7 +20,6 @@ namespace Rose {
 		s_commandData.commandBuffer.clear();
 		s_commandData.Location = 0;
 	}
-
 	
 	void CommandHistory::Execute(Ref<Command> command)
 	{
@@ -31,9 +29,6 @@ namespace Rose {
 		
 		s_commandData.commandBuffer.push_front(command);
 	}
-
-	
-
 	void CommandHistory::Undo()
 	{
 		if (s_commandData.Location >= s_commandData.MaxSize) {
@@ -68,25 +63,26 @@ namespace Rose {
 		iterator->get()->Execute();
 	}
 
+	void CommandHistory::LockLastCommand()
+	{
+		RR_INFO("LOCKING");
+		if(s_commandData.commandBuffer.front().get() != nullptr)
+			s_commandData.commandBuffer.front().get()->Lock();
+	}
+
 	void CommandHistory::ChangeVec3(Ref<ChangeValueCommand<glm::vec3>> command)
 	{
-		bool same = dynamic_cast<ChangeValueCommand<glm::vec3>*>(s_commandData.commandBuffer.front().get()) != nullptr;
-		if (same && s_commandData.Location == 0) {
+		if ( dynamic_cast<ChangeValueCommand<glm::vec3>*>(s_commandData.commandBuffer.front().get()) != nullptr 
+			&& !s_commandData.commandBuffer.front().get()->IsLocked() && s_commandData.Location == 0) {
 			Ref<ChangeValueCommand<glm::vec3>> oldCommand = std::static_pointer_cast<ChangeValueCommand<glm::vec3>>(s_commandData.commandBuffer.front());
 			if (std::addressof(command->getPointer()) == std::addressof(oldCommand->getPointer())) {
 				oldCommand->Ammend(command);
+				return;
 			}
-			else {
-				s_commandData.Location = 0;
-				command->Execute();
-				s_commandData.commandBuffer.push_front(command);
-			}
-		} else {
-			s_commandData.Location = 0;
-			command->Execute();
-			s_commandData.commandBuffer.push_front(command);
 		}
-
+		s_commandData.Location = 0;
+		command->Execute();
+		s_commandData.commandBuffer.push_front(command);
 	}
 
 }
